@@ -7,8 +7,8 @@ var app = new Vue({
   router,
   el: '#app',
   mounted: function() {
-    // console.log(this.$route.query.kanji.split(''))
     this.kanjis = _.get(this.$route.query, 'kanjis', '').split('');
+    this.columns = _.get(this.$route.query, 'columns', 7);
     console.log(this)
   },
   computed: {
