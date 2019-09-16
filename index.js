@@ -1,11 +1,21 @@
 const puppeteer = require('puppeteer');
 const express = require('express');
+const stream = require('stream');
 
 const server = express();
 server.use(express.static(__dirname + '/'));
 
 server.get('/get_pdf', async function (req, res) {
+  // const params = {
+  //   kanjis: '%E6%98%93',
+  //   columns: 7,
+  // }
+  
   const browser = await puppeteer.launch({
+    defaultViewport: {
+      width: 2000,
+      height: 2000,
+    },
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox"]
   });
@@ -17,13 +27,18 @@ server.get('/get_pdf', async function (req, res) {
   });
   const selector = await page.$('page[size="A4"]');
   const screen = await selector.screenshot()
-  var img = new Buffer(screen, 'base64');
-  res.writeHead(200, {
-    'Content-Type': 'image/png',
-    'Content-Length': img.length
-  });
-  res.end(img);
   browser.close();
+
+  const fileName = '%E6%98%93';
+  var fileContents = Buffer.from(screen, "base64");
+
+  var readStream = new stream.PassThrough();
+  readStream.end(fileContents);
+
+  res.set('Content-disposition', `attachment; filename=${fileName}.png`);
+  res.set('Content-Type', 'text/plain');
+
+  readStream.pipe(res);
 });
 
 server.get('/', async function (req, res) {
