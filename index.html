@@ -3,12 +3,18 @@
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
   <title>Page Title</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC&display=swap" rel="stylesheet">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC&display=swap"
+        rel="stylesheet">
   <!-- <link href="//db.onlinewebfonts.com/c/8a1e9fe86f7a9489ec091ec4b78af185?family=KaiTi_GB2312" rel="stylesheet" type="text/css"/> -->
-  <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+  <link rel="stylesheet"
+        type="text/css"
+        media="screen"
+        href="main.css">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router"></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
@@ -16,11 +22,42 @@
 
 <body>
   <div id="app">
+    <div class="menu">
+      <form action="">
+        <div class="row">
+          <label for="menu_size">Размер колонки</label>
+          <input type="text"
+                 name="menu_size"
+                 id="menu_size"
+                 v-model="cellSize">
+        </div>
+        <div class="row">
+          <label for="menu_text">Текст</label>
+          <input type="text"
+                 name="menu_text"
+                 id="menu_text"
+                 v-model="kanjis">
+        </div>
+        <div class="row">
+          <label for="menu_columns_count">Количество колонок</label>
+          <input type="text"
+                 name="menu_columns_count"
+                 id="menu_columns_count"
+                 v-model="columns">
+        </div>
+        <div class="row">
+          <label for="menu_font-size">Размер шрифта</label>
+          <input type="text"
+                 name="menu_font-size"
+                 id="menu_font-size"
+                 v-model="fontSize">
+        </div>
+      </form>
+    </div>
     <page size="A4">
       <div class="grid">
-        <div class="cell" v-for='kanzi in kanzisGrid'>
-          {{kanzi}}
-        </div>
+        <div class="cell"
+             v-for='kanzi in kanzisGrid'> {{kanzi}} </div>
       </div>
     </page>
     <!-- <page size="A4"></page> -->

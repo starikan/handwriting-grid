@@ -1,3 +1,8 @@
+:root {
+  --cell-size: 0;
+  --font-size: 0;
+}
+
 @font-face {
   font-family: "China1";
   src: url(fonts/sunyunhekukai.ttf) format("truetype");
@@ -46,6 +51,25 @@ td {
   text-align: center;
 }
 
+#app {
+  display: grid;
+}
+
+page {
+  justify-self: center;
+}
+
+.menu {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: calc((100vw - 21cm - 150px) / 2);
+}
+
+.menu form {
+  display: grid;
+}
+
 .grid {
   display: grid;
   grid-template-rows: repeat(3, 1fr);
@@ -64,9 +88,9 @@ td {
   align-content: center;
   text-align: center;
   border: 1px solid black;
-  width: 100px;
-  height: 100px;
-  font-size: 90px;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  font-size: var(--font-size);
   color: rgb(212, 212, 212);
   /* color: transparent; */
   /* -webkit-text-stroke: 1px blue; */
