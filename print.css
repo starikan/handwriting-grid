@@ -60,14 +60,7 @@ page {
 }
 
 .menu {
-  position: absolute;
-  top: 50px;
-  left: 50px;
-  width: calc((100vw - 21cm - 150px) / 2);
-}
-
-.menu form {
-  display: grid;
+  display: none;
 }
 
 .grid {
@@ -105,39 +98,47 @@ page {
 }
 
 body {
-  background: rgb(204,204,204); 
+  margin: 0;
+  padding: 0;
 }
+
 page {
   background: white;
   display: block;
   margin: 0 auto;
   margin-bottom: 0.5cm;
-  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  box-shadow: none;
 }
-page[size="A4"] {  
+
+page[size="A4"] {
   width: 21cm;
-  height: 29.7cm; 
+  height: 29.7cm;
   border: 1px solid black;
   margin: 0;
   padding: 0;
 }
+
 page[size="A4"][layout="landscape"] {
   width: 29.7cm;
-  height: 21cm;  
+  height: 21cm;
 }
+
 page[size="A3"] {
   width: 29.7cm;
   height: 42cm;
 }
+
 page[size="A3"][layout="landscape"] {
   width: 42cm;
-  height: 29.7cm;  
+  height: 29.7cm;
 }
+
 page[size="A5"] {
   width: 14.8cm;
   height: 21cm;
 }
+
 page[size="A5"][layout="landscape"] {
   width: 21cm;
-  height: 14.8cm;  
+  height: 14.8cm;
 }
