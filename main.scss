@@ -1,5 +1,5 @@
-@import "./styles/fonts";
-@import "./styles/pages";
+@import './styles/fonts';
+@import './styles/pages';
 
 :root {
   --cell-size: 0;
@@ -7,7 +7,7 @@
 }
 
 body {
-  background: rgb(204,204,204);
+  background: rgb(204, 204, 204);
   margin: 0;
   padding: 0;
 }
@@ -24,30 +24,31 @@ body {
   width: 100%;
   margin: 0 auto;
   justify-content: center;
-}
 
-.pages .page-container {
-  display: grid;
-  grid:
-    "left-menu page-list" auto
-    ". bottom-menu" 100px
-    / 100px auto;
-}
+  .page-container {
+    display: grid;
+    grid:
+      'left-menu page-list' auto
+      '. bottom-menu' 100px
+      / 100px auto;
 
-.pages .page-container .left-menu {
-  grid-area: left-menu;
-}
-.pages .page-container .bottom-menu {
-  grid-area: bottom-menu;
-}
+    .left-menu {
+      grid-area: left-menu;
+    }
 
-page {
-  grid-area: page-list;
-  justify-self: center;
-  background: white;
-  padding: 0;
-  margin: 0.5cm;
-  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+    .bottom-menu {
+      grid-area: bottom-menu;
+    }
+
+    .page {
+      grid-area: page-list;
+      justify-self: center;
+      background: white;
+      padding: 0;
+      margin: 0.5cm;
+      box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 
 .grid {

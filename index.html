@@ -29,12 +29,12 @@
       <div v-for="page in pages"
            class='pages'>
         <div class="page-container">
-          <page :size="page.size.format"
+          <div :size="page.size.format"
                 :layout='page.size.layout'
                 class="page">
             <div class="symbols-grid">
             </div>
-          </page>
+          </div>
           <div class="left-menu"> Левое меню </div>
           <div class="bottom-menu"> Нижнее меню </div>
         </div>
