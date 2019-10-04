@@ -25,38 +25,6 @@
 
 <body>
   <div id="app">
-    <!-- <div class="menu">
-      <form action="">
-        <div class="row">
-          <label for="menu_size">Размер колонки</label>
-          <input type="text"
-                 name="menu_size"
-                 id="menu_size"
-                 v-model="cellSize">
-        </div>
-        <div class="row">
-          <label for="menu_text">Текст</label>
-          <input type="text"
-                 name="menu_text"
-                 id="menu_text"
-                 v-model="kanjis">
-        </div>
-        <div class="row">
-          <label for="menu_columns_count">Количество колонок</label>
-          <input type="text"
-                 name="menu_columns_count"
-                 id="menu_columns_count"
-                 v-model="columns">
-        </div>
-        <div class="row">
-          <label for="menu_font-size">Размер шрифта</label>
-          <input type="text"
-                 name="menu_font-size"
-                 id="menu_font-size"
-                 v-model="fontSize">
-        </div>
-      </form>
-    </div> -->
     <div v-for="page in pages"
          class='pages'>
       <page :size="page.size.format"
