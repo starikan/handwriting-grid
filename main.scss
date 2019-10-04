@@ -1,5 +1,5 @@
-@import url("/styles/fonts.css") all;
-@import url("/styles/pages.css") all;
+@import "./styles/fonts";
+@import "./styles/pages";
 
 :root {
   --cell-size: 0;

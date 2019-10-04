@@ -1,2 +1,4 @@
 /node_modules
 /.history
+*.css.map
+*.css
