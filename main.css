@@ -1,62 +1,13 @@
+@import url("/styles/fonts.css") all;
+@import url("/styles/pages.css") all;
+
 :root {
   --cell-size: 0;
   --font-size: 0;
 }
 
-@font-face {
-  font-family: "China1";
-  src: url(fonts/sunyunhekukai.ttf) format("truetype");
-}
-
-@font-face {
-  font-family: "China2";
-  src: url("./fonts/WCL-07.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "China3";
-  src: url("./fonts/wt024.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "China4";
-  src: url("./fonts/wts11.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "China5";
-  src: url("./fonts/cwTeXQFangsong-Medium.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "China6";
-  src: url("./fonts/HanWang_KaiBold-Gb5.ttf") format("truetype");
-}
-
-/* @font-face {
-  font-family: "KaiTi_GB2312";
-  src: url("http://db.onlinewebfonts.com/t/8a1e9fe86f7a9489ec091ec4b78af185.woff2") format("woff2")
-} */
-@font-face {
-  font-family: "KaiTi_GB2312";
-  src: url("./fonts/KaiTi_GB2312.woff2") format("woff2")
-}
-
-table {
-  width: 100%;
-  height: 100%;
-}
-
-td {
-  text-align: center;
-}
-
 #app {
   display: grid;
-}
-
-page {
-  justify-self: center;
 }
 
 .menu {
@@ -108,36 +59,11 @@ body {
   background: rgb(204,204,204); 
 }
 page {
+  justify-self: center;
   background: white;
   display: block;
   margin: 0 auto;
-  margin-bottom: 0.5cm;
-  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-}
-page[size="A4"] {  
-  width: 21cm;
-  height: 29.7cm; 
-  border: 1px solid black;
-  margin: 0;
   padding: 0;
-}
-page[size="A4"][layout="landscape"] {
-  width: 29.7cm;
-  height: 21cm;  
-}
-page[size="A3"] {
-  width: 29.7cm;
-  height: 42cm;
-}
-page[size="A3"][layout="landscape"] {
-  width: 42cm;
-  height: 29.7cm;  
-}
-page[size="A5"] {
-  width: 14.8cm;
-  height: 21cm;
-}
-page[size="A5"][layout="landscape"] {
-  width: 21cm;
-  height: 14.8cm;  
+  /* margin-bottom: 0.5cm; */
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
 }

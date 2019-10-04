@@ -5,12 +5,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible"
         content="IE=edge">
-  <title>Page Title</title>
+  <title>Kanji Prescription</title>
   <meta name="viewport"
         content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC&display=swap"
         rel="stylesheet">
-  <!-- <link href="//db.onlinewebfonts.com/c/8a1e9fe86f7a9489ec091ec4b78af185?family=KaiTi_GB2312" rel="stylesheet" type="text/css"/> -->
   <link rel="stylesheet"
         type="text/css"
         media="screen"
@@ -26,7 +25,7 @@
 
 <body>
   <div id="app">
-    <div class="menu">
+    <!-- <div class="menu">
       <form action="">
         <div class="row">
           <label for="menu_size">Размер колонки</label>
@@ -57,19 +56,13 @@
                  v-model="fontSize">
         </div>
       </form>
+    </div> -->
+    <div v-repeat="page in pages">
+      <page size="A4">
+        <div class="grid">
+        </div>
+      </page>
     </div>
-    <page size="A4">
-      <div class="grid">
-        <div class="cell"
-             v-for='kanzi in kanzisGrid'> {{kanzi}} </div>
-      </div>
-    </page>
-    <!-- <page size="A4"></page> -->
-    <!-- <page size="A4" layout="landscape"></page>
-    <page size="A5"></page>
-    <page size="A5" layout="landscape"></page>
-    <page size="A3"></page>
-    <page size="A3" layout="landscape"></page> -->
   </div>
   <script src="main.js"></script>
 </body>
