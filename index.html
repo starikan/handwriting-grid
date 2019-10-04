@@ -25,14 +25,20 @@
 
 <body>
   <div id="app">
-    <div v-for="page in pages"
-         class='pages'>
-      <page :size="page.size.format"
-            :layout='page.size.layout'
-            class="page">
-        <div class="symbols-grid">
+    <div id="wrapper">
+      <div v-for="page in pages"
+           class='pages'>
+        <div class="page-container">
+          <page :size="page.size.format"
+                :layout='page.size.layout'
+                class="page">
+            <div class="symbols-grid">
+            </div>
+          </page>
+          <div class="left-menu"> Левое меню </div>
+          <div class="bottom-menu"> Нижнее меню </div>
         </div>
-      </page>
+      </div>
     </div>
   </div>
   <script src="main.js"></script>
