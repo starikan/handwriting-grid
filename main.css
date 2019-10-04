@@ -6,23 +6,45 @@
   --font-size: 0;
 }
 
+body {
+  background: rgb(204,204,204);
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   display: grid;
 }
 
-.grid {
+.pages {
   display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-content: center;
+}
+
+.pages page {
+  justify-self: center;
+  background: white;
+  display: block;
+  padding: 0;
+  margin: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+
+.grid {
+  /* display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(7, 1fr);
   width: calc(100%- 20px);
   justify-content: center;
   padding: 10px;
-  grid-row-gap: 10px;
+  grid-row-gap: 10px; */
   /* height: 100%; */
 }
 
 .cell {
-  display: grid;
+  /* display: grid;
   justify-self: center;
   align-self: center;
   align-content: center;
@@ -31,31 +53,15 @@
   width: var(--cell-size);
   height: var(--cell-size);
   font-size: var(--font-size);
-  color: rgb(212, 212, 212);
+  color: rgb(212, 212, 212); */
   /* color: transparent; */
   /* -webkit-text-stroke: 1px blue; */
-  font-family: 'Noto Serif TC', serif;
+  /* font-family: 'Noto Serif TC', serif;
   font-family: 'China6', serif;
   font-family: 'China3', serif;
   font-family: 'China1', serif;
   font-family: 'China2', serif;
   font-family: 'China4', serif;
   font-family: 'China5', serif;
-  font-family: 'KaiTi_GB2312', 'China5', serif;
-}
-
-body {
-  background: rgb(204,204,204);
-  margin: 0;
-  padding: 0;
-}
-page {
-  justify-self: center;
-  background: white;
-  display: block;
-  margin: 0 auto;
-  padding: 0;
-  margin-bottom: 0.5cm;
-  margin-top: 0.5cm;
-  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  font-family: 'KaiTi_GB2312', 'China5', serif; */
 }

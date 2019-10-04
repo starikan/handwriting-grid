@@ -57,9 +57,12 @@
         </div>
       </form>
     </div> -->
-    <div v-repeat="page in pages">
-      <page size="A4">
-        <div class="grid">
+    <div v-for="page in pages"
+         class='pages'>
+      <page :size="page.size.format"
+            :layout='page.size.layout'
+            class="page">
+        <div class="symbols-grid">
         </div>
       </page>
     </div>

@@ -18,24 +18,33 @@ var app = new Vue({
     // this.columns = _.get(this.$route.query, 'columns', initValues.columns);
     // this.cellSize = _.get(this.$route.query, 'cellSize', initValues.cellSize);
     // this.fontSize = _.get(this.$route.query, 'fontSize', initValues.fontSize);
-    this.pages = [{
-      // Сделать нормальные размеры
-      size: 'A4',
-      columnsCount: 0,
-      rowsCount: 0,
-      cellBorder: {},
-      columnsWidth: {},
-      rowsHeight: {},
-      direction: 'rows',
-      symbols: [{
-        // TODO: сделать возможность добавления ссылок на картинки
-        text: ['@'],
-        split: false,
-        repeat: true,
-      }],
-    }];
+    this.pages = [
+      {
+        // Сделать нормальные размеры
+        size: {
+          format: 'A4',
+          layout: 'portrait',
+          height: false,
+          width: false,
+        },
+        columnsCount: 0,
+        rowsCount: 0,
+        cellBorder: {},
+        columnsWidth: {},
+        rowsHeight: {},
+        direction: 'rows',
+        symbols: [
+          {
+            // TODO: сделать возможность добавления ссылок на картинки
+            text: ['@'],
+            split: false,
+            repeat: true,
+          },
+        ],
+      },
+      { size: { format: 'A5', layout: 'landscape' } },
+    ];
     console.log(this);
-
   },
   computed: {
     // kanzisGrid: function() {
