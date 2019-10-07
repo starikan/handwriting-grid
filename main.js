@@ -30,12 +30,20 @@ var app = new Vue({
           },
         ],
       },
-      { size: { format: 'A5', layout: 'landscape' } },
     ];
   },
   computed: {},
   watch: {},
+  methods: {
+    addPageAfter: function(index) {
+      this.pages.splice(index + 1, 0, this.pageBlank);
+    },
+    deletePage: function(index) {
+      this.pages.splice(index, 1);
+    },
+  },
   data: {
     pages: [],
+    pageBlank: { size: { format: 'A5', layout: 'landscape' } },
   },
 });

@@ -18,6 +18,8 @@
         type="text/css"
         media="print"
         href="print.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router"></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
@@ -26,18 +28,35 @@
 <body>
   <div id="app">
     <div id="wrapper">
-      <div v-for="page in pages"
-           class='pages'>
+      <div v-for="(page, index) in pages"
+           class='pages'
+           v-if="pages.length">
         <div class="page-container">
           <div :size="page.size.format"
-                :layout='page.size.layout'
-                class="page">
+               :layout='page.size.layout'
+               class="page">
             <div class="symbols-grid">
             </div>
           </div>
           <div class="left-menu"> Левое меню </div>
-          <div class="bottom-menu"> Нижнее меню </div>
+          <div class="bottom-menu">
+            <button class="add-page"
+                    v-if="pages.length === index + 1"
+                    @click="addPageAfter(index)">
+              <em class="fa fa-plus"></em>
+            </button>
+            <button class="add-page"
+                    @click="deletePage(index)">
+              <em class="fa fa-minus"></em>
+            </button>
+          </div>
         </div>
+      </div>
+      <div v-if="!pages.length">
+        <button class="add-page"
+                @click="addPageAfter(0)">
+          <em class="fa fa-plus"></em>
+        </button>
       </div>
     </div>
   </div>
