@@ -27,10 +27,11 @@ var app = new Vue({
           rowGap: 0.5,
           colGap: 0.5,
           padding: 0.5,
+          rowsHeight: [2, 2, 2],
+          colsWidth: [2, 2, 2, 3, 0, 0.5],
         },
         cellBorder: {},
         columnsWidth: {},
-        rowsHeight: {},
         direction: 'rows',
         symbols: [
           {
@@ -60,6 +61,12 @@ var app = new Vue({
       styles['grid-column-gap'] = `${page.grid.colGap}cm`;
       styles['grid-row-gap'] = `${page.grid.rowGap}cm`;
       styles['padding'] = `${page.grid.padding}cm`;
+      styles['grid-template-rows'] = _.get(page, 'grid.rowsHeight', [])
+        .map(v => (v ? `${v}cm ` : 'auto '))
+        .reduce((s, v) => s + v, '');
+      styles['grid-template-columns'] = _.get(page, 'grid.colsWidth', [])
+        .map(v => (v ? `${v}cm ` : 'auto '))
+        .reduce((s, v) => s + v, '');
       const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
       return { style };
     },
@@ -79,7 +86,7 @@ var app = new Vue({
       let content = '';
       if (symbols) {
         const text = symbols.text;
-        if (typeof text === 'string' && text.length){
+        if (typeof text === 'string' && text.length) {
           const textPad = text.padEnd(page.grid.colsCount, text);
           content = textPad[col];
         }
