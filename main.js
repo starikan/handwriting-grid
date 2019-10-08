@@ -24,7 +24,7 @@ var app = new Vue({
         grid: {
           colsCount: 7,
           rowsCount: 3,
-          rowGap: 0.5,
+          rowGap: 3,
           colGap: 0.5,
           padding: 0.5,
           rowsHeight: [2, 2, 2],
@@ -38,7 +38,7 @@ var app = new Vue({
             // TODO: сделать возможность добавления ссылок на картинки
             // text: '@',
             text: ['@', '6'],
-            repeat: false,
+            // repeat: false,
           },
           { text: 'W' },
         ],
@@ -62,15 +62,28 @@ var app = new Vue({
 
     getGridData: function(page) {
       const styles = {};
-      styles['grid-column-gap'] = `${page.grid.colGap}cm`;
-      styles['grid-row-gap'] = `${page.grid.rowGap}cm`;
       styles['padding'] = `${page.grid.padding}cm`;
-      styles['grid-template-rows'] = _.get(page, 'grid.rowsHeight', [])
-        .map(v => (v ? `${v}cm ` : 'auto '))
-        .reduce((s, v) => s + v, '');
-      styles['grid-template-columns'] = _.get(page, 'grid.colsWidth', [])
-        .map(v => (v ? `${v}cm ` : 'auto '))
-        .reduce((s, v) => s + v, '');
+
+      const direction = _.get(page, 'grid.direction', 'row');
+
+      let verticalGap = page.grid.colGap;
+      let horizontalGap = page.grid.rowGap;
+      if (direction === 'columns') {
+        verticalGap = page.grid.rowGap;
+        horizontalGap = page.grid.colGap;
+      }
+      styles['grid-column-gap'] = `${verticalGap}cm`;
+      styles['grid-row-gap'] = `${horizontalGap}cm`;
+
+      let heigths = _.get(page, 'grid.rowsHeight', [])
+      let widths = _.get(page, 'grid.colsWidth', [])
+      if (direction === 'columns') {
+        heigths = _.get(page, 'grid.colsWidth', [])
+        widths = _.get(page, 'grid.rowsHeight', [])
+      }
+      styles['grid-template-rows'] = heigths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
+      styles['grid-template-columns'] = widths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
+
       const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
       return { style };
     },
@@ -85,9 +98,6 @@ var app = new Vue({
 
     getCellData: function(page, index) {
       let colsCount = page.grid.colsCount;
-      // if (page.grid.direction === 'columns') {
-      //   colsCount = page.grid.rowsCount
-      // }
       const row = Math.floor(index / colsCount);
       const col = index - row * colsCount;
       const symbols = page.symbols[row];
