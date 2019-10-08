@@ -21,19 +21,22 @@ var app = new Vue({
           height: false,
           width: false,
         },
-        columnsCount: 7,
-        rowsCount: 3,
+        grid: {
+          colsCount: 7,
+          rowsCount: 3,
+          rowGap: 0.5,
+          colGap: 0.5,
+          padding: 0.5,
+        },
         cellBorder: {},
         columnsWidth: {},
         rowsHeight: {},
-        verticalGap: 0.5,
-        horizontalGap: 0.5,
         direction: 'rows',
         symbols: [
           {
             // TODO: сделать возможность добавления ссылок на картинки
-            text: ['@'],
-            split: false,
+            text: '@',
+            // text: ['@'],
             repeat: true,
           },
         ],
@@ -50,11 +53,20 @@ var app = new Vue({
       this.pages.splice(index, 1);
     },
     getCellsCount: function(page) {
-      return [...range(0, page.columnsCount * page.rowsCount - 1)];
+      return [...range(0, page.grid.colsCount * page.grid.rowsCount - 1)];
     },
-    getCellStyle: function(page, index) {
-      const row = Math.floor(index / page.columnsCount);
-      const col = index - row * page.columnsCount;
+    getGridData: function(page) {
+      const styles = {};
+      styles['grid-column-gap'] = `${page.grid.colGap}cm`;
+      styles['grid-row-gap'] = `${page.grid.rowGap}cm`;
+      styles['padding'] = `${page.grid.padding}cm`;
+      const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
+      return { style };
+    },
+    getCellData: function(page, index) {
+      const row = Math.floor(index / page.grid.colsCount);
+      const col = index - row * page.grid.colsCount;
+      const symbols = page.symbols[row];
       const styles = {};
       if (page.direction === 'columns') {
         styles['grid-column'] = `${row + 1} / ${row + 2}`;
@@ -64,8 +76,17 @@ var app = new Vue({
         styles['grid-column'] = `${col + 1} / ${col + 2}`;
       }
 
-      const concatStyle = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
-      return concatStyle;
+      let content = '';
+      if (symbols) {
+        const text = symbols.text;
+        if (typeof text === 'string' && text.length){
+          const textPad = text.padEnd(page.grid.colsCount, text);
+          content = textPad[col];
+        }
+      }
+
+      const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
+      return { style, content };
     },
   },
   data: {

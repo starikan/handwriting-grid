@@ -35,11 +35,12 @@
           <div :size="page.size.format"
                :layout='page.size.layout'
                class="page">
-            <div class="symbols-grid">
+            <div class="symbols-grid"
+                 :style="getGridData(page).style">
               <div class="cell"
                    v-for="cellId in getCellsCount(page)"
                    :class="{['page_' + index + '_cell_' + cellId]: true}"
-                   :style="getCellStyle(page, cellId)">{{cellId}}</div>
+                   :style="getCellData(page, cellId).style">{{getCellData(page, cellId).content}}</div>
             </div>
           </div>
           <div class="top-menu"></div>
