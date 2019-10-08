@@ -36,8 +36,8 @@ var app = new Vue({
         symbols: [
           {
             // TODO: сделать возможность добавления ссылок на картинки
-            text: '@',
-            // text: ['@'],
+            // text: '@',
+            text: ['@', '6'],
             repeat: true,
           },
         ],
@@ -86,6 +86,13 @@ var app = new Vue({
       let content = '';
       if (symbols) {
         const text = symbols.text;
+        if (typeof text === 'object' && text.length) {
+          const textPad = [];
+          while ( textPad.length < page.grid.colsCount ) {
+            textPad.splice(textPad.length + 1, 0, ...text)
+          }
+          content = textPad[col];
+        }
         if (typeof text === 'string' && text.length) {
           const textPad = symbols.repeat ? text.padEnd(page.grid.colsCount, text) : text;
           content = textPad[col];
