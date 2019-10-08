@@ -36,9 +36,15 @@
                :layout='page.size.layout'
                class="page">
             <div class="symbols-grid">
+              <div class="cell"
+                   v-for="cellId in getCellsCount(page)"
+                   :class="{['page_' + index + '_cell_' + cellId]: true}"
+                   :style="getCellStyle(page, cellId)">{{cellId}}</div>
             </div>
           </div>
-          <div class="left-menu"> Левое меню </div>
+          <div class="top-menu"></div>
+          <div class="right-menu"></div>
+          <div class="left-menu"></div>
           <div class="bottom-menu">
             <button class="add-page"
                     v-if="pages.length === index + 1"
