@@ -87,7 +87,7 @@ var app = new Vue({
       if (symbols) {
         const text = symbols.text;
         if (typeof text === 'string' && text.length) {
-          const textPad = text.padEnd(page.grid.colsCount, text);
+          const textPad = symbols.repeat ? text.padEnd(page.grid.colsCount, text) : text;
           content = textPad[col];
         }
       }
