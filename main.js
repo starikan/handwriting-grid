@@ -29,10 +29,10 @@ var app = new Vue({
           padding: 0.5,
           rowsHeight: [2, 2, 2],
           colsWidth: [2, 2, 2, 3, 0, 0.5],
+          // direction: 'columns',
         },
         cellBorder: {},
         columnsWidth: {},
-        // direction: 'columns',
         symbols: [
           {
             // TODO: сделать возможность добавления ссылок на картинки
@@ -75,16 +75,24 @@ var app = new Vue({
       return { style };
     },
 
+    changeDirection: function(page, pageId) {
+      if (this.pages[pageId].grid.direction !== 'columns') {
+        Vue.set(this.pages[pageId].grid, 'direction', 'columns');
+      } else {
+        Vue.set(this.pages[pageId].grid, 'direction', 'rows');
+      }
+    },
+
     getCellData: function(page, index) {
-      let colsCount = page.grid.colsCount
-      // if (page.direction === 'columns') {
+      let colsCount = page.grid.colsCount;
+      // if (page.grid.direction === 'columns') {
       //   colsCount = page.grid.rowsCount
       // }
       const row = Math.floor(index / colsCount);
       const col = index - row * colsCount;
       const symbols = page.symbols[row];
       const styles = {};
-      if (page.direction === 'columns') {
+      if (page.grid.direction === 'columns') {
         styles['grid-column'] = `${row + 1} / ${row + 2}`;
         styles['grid-row'] = `${col + 1} / ${col + 2}`;
       } else {
