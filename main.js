@@ -108,7 +108,21 @@ var app = new Vue({
       styles['grid-template-columns'] = widths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
 
       const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
-      return { style };
+      const data = {
+        padding,
+        direction,
+        colGap,
+        rowGap,
+        colsWidth,
+        rowsHeight,
+        colsCount,
+        rowsCount,
+        verticalGap,
+        horizontalGap,
+        heigths,
+        widths,
+      };
+      return { style, data };
     },
 
     changeDirection: function(page, pageId) {

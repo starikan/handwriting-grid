@@ -41,6 +41,12 @@
                    v-for="cellId in getCellsCount(page)"
                    :class="{['page_' + index + '_cell_' + cellId]: true}"
                    :style="getCellData(page, cellId).style">
+                <!-- <span class="cross stroke-diag-left"></span>
+                <span class="cross stroke-diag-right"></span>
+                <span class="cross stroke-vert-left"></span>
+                <span class="cross stroke-vert-right"></span>
+                <span class="cross stroke-horiz-top"></span>
+                <span class="cross stroke-horiz-bottom"></span> -->
                 <p> {{getCellData(page, cellId).content}} </p>
               </div>
             </div>
@@ -53,7 +59,21 @@
             </button>
           </div>
           <div class="right-menu"></div>
-          <div class="left-menu"></div>
+          <div class="left-menu">
+            <div class="row-add-remove">
+              <button class=""
+                      v-for="rowHeight in getGridData(page).data.heigths"
+                      :style=""
+                      @click="">
+                <em class="fa fa-minus"></em>
+              </button>
+              <button class=""
+                      v-if=""
+                      @click="">
+                <em class="fa fa-plus"></em>
+              </button>
+            </div>
+          </div>
           <div class="bottom-menu">
             <button class="add-page"
                     v-if="pages.length === index + 1"
