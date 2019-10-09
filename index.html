@@ -32,8 +32,8 @@
            class='pages'
            v-if="pages.length">
         <div class="page-container">
-          <div :size="page.size.format"
-               :layout="page.size.layout"
+          <div :size="getFormat(page)"
+               :layout="getLayout(page)"
                class="page">
             <div class="symbols-grid"
                  :style="getGridData(page).style">
@@ -49,7 +49,7 @@
             <button class="add-page"
                     @click="changeDirection(page, index)">
               <em class="fa"
-                  :class="{'fa-arrow-down': page.grid.direction === 'columns', 'fa-arrow-right': page.grid.direction !== 'columns'}"></em>
+                  :class="{'fa-arrow-down': getDirection(page) === 'columns', 'fa-arrow-right': getDirection(page) !== 'columns'}"></em>
             </button>
           </div>
           <div class="right-menu"></div>

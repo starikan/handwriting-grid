@@ -23,7 +23,7 @@ var app = new Vue({
         },
         grid: {
           colsCount: 8,
-          rowsCount: 8,
+          rowsCount: 3,
           rowGap: 0.5,
           colGap: 0.5,
           padding: 0.5,
@@ -57,41 +57,58 @@ var app = new Vue({
     },
 
     getCellsCount: function(page) {
-      return [...range(0, page.grid.colsCount * page.grid.rowsCount - 1)];
+      const colsCount = _.get(page, 'grid.colsCount', 0);
+      const rowsCount = _.get(page, 'grid.rowsCount', 0);
+
+      return [...range(0, colsCount * rowsCount - 1)];
+    },
+
+    getFormat: function(page) {
+      return _.get(page, 'size.format', 'A4');
+    },
+
+    getLayout: function(page) {
+      return _.get(page, 'size.layout', 'portrait');
+    },
+
+    getDirection: function(page) {
+      return _.get(page, 'grid.direction', 'rows');
     },
 
     getGridData: function(page) {
       const styles = {};
-      styles['padding'] = `${page.grid.padding}cm`;
+      const padding = _.get(page, 'grid.padding', 0);
+      const direction = _.get(page, 'grid.direction', 'rows');
+      const colGap = _.get(page, 'grid.colGap', 0);
+      const rowGap = _.get(page, 'grid.rowGap', 0);
+      const colsWidth = _.get(page, 'grid.colsWidth', 1);
+      const rowsHeight = _.get(page, 'grid.rowsHeight', 1);
+      const colsCount = _.get(page, 'grid.colsCount', 0);
+      const rowsCount = _.get(page, 'grid.rowsCount', 0);
 
-      const direction = _.get(page, 'grid.direction', 'row');
+      styles['padding'] = `${padding}cm`;
 
-      let verticalGap = page.grid.colGap;
-      let horizontalGap = page.grid.rowGap;
-      if (direction === 'columns') {
-        verticalGap = page.grid.rowGap;
-        horizontalGap = page.grid.colGap;
-      }
+      const verticalGap = direction === 'columns' ? colGap : rowGap;
+      const horizontalGap = direction === 'columns' ? rowGap : colGap;
       styles['grid-column-gap'] = `${verticalGap}cm`;
       styles['grid-row-gap'] = `${horizontalGap}cm`;
 
-      let heigths = _.get(page, 'grid.rowsHeight', []);
-      let widths = _.get(page, 'grid.colsWidth', []);
-      if (direction === 'columns') {
-        heigths = _.get(page, 'grid.colsWidth', []);
-        widths = _.get(page, 'grid.rowsHeight', []);
-      }
+      let heigths = direction === 'columns' ? rowsHeight : colsWidth;
+      let widths = direction === 'columns' ? colsWidth : rowsHeight;
 
       if (typeof widths === 'number') {
-        widths = Array(page.grid.colsCount).fill(widths);
+        const count = direction === 'columns' ? rowsCount : colsCount;
+        widths = Array(count).fill(widths);
       }
       if (typeof heigths === 'number') {
-        heigths = Array(page.grid.rowsCount).fill(heigths);
+        const count = direction === 'columns' ? colsCount : rowsCount;
+        heigths = Array(count).fill(heigths);
       }
       styles['grid-template-rows'] = heigths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
       styles['grid-template-columns'] = widths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
 
       const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
+      console.log(direction, styles, heigths, widths);
       return { style };
     },
 
@@ -104,12 +121,12 @@ var app = new Vue({
     },
 
     getCellData: function(page, index) {
-      const colsCount = page.grid.colsCount;
+      const colsCount = _.get(page, 'grid.colsCount', 0);
       const row = Math.floor(index / colsCount);
       const col = index - row * colsCount;
 
       const styles = {};
-      if (page.grid.direction === 'columns') {
+      if (this.getDirection(page) === 'columns') {
         styles['grid-column'] = `${row + 1} / ${row + 2}`;
         styles['grid-row'] = `${col + 1} / ${col + 2}`;
       } else {
@@ -122,8 +139,8 @@ var app = new Vue({
     },
 
     getCellContent: function(page, row, col) {
-      const colsCount = page.grid.colsCount;
-      const symbols = page.symbols[row];
+      const colsCount = _.get(page, 'grid.colsCount', 0);
+      const symbols = _.get(page, ['symbols', row], []);
       if (symbols) {
         const text = symbols.text;
         if (!text) {
@@ -150,6 +167,6 @@ var app = new Vue({
   },
   data: {
     pages: [],
-    pageBlank: { size: { format: 'A5', layout: 'landscape' } },
+    pageBlank: {},
   },
 });
