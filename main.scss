@@ -84,18 +84,18 @@ body {
   align-content: center;
   justify-content: center;
   text-align: center;
-  border: 1px solid black;
+  border: 1px dashed black;
   font-size: var(--font-size);
   color: white;
   -webkit-text-stroke: 1px grey;
-  /* font-family: 'Noto Serif TC', serif;
+  font-family: 'Noto Serif TC', serif;
   font-family: 'China6', serif;
   font-family: 'China3', serif;
   font-family: 'China1', serif;
   font-family: 'China2', serif;
   font-family: 'China4', serif;
   font-family: 'China5', serif;
-  font-family: 'KaiTi_GB2312', 'China5', serif; */
+  font-family: 'KaiTi_GB2312', 'China5', serif;
 
   p {
     margin: 0;

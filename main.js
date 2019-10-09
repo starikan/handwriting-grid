@@ -36,11 +36,11 @@ var app = new Vue({
         symbols: [
           {
             // TODO: сделать возможность добавления ссылок на картинки
-            // text: '@',
-            text: ['@', '6'],
-            // repeat: false,
+            text: ['熊', '猫'],
+            repeat: true,
           },
-          { text: 'W' },
+          { text: '鼠标' },
+          { text: '狗' },
         ],
       },
     ];
