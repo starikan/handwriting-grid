@@ -75,11 +75,11 @@ var app = new Vue({
       styles['grid-column-gap'] = `${verticalGap}cm`;
       styles['grid-row-gap'] = `${horizontalGap}cm`;
 
-      let heigths = _.get(page, 'grid.rowsHeight', [])
-      let widths = _.get(page, 'grid.colsWidth', [])
+      let heigths = _.get(page, 'grid.rowsHeight', []);
+      let widths = _.get(page, 'grid.colsWidth', []);
       if (direction === 'columns') {
-        heigths = _.get(page, 'grid.colsWidth', [])
-        widths = _.get(page, 'grid.rowsHeight', [])
+        heigths = _.get(page, 'grid.colsWidth', []);
+        widths = _.get(page, 'grid.rowsHeight', []);
       }
       styles['grid-template-rows'] = heigths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
       styles['grid-template-columns'] = widths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
@@ -97,10 +97,10 @@ var app = new Vue({
     },
 
     getCellData: function(page, index) {
-      let colsCount = page.grid.colsCount;
+      const colsCount = page.grid.colsCount;
       const row = Math.floor(index / colsCount);
       const col = index - row * colsCount;
-      const symbols = page.symbols[row];
+
       const styles = {};
       if (page.grid.direction === 'columns') {
         styles['grid-column'] = `${row + 1} / ${row + 2}`;
@@ -109,12 +109,14 @@ var app = new Vue({
         styles['grid-row'] = `${row + 1} / ${row + 2}`;
         styles['grid-column'] = `${col + 1} / ${col + 2}`;
       }
-      const content = this.getCellContent(page, symbols, col, colsCount);
+      const content = this.getCellContent(page, row, col);
       const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
       return { style, content };
     },
 
-    getCellContent: function(page, symbols, col, colsCount) {
+    getCellContent: function(page, row, col) {
+      const colsCount = page.grid.colsCount;
+      const symbols = page.symbols[row];
       if (symbols) {
         const text = symbols.text;
         if (!text) {
