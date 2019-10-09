@@ -4,6 +4,7 @@
 :root {
   --cell-size: 0;
   --font-size: 1.8cm;
+  --stroke-thick: 1px;
 }
 
 body {
@@ -105,7 +106,7 @@ body {
 .cell {
   padding: 0px;
   margin: 0px;
-  border: 1px dashed black;
+  border: var(--stroke-thick) dashed black;
   font-size: var(--font-size);
   color: white;
   -webkit-text-stroke: 1px grey;
@@ -119,49 +120,62 @@ body {
   font-family: 'KaiTi_GB2312', 'China5', serif;
 
   .cross {
+    --cell-height: 2cm;
+    --cell-width: 2cm;
+    --cell-diag: 2.828427cm;
+    --cell-width-25p: calc(1 * var(--cell-width) / 4 - var(--stroke-thick) * 1.5);
+    --cell-width-50p: calc(2 * var(--cell-width) / 4 - var(--stroke-thick) * 1.5);
+    --cell-width-75p: calc(3 * var(--cell-width) / 4 - var(--stroke-thick) * 1.5);
+    --cell-height-25p: calc(1 * var(--cell-height) / 4 - var(--stroke-thick) * 1.5);
+    --cell-height-50p: calc(2 * var(--cell-height) / 4 - var(--stroke-thick) * 1.5);
+    --cell-height-75p: calc(3 * var(--cell-height) / 4 - var(--stroke-thick) * 1.5);
+    --stroke-gap: calc(-1 * var(--stroke-thick))
+
     position: relative;
 
-    &:before {
+    .stroke:before {
       content: '';
       padding: 0px;
       margin: 0px;
       position: absolute;
-      border-right: 1px dashed grey;
-      opacity: 0.3;
-      height: 2cm;
+      border-right: var(--stroke-thick) dashed black;
+      opacity: 0.9;
+      height: var(--cell-height);
+      width: 0;
     }
-  }
 
-  .stroke-diag-left:before {
-    height: 2.8cm;
-    transform-origin: 0% 0%;
-    transform: rotate(-45deg);
-  }
-  .stroke-diag-right:before {
-    height: 2.8cm;
-    transform-origin: 0% 0%;
-    transform: translateX(calc(2cm - 2px)) rotate(45deg);
-  }
-  .stroke-vert-left:before {
-    transform: translateX(0.5cm);
-  }
-  .stroke-vert-center:before {
-    transform: translateX(1cm);
-  }
-  .stroke-vert-right:before {
-    transform: translateX(1.5cm);
-  }
-  .stroke-horiz-top:before {
-    transform-origin: 0% 0%;
-    transform: rotate(-90deg) translateX(-0.5cm);
-  }
-  .stroke-horiz-center:before {
-    transform-origin: 0% 0%;
-    transform: rotate(-90deg) translateX(-1cm);
-  }
-  .stroke-horiz-bottom:before {
-    transform-origin: 0% 0%;
-    transform: rotate(-90deg) translateX(-1.5cm);
+    .stroke-diag-left:before {
+      height: calc(var(--cell-diag) - 2 * var(--stroke-thick));
+      transform-origin: 0% 0%;
+      transform: translateX(calc(-1 * var(--stroke-thick) / 2)) rotate(-45deg);
+    }
+    .stroke-diag-right:before {
+      height: calc(var(--cell-diag) - 2 * var(--stroke-thick));
+      transform-origin: 0% 0%;
+      transform: translateX(calc(var(--cell-height) - var(--stroke-thick) * 2)) rotate(45deg)
+        translateX(calc(-1 * var(--stroke-thick) / 2));
+    }
+    .stroke-vert-left:before {
+      transform: translateX(var(--cell-height-25p)) translateY(var(--stroke-gap));
+    }
+    .stroke-vert-center:before {
+      transform: translateX(var(--cell-height-50p)) translateY(var(--stroke-gap));
+    }
+    .stroke-vert-right:before {
+      transform: translateX(var(--cell-height-75p)) translateY(var(--stroke-gap));
+    }
+    .stroke-horiz-top:before {
+      transform-origin: 0% 0%;
+      transform: rotate(-90deg) translateX(var(--cell-width-25p)) translateY(var(--stroke-gap));
+    }
+    .stroke-horiz-center:before {
+      transform-origin: 0% 0%;
+      transform: rotate(-90deg) translateX(var(--cell-width-50p)) translateY(var(--stroke-gap));
+    }
+    .stroke-horiz-bottom:before {
+      transform-origin: 0% 0%;
+      transform: rotate(-90deg) translateX(var(--cell-width-75p)) translateY(var(--stroke-gap));
+    }
   }
 
   .text-wrapper {
