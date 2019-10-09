@@ -40,7 +40,9 @@
               <div class="cell"
                    v-for="cellId in getCellsCount(page)"
                    :class="{['page_' + index + '_cell_' + cellId]: true}"
-                   :style="getCellData(page, cellId).style">{{getCellData(page, cellId).content}}</div>
+                   :style="getCellData(page, cellId).style">
+                <p> {{getCellData(page, cellId).content}} </p>
+              </div>
             </div>
           </div>
           <div class="top-menu">

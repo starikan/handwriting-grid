@@ -22,13 +22,13 @@ var app = new Vue({
           width: false,
         },
         grid: {
-          colsCount: 7,
-          rowsCount: 3,
-          rowGap: 3,
+          colsCount: 8,
+          rowsCount: 8,
+          rowGap: 0.5,
           colGap: 0.5,
           padding: 0.5,
-          rowsHeight: [2, 2, 2],
-          colsWidth: [2, 2, 2, 3, 0, 0.5],
+          rowsHeight: 2,
+          colsWidth: 2,
           // direction: 'columns',
         },
         cellBorder: {},
@@ -80,6 +80,13 @@ var app = new Vue({
       if (direction === 'columns') {
         heigths = _.get(page, 'grid.colsWidth', []);
         widths = _.get(page, 'grid.rowsHeight', []);
+      }
+
+      if (typeof widths === 'number') {
+        widths = Array(page.grid.colsCount).fill(widths);
+      }
+      if (typeof heigths === 'number') {
+        heigths = Array(page.grid.rowsCount).fill(heigths);
       }
       styles['grid-template-rows'] = heigths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
       styles['grid-template-columns'] = widths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');

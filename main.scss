@@ -3,7 +3,7 @@
 
 :root {
   --cell-size: 0;
-  --font-size: 0;
+  --font-size: 1.5cm;
 }
 
 body {
@@ -80,18 +80,14 @@ body {
 }
 
 .cell {
-  /* display: grid;
-  justify-self: center;
-  align-self: center;
+  display: grid;
   align-content: center;
+  justify-content: center;
   text-align: center;
   border: 1px solid black;
-  width: var(--cell-size);
-  height: var(--cell-size);
   font-size: var(--font-size);
-  color: rgb(212, 212, 212); */
-  /* color: transparent; */
-  /* -webkit-text-stroke: 1px blue; */
+  color: white;
+  -webkit-text-stroke: 1px grey;
   /* font-family: 'Noto Serif TC', serif;
   font-family: 'China6', serif;
   font-family: 'China3', serif;
@@ -100,4 +96,8 @@ body {
   font-family: 'China4', serif;
   font-family: 'China5', serif;
   font-family: 'KaiTi_GB2312', 'China5', serif; */
+
+  p {
+    margin: 0;
+  }
 }
