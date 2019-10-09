@@ -41,13 +41,17 @@
                    v-for="cellId in getCellsCount(page)"
                    :class="{['page_' + index + '_cell_' + cellId]: true}"
                    :style="getCellData(page, cellId).style">
-                <!-- <span class="cross stroke-diag-left"></span>
+                <span class="cross stroke-diag-left"></span>
                 <span class="cross stroke-diag-right"></span>
                 <span class="cross stroke-vert-left"></span>
+                <span class="cross stroke-vert-center"></span>
                 <span class="cross stroke-vert-right"></span>
                 <span class="cross stroke-horiz-top"></span>
-                <span class="cross stroke-horiz-bottom"></span> -->
-                <p> {{getCellData(page, cellId).content}} </p>
+                <span class="cross stroke-horiz-center"></span>
+                <span class="cross stroke-horiz-bottom"></span>
+                <div class="text-wrapper">
+                  <p> {{getCellData(page, cellId).content}} </p>
+                </div>
               </div>
             </div>
           </div>
