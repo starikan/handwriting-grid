@@ -49,7 +49,7 @@ var app = new Vue({
   watch: {},
   methods: {
     addPageAfter: function(index) {
-      this.pages.splice(index + 1, 0, this.pageBlank);
+      this.pages.splice(index + 1, 0, {});
     },
 
     deletePage: function(index) {
@@ -108,15 +108,14 @@ var app = new Vue({
       styles['grid-template-columns'] = widths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
 
       const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
-      console.log(direction, styles, heigths, widths);
       return { style };
     },
 
     changeDirection: function(page, pageId) {
-      if (this.pages[pageId].grid.direction !== 'columns') {
-        Vue.set(this.pages[pageId].grid, 'direction', 'columns');
+      if (_.get(this.pages[pageId], 'grid.direction') !== 'columns') {
+        Vue.set(this.pages[pageId], 'grid.direction', 'columns');
       } else {
-        Vue.set(this.pages[pageId].grid, 'direction', 'rows');
+        Vue.set(this.pages[pageId], 'grid.direction', 'rows');
       }
     },
 
@@ -167,6 +166,5 @@ var app = new Vue({
   },
   data: {
     pages: [],
-    pageBlank: {},
   },
 });
