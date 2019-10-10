@@ -5,5 +5,5 @@
 /yarn.lock
 /package-lock.json
 /.cache
-/dist
 /yarn-error.log
+/dist

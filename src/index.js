@@ -1,4 +1,11 @@
-var router = new VueRouter({
+import _ from 'lodash';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+import './index.scss';
+import 'font-awesome/scss/font-awesome.scss';
+
+const router = new VueRouter({
   mode: 'history',
   routes: [],
 });
@@ -9,7 +16,7 @@ const range = function*(start, end) {
   }
 };
 
-var app = new Vue({
+const app = new Vue({
   router,
   el: '#app',
   mounted: function() {
