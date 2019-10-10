@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
 import './index.scss';
 import 'font-awesome/scss/font-awesome.scss';
@@ -29,7 +29,7 @@ const app = new Vue({
           width: false,
         },
         grid: {
-          colsCount: 8,
+          colsCount: 5,
           rowsCount: 3,
           rowGap: 0.5,
           colGap: 0.5,
@@ -82,37 +82,80 @@ const app = new Vue({
       return _.get(page, 'grid.direction', 'rows');
     },
 
-    getGridData: function(page) {
+    getGridGaps: function(page) {
       const styles = {};
-      const padding = _.get(page, 'grid.padding', 0);
       const direction = _.get(page, 'grid.direction', 'rows');
       const colGap = _.get(page, 'grid.colGap', 0);
       const rowGap = _.get(page, 'grid.rowGap', 0);
+
+      const verticalGap = direction === 'columns' ? colGap : rowGap;
+      const horizontalGap = direction === 'columns' ? rowGap : colGap;
+      styles['grid-column-gap'] = `${verticalGap}cm`;
+      styles['grid-row-gap'] = `${horizontalGap}cm`;
+      const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
+      const stylesObj = Object.keys(styles).reduce((t, key) => ({ ...t, ...{ [key]: `${key}: ${styles[key]};` } }), {});
+      return { styles, stylesStr, stylesObj, direction, colGap, rowGap, verticalGap, horizontalGap };
+    },
+
+    getGridMainParams: function(page) {
+      const styles = {};
+      const direction = _.get(page, 'grid.direction', 'rows');
+      const padding = _.get(page, 'grid.padding', 0);
       const colsWidth = _.get(page, 'grid.colsWidth', 1);
       const rowsHeight = _.get(page, 'grid.rowsHeight', 1);
       const colsCount = _.get(page, 'grid.colsCount', 0);
       const rowsCount = _.get(page, 'grid.rowsCount', 0);
 
       styles['padding'] = `${padding}cm`;
+      const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
+      const stylesObj = Object.keys(styles).reduce((t, key) => ({ ...t, ...{ [key]: `${key}: ${styles[key]};` } }), {});
+      return { styles, stylesStr, stylesObj, direction, padding, colsWidth, rowsHeight, colsCount, rowsCount };
+    },
 
-      const verticalGap = direction === 'columns' ? colGap : rowGap;
-      const horizontalGap = direction === 'columns' ? rowGap : colGap;
-      styles['grid-column-gap'] = `${verticalGap}cm`;
-      styles['grid-row-gap'] = `${horizontalGap}cm`;
-
+    getGridRows: function(page) {
+      const styles = {};
+      const { direction, colsWidth, rowsHeight, colsCount, rowsCount } = this.getGridMainParams(page);
       let heigths = direction === 'columns' ? rowsHeight : colsWidth;
-      let widths = direction === 'columns' ? colsWidth : rowsHeight;
-
-      if (typeof widths === 'number') {
-        const count = direction === 'columns' ? rowsCount : colsCount;
-        widths = Array(count).fill(widths);
-      }
       if (typeof heigths === 'number') {
         const count = direction === 'columns' ? colsCount : rowsCount;
         heigths = Array(count).fill(heigths);
       }
       styles['grid-template-rows'] = heigths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
+      const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
+      return { styles, stylesStr, heigths };
+    },
+
+    getGridCols: function(page) {
+      const styles = {};
+      const { direction, colsWidth, rowsHeight, colsCount, rowsCount } = this.getGridMainParams(page);
+      let widths = direction === 'columns' ? colsWidth : rowsHeight;
+      if (typeof widths === 'number') {
+        const count = direction === 'columns' ? rowsCount : colsCount;
+        widths = Array(count).fill(widths);
+      }
       styles['grid-template-columns'] = widths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
+      const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
+
+      return { styles, stylesStr, widths };
+    },
+
+    getGridData: function(page) {
+      let styles = {};
+
+      const { styles: stylesGap, colGap, rowGap, verticalGap, horizontalGap } = this.getGridGaps(page);
+      const {
+        styles: stylesMain,
+        direction,
+        padding,
+        colsWidth,
+        rowsHeight,
+        colsCount,
+        rowsCount,
+      } = this.getGridMainParams(page);
+      const { styles: stylesRows, heigths } = this.getGridRows(page);
+      const { styles: stylesCols, widths } = this.getGridCols(page);
+
+      styles = { ...styles, ...stylesMain, ...stylesGap, ...stylesRows, ...stylesCols };
 
       const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
       const data = {
@@ -183,6 +226,13 @@ const app = new Vue({
         }
       }
       return '';
+    },
+
+    getLeftMenuStyle: function(page) {
+      console.log(this.getGridMainParams(page).styles['padding']);
+      return `padding-top: ${this.getGridMainParams(page).styles['padding']};${this.getGridRows(page).stylesStr}${
+        this.getGridGaps(page).stylesStr
+      }`;
     },
   },
   data: {

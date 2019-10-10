@@ -57,15 +57,13 @@
           </div>
           <div class="right-menu"></div>
           <div class="left-menu">
-            <div class="row-add-remove">
-              <button class=""
+            <div class="row-add-remove" :style="getLeftMenuStyle(page)">
+              <button class="row-remove"
                       v-for="rowHeight in getGridData(page).data.heigths"
-                      :style=""
                       @click="">
                 <em class="fa fa-minus"></em>
               </button>
-              <button class=""
-                      v-if=""
+              <button class="row-add"
                       @click="">
                 <em class="fa fa-plus"></em>
               </button>
