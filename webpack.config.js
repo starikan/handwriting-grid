@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
+  devtool: 'inline-source-map',
   entry: {
     app: './src/index.js',
   },
@@ -29,5 +31,4 @@ module.exports = {
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader' },
     ],
   },
-  devtool: 'source-map',
 };
