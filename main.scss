@@ -1,5 +1,5 @@
-@import './styles/fonts';
-@import './styles/pages';
+@import './styles/fonts.scss';
+@import './styles/pages.scss';
 
 :root {
   --cell-size: 0;
@@ -110,14 +110,14 @@ body {
   font-size: var(--font-size);
   color: white;
   -webkit-text-stroke: 1px grey;
-  font-family: 'Noto Serif TC', serif;
-  font-family: 'China6', serif;
-  font-family: 'China3', serif;
-  font-family: 'China1', serif;
-  font-family: 'China2', serif;
-  font-family: 'China4', serif;
-  font-family: 'China5', serif;
-  font-family: 'KaiTi_GB2312', 'China5', serif;
+  // font-family: 'Noto Serif TC', serif;
+  // font-family: 'China6', serif;
+  // font-family: 'China3', serif;
+  // font-family: 'China1', serif;
+  // font-family: 'China2', serif;
+  // font-family: 'China4', serif;
+  // font-family: 'China5', serif;
+  // font-family: 'KaiTi_GB2312', 'China5', serif;
 
   .cross {
     --cell-height: 2cm;
@@ -129,7 +129,7 @@ body {
     --cell-height-25p: calc(1 * var(--cell-height) / 4 - var(--stroke-thick) * 1.5);
     --cell-height-50p: calc(2 * var(--cell-height) / 4 - var(--stroke-thick) * 1.5);
     --cell-height-75p: calc(3 * var(--cell-height) / 4 - var(--stroke-thick) * 1.5);
-    --stroke-gap: calc(-1 * var(--stroke-thick))
+    --stroke-gap: calc(-1 * var(--stroke-thick));
 
     position: relative;
 
