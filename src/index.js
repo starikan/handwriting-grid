@@ -29,26 +29,27 @@ const app = new Vue({
           width: false,
         },
         grid: {
-          colsCount: 5,
-          rowsCount: 3,
-          rowGap: 0.5,
-          colGap: 0.5,
-          padding: 0.5,
-          rowsHeight: 2,
-          colsWidth: 2,
-          // direction: 'columns',
+          // colsCount: 5,
+          // rowsCount: 3,
+      //     rowGap: 0.5,
+      //     colGap: 0.5,
+      //     padding: 0.5,
+      //     rowsHeight: 2,
+      //     colsWidth: 2,
+      //     // direction: 'columns',
         },
-        cellBorder: {},
-        columnsWidth: {},
-        symbols: [
-          {
-            // TODO: сделать возможность добавления ссылок на картинки
-            text: ['熊', '猫'],
-            repeat: true,
-          },
-          { text: '鼠标' },
-          { text: '狗' },
-        ],
+      //   cellBorder: {},
+      //   columnsWidth: {},
+      //   symbols: [
+      //     {
+      //       // TODO: сделать возможность добавления ссылок на картинки
+      //       text: ['熊', '猫'],
+      //       repeat: true,
+      //     },
+      //     { text: '鼠标' },
+      //     { text: '狗' },
+      //   ],
+        // content: [{ text: ['a', 'b'], repeat: true }, ['c', 'd'], 'x', 'zzz' { text: 'ef', repeat: false }],
       },
     ];
   },
@@ -64,8 +65,8 @@ const app = new Vue({
     },
 
     getCellsCount: function(page) {
-      const colsCount = _.get(page, 'grid.colsCount', 0);
-      const rowsCount = _.get(page, 'grid.rowsCount', 0);
+      const colsCount = _.get(page, 'grid.colsCount', 1);
+      const rowsCount = _.get(page, 'grid.rowsCount', 1);
 
       return [...range(0, colsCount * rowsCount - 1)];
     },
@@ -103,8 +104,8 @@ const app = new Vue({
       const padding = _.get(page, 'grid.padding', 0);
       const colsWidth = _.get(page, 'grid.colsWidth', 1);
       const rowsHeight = _.get(page, 'grid.rowsHeight', 1);
-      const colsCount = _.get(page, 'grid.colsCount', 0);
-      const rowsCount = _.get(page, 'grid.rowsCount', 0);
+      const colsCount = _.get(page, 'grid.colsCount', 1);
+      const rowsCount = _.get(page, 'grid.rowsCount', 1);
 
       styles['padding'] = `${padding}cm`;
       const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
@@ -184,7 +185,7 @@ const app = new Vue({
     },
 
     getCellData: function(page, index) {
-      const colsCount = _.get(page, 'grid.colsCount', 0);
+      const colsCount = _.get(page, 'grid.colsCount', 1);
       const row = Math.floor(index / colsCount);
       const col = index - row * colsCount;
 
@@ -202,7 +203,7 @@ const app = new Vue({
     },
 
     getCellContent: function(page, row, col) {
-      const colsCount = _.get(page, 'grid.colsCount', 0);
+      const colsCount = _.get(page, 'grid.colsCount', 1);
       const symbols = _.get(page, ['symbols', row], []);
       if (symbols) {
         const text = symbols.text;
@@ -235,13 +236,12 @@ const app = new Vue({
       }`;
     },
 
-    rowRemove: function(pageId, rowId){},
+    rowRemove: function(pageId, rowId) {},
 
-    rowAdd: function(pageId){
-      const rows = this.getGridMainParams(this.pages[pageId]).rowsCount
+    rowAdd: function(pageId) {
+      const rows = this.getGridMainParams(this.pages[pageId]).rowsCount;
       Vue.set(this.pages[pageId], 'grid.rowsCount', rows + 1);
     },
-
   },
   data: {
     pages: [],

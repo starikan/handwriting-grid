@@ -32,7 +32,7 @@
                    v-for="cellId in getCellsCount(page)"
                    :class="{['page_' + index + '_cell_' + cellId]: true}"
                    :style="getCellData(page, cellId).style">
-                <div class="cross">
+                <!-- <div class="cross">
                   <span class="stroke stroke-diag-left"></span>
                   <span class="stroke stroke-diag-right"></span>
                   <span class="stroke stroke-vert-left"></span>
@@ -41,7 +41,7 @@
                   <span class="stroke stroke-horiz-top"></span>
                   <span class="stroke stroke-horiz-center"></span>
                   <span class="stroke stroke-horiz-bottom"></span>
-                </div>
+                </div> -->
                 <div class="text-wrapper">
                   <p> {{getCellData(page, cellId).content}} </p>
                 </div>
