@@ -234,6 +234,14 @@ const app = new Vue({
         this.getGridGaps(page).stylesStr
       }`;
     },
+
+    rowRemove: function(pageId, rowId){},
+
+    rowAdd: function(pageId){
+      const rows = this.getGridMainParams(this.pages[pageId]).rowsCount
+      Vue.set(this.pages[pageId], 'grid.rowsCount', rows + 1);
+    },
+
   },
   data: {
     pages: [],
