@@ -17,6 +17,9 @@ module.exports = {
       vue$: 'vue/dist/vue.esm.js',
     },
   },
+  devServer: {
+    contentBase: './dist',
+  },
   plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin({ template: './src/index.html' })],
   module: {
     rules: [

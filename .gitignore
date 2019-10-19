@@ -3,7 +3,6 @@
 *.css.map
 *.css
 /yarn.lock
-/package-lock.json
 /.cache
 /yarn-error.log
 /dist
