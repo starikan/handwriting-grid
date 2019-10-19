@@ -25,8 +25,8 @@ const app = new Vue({
         size: {
           format: 'A4',
           layout: 'portrait',
-          height: false,
-          width: false,
+          // height: false,
+          // width: false,
         },
         grid: {
           // colsCount: 5,
@@ -236,11 +236,25 @@ const app = new Vue({
       }`;
     },
 
+    getTopMenuStyle: function(page) {
+      console.log(this.getGridMainParams(page).styles['padding']);
+      return `padding-left: ${this.getGridMainParams(page).styles['padding']};${this.getGridCols(page).stylesStr}${
+        this.getGridGaps(page).stylesStr
+      }`;
+    },
+
     rowRemove: function(pageId, rowId) {},
 
     rowAdd: function(pageId) {
       const rows = this.getGridMainParams(this.pages[pageId]).rowsCount;
       Vue.set(this.pages[pageId], 'grid.rowsCount', rows + 1);
+    },
+
+    colRemove: function(pageId, colId) {},
+
+    colAdd: function(pageId) {
+      const cols = this.getGridMainParams(this.pages[pageId]).colsCount;
+      Vue.set(this.pages[pageId], 'grid.colsCount', cols + 1);
     },
   },
   data: {
