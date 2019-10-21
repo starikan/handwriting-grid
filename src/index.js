@@ -31,24 +31,23 @@ const app = new Vue({
         grid: {
           // colsCount: 5,
           // rowsCount: 3,
-      //     rowGap: 0.5,
-      //     colGap: 0.5,
-      //     padding: 0.5,
-      //     rowsHeight: 2,
-      //     colsWidth: 2,
-      //     // direction: 'columns',
+          //     rowGap: 0.5,
+          //     colGap: 0.5,
+          //     padding: 0.5,
+          //     rowsHeight: 2,
+          //     colsWidth: 2,
         },
-      //   cellBorder: {},
-      //   columnsWidth: {},
-      //   symbols: [
-      //     {
-      //       // TODO: сделать возможность добавления ссылок на картинки
-      //       text: ['熊', '猫'],
-      //       repeat: true,
-      //     },
-      //     { text: '鼠标' },
-      //     { text: '狗' },
-      //   ],
+        //   cellBorder: {},
+        //   columnsWidth: {},
+        //   symbols: [
+        //     {
+        //       // TODO: сделать возможность добавления ссылок на картинки
+        //       text: ['熊', '猫'],
+        //       repeat: true,
+        //     },
+        //     { text: '鼠标' },
+        //     { text: '狗' },
+        //   ],
         // content: [{ text: ['a', 'b'], repeat: true }, ['c', 'd'], 'x', 'zzz' { text: 'ef', repeat: false }],
       },
     ];
@@ -79,28 +78,20 @@ const app = new Vue({
       return _.get(page, 'size.layout', 'portrait');
     },
 
-    getDirection: function(page) {
-      return _.get(page, 'grid.direction', 'rows');
-    },
-
     getGridGaps: function(page) {
       const styles = {};
-      const direction = _.get(page, 'grid.direction', 'rows');
       const colGap = _.get(page, 'grid.colGap', 0);
       const rowGap = _.get(page, 'grid.rowGap', 0);
 
-      const verticalGap = direction === 'columns' ? colGap : rowGap;
-      const horizontalGap = direction === 'columns' ? rowGap : colGap;
-      styles['grid-column-gap'] = `${verticalGap}cm`;
-      styles['grid-row-gap'] = `${horizontalGap}cm`;
+      styles['grid-column-gap'] = `${colGap}cm`;
+      styles['grid-row-gap'] = `${rowGap}cm`;
       const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
       const stylesObj = Object.keys(styles).reduce((t, key) => ({ ...t, ...{ [key]: `${key}: ${styles[key]};` } }), {});
-      return { styles, stylesStr, stylesObj, direction, colGap, rowGap, verticalGap, horizontalGap };
+      return { styles, stylesStr, stylesObj, colGap, rowGap };
     },
 
     getGridMainParams: function(page) {
       const styles = {};
-      const direction = _.get(page, 'grid.direction', 'rows');
       const padding = _.get(page, 'grid.padding', 0);
       const colsWidth = _.get(page, 'grid.colsWidth', 1);
       const rowsHeight = _.get(page, 'grid.rowsHeight', 1);
@@ -110,17 +101,13 @@ const app = new Vue({
       styles['padding'] = `${padding}cm`;
       const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
       const stylesObj = Object.keys(styles).reduce((t, key) => ({ ...t, ...{ [key]: `${key}: ${styles[key]};` } }), {});
-      return { styles, stylesStr, stylesObj, direction, padding, colsWidth, rowsHeight, colsCount, rowsCount };
+      return { styles, stylesStr, stylesObj, padding, colsWidth, rowsHeight, colsCount, rowsCount };
     },
 
     getGridRows: function(page) {
       const styles = {};
-      const { direction, colsWidth, rowsHeight, colsCount, rowsCount } = this.getGridMainParams(page);
-      let heigths = direction === 'columns' ? rowsHeight : colsWidth;
-      if (typeof heigths === 'number') {
-        const count = direction === 'columns' ? colsCount : rowsCount;
-        heigths = Array(count).fill(heigths);
-      }
+      const { rowsHeight, rowsCount } = this.getGridMainParams(page);
+      let heigths = typeof rowsHeight === 'number' ? Array(rowsCount).fill(rowsHeight) : rowsHeight;
       styles['grid-template-rows'] = heigths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
       const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
       return { styles, stylesStr, heigths };
@@ -128,12 +115,8 @@ const app = new Vue({
 
     getGridCols: function(page) {
       const styles = {};
-      const { direction, colsWidth, rowsHeight, colsCount, rowsCount } = this.getGridMainParams(page);
-      let widths = direction === 'columns' ? colsWidth : rowsHeight;
-      if (typeof widths === 'number') {
-        const count = direction === 'columns' ? rowsCount : colsCount;
-        widths = Array(count).fill(widths);
-      }
+      const { colsWidth, colsCount } = this.getGridMainParams(page);
+      let widths = typeof colsWidth === 'number' ? Array(colsCount).fill(colsWidth) : colsWidth;
       styles['grid-template-columns'] = widths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
       const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
 
@@ -144,15 +127,7 @@ const app = new Vue({
       let styles = {};
 
       const { styles: stylesGap, colGap, rowGap, verticalGap, horizontalGap } = this.getGridGaps(page);
-      const {
-        styles: stylesMain,
-        direction,
-        padding,
-        colsWidth,
-        rowsHeight,
-        colsCount,
-        rowsCount,
-      } = this.getGridMainParams(page);
+      const { styles: stylesMain, padding, colsWidth, rowsHeight, colsCount, rowsCount } = this.getGridMainParams(page);
       const { styles: stylesRows, heigths } = this.getGridRows(page);
       const { styles: stylesCols, widths } = this.getGridCols(page);
 
@@ -161,7 +136,6 @@ const app = new Vue({
       const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
       const data = {
         padding,
-        direction,
         colGap,
         rowGap,
         colsWidth,
@@ -176,27 +150,15 @@ const app = new Vue({
       return { style, data };
     },
 
-    changeDirection: function(page, pageId) {
-      if (_.get(this.pages[pageId], 'grid.direction') !== 'columns') {
-        Vue.set(this.pages[pageId], 'grid.direction', 'columns');
-      } else {
-        Vue.set(this.pages[pageId], 'grid.direction', 'rows');
-      }
-    },
-
     getCellData: function(page, index) {
       const colsCount = _.get(page, 'grid.colsCount', 1);
       const row = Math.floor(index / colsCount);
       const col = index - row * colsCount;
 
       const styles = {};
-      if (this.getDirection(page) === 'columns') {
-        styles['grid-column'] = `${row + 1} / ${row + 2}`;
-        styles['grid-row'] = `${col + 1} / ${col + 2}`;
-      } else {
-        styles['grid-row'] = `${row + 1} / ${row + 2}`;
-        styles['grid-column'] = `${col + 1} / ${col + 2}`;
-      }
+      styles['grid-row'] = `${row + 1} / ${row + 2}`;
+      styles['grid-column'] = `${col + 1} / ${col + 2}`;
+
       const content = this.getCellContent(page, row, col);
       const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
       return { style, content };
