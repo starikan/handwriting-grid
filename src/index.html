@@ -26,24 +26,27 @@
           <div :size="getFormat(page)"
                :layout="getLayout(page)"
                class="page">
-            <div class="symbols-grid"
-                 :style="getGridData(page).style">
-              <div class="cell"
-                   v-for="cellId in getCellsCount(page).range"
-                   :class="{['page_' + index + '_cell_' + cellId]: true}"
-                   :style="getCellData(page, cellId).style">
-                <!-- <div class="cross">
-                  <span class="stroke stroke-diag-left"></span>
-                  <span class="stroke stroke-diag-right"></span>
-                  <span class="stroke stroke-vert-left"></span>
-                  <span class="stroke stroke-vert-center"></span>
-                  <span class="stroke stroke-vert-right"></span>
-                  <span class="stroke stroke-horiz-top"></span>
-                  <span class="stroke stroke-horiz-center"></span>
-                  <span class="stroke stroke-horiz-bottom"></span>
-                </div> -->
-                <div class="text-wrapper">
-                  <p> {{getCellData(page, cellId).content}} </p>
+            <div class="symbols-grid">
+              <div class="row"
+                   v-for="row in getCellsCount(page).rowsRange">
+                <div class="col"
+                     v-for="col in getCellsCount(page).colsRange">
+                  <div class="cell"
+                       @click="cellClick(page, row, col)">
+                    <!-- <div class="cross">
+                      <span class="stroke stroke-diag-left"></span>
+                      <span class="stroke stroke-diag-right"></span>
+                      <span class="stroke stroke-vert-left"></span>
+                      <span class="stroke stroke-vert-center"></span>
+                      <span class="stroke stroke-vert-right"></span>
+                      <span class="stroke stroke-horiz-top"></span>
+                      <span class="stroke stroke-horiz-center"></span>
+                      <span class="stroke stroke-horiz-bottom"></span>
+                    </div> -->
+                    <div class="text-wrapper">
+                      <p> {{getCellData(page, row, col).content}} </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -61,7 +64,6 @@
                 <em class="fa fa-plus"></em>
               </button>
             </div>
-
           </div>
           <div class="right-menu"></div>
           <div class="left-menu">

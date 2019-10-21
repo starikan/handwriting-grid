@@ -11,7 +11,7 @@ const router = new VueRouter({
 });
 
 const range = function*(start, end) {
-  for (let i = start; i <= end; i++) {
+  for (let i = start; i < end; i++) {
     yield i;
   }
 };
@@ -29,15 +29,13 @@ const app = new Vue({
           // width: false,
         },
         grid: {
-          //     rowGap: 0.5,
-          //     colGap: 0.5,
-          //     padding: 0.5,
-          //     rowsHeight: 2,
-          //     colsWidth: 2,
+          // rowGap: 0.5,
+          // colGap: 0.5,
+          // padding: 0.5,
+          // rowsHeight: 2,
+          // colsWidth: 2,
         },
-        //   cellBorder: {},
-        //   columnsWidth: {},
-        content: [],
+        content: [[{text: 1}, {text: 2}],[{text: 1}, {text: 2}]],
       },
     ];
   },
@@ -56,9 +54,9 @@ const app = new Vue({
       const content = _.get(page, 'content', []);
       const colsCount = content.map(v => v.length).reduce((v, s) => (v > s ? v : s), 0);
       const rowsCount = content.length;
-      const result = { range: [...range(0, colsCount * rowsCount - 1)], colsCount, rowsCount };
-      console.log(result, content);
-      return result;
+      const rowsRange = [...range(0, rowsCount)];
+      const colsRange = [...range(0, colsCount)];
+      return { colsCount, rowsCount, rowsRange, colsRange };
     },
 
     getFormat: function(page) {
@@ -140,45 +138,14 @@ const app = new Vue({
       return { style, data };
     },
 
-    getCellData: function(page, index) {
-      const { colsCount } = this.getCellsCount(page);
-      const row = Math.floor(index / colsCount);
-      const col = index - row * colsCount;
-
+    getCellData: function(page, row, col) {
       const styles = {};
       styles['grid-row'] = `${row + 1} / ${row + 2}`;
       styles['grid-column'] = `${col + 1} / ${col + 2}`;
 
-      const content = this.getCellContent(page, row, col);
+      const content = _.get(page, ['content', row, col, 'text'], '');
       const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
       return { style, content };
-    },
-
-    getCellContent: function(page, row, col) {
-      // const {colsCount} = this.getCellsCount(page);
-      // const symbols = _.get(page, ['symbols', row], []);
-      // if (symbols) {
-      //   const text = symbols.text;
-      //   if (!text) {
-      //     return '';
-      //   }
-      //   if (typeof text === 'object' && text.length) {
-      //     const textPad = [];
-      //     if (_.get(symbols, 'repeat', true)) {
-      //       while (textPad.length < colsCount) {
-      //         textPad.splice(textPad.length + 1, 0, ...text);
-      //       }
-      //     } else {
-      //       textPad.splice(textPad.length + 1, 0, ...text);
-      //     }
-      //     return textPad[col];
-      //   }
-      //   if (typeof text === 'string' && text.length) {
-      //     const textPad = _.get(symbols, 'repeat', true) ? text.padEnd(colsCount, text) : text;
-      //     return textPad[col];
-      //   }
-      // }
-      return _.get(page, 'content[row][col].text', '');
     },
 
     getLeftMenuStyle: function(page) {
@@ -198,7 +165,7 @@ const app = new Vue({
     rowAdd: function(pageId) {
       const content = _.get(this.pages[pageId], 'content', []);
       if (!content.length) {
-        content.push([{}]);
+        content.push([{text: " "}]);
       } else {
         content.push([]);
       }
@@ -211,9 +178,13 @@ const app = new Vue({
       if (!content.length) {
         content.push([]);
       }
-      content[0].push({});
+      content[0].push({text: " "});
       console.log(content);
       Vue.set(this.pages[pageId], 'content', content);
+    },
+
+    cellClick: function(page, row, col) {
+      console.log(row, col);
     },
   },
   data: {
