@@ -23,20 +23,20 @@
            class='pages'
            v-if="pages.length">
         <div class="page-container">
-          <div :size="getFormat(page)"
-               :layout="getLayout(page)"
+          <div :size="getGridStyles(page).format"
+               :layout="getGridStyles(page).layout"
+               :style="getGridStyles(page).padding"
                class="page">
             <div class="symbols-grid"
                  :style=getGridStyles(page).rowGap>
               <div class="row"
                    v-for="row in getCellsCount(page).rowsRange"
                    :style=getGridStyles(page).colGap>
-                <div class="col"
-                     v-for="col in getCellsCount(page).colsRange">
-                  <div class="cell"
-                       :style="getGridStyles(page, row, col)"
-                       @click="cellClick(page, row, col)">
-                    <!-- <div class="cross">
+                <div class="cell"
+                     v-for="col in getCellsCount(page).colsRange"
+                     :style="getGridStyles(page, row, col).width + getGridStyles(page, row, col).height"
+                     @click="cellClick(page, row, col)">
+                  <!-- <div class="cross">
                       <span class="stroke stroke-diag-left"></span>
                       <span class="stroke stroke-diag-right"></span>
                       <span class="stroke stroke-vert-left"></span>
@@ -46,9 +46,8 @@
                       <span class="stroke stroke-horiz-center"></span>
                       <span class="stroke stroke-horiz-bottom"></span>
                     </div>-->
-                    <div class="text-wrapper">
-                      <p> {{getCellData(page, row, col).content}} </p>
-                    </div>
+                  <div class="text-wrapper">
+                    <p> {{getCellData(page, row, col).content}} </p>
                   </div>
                 </div>
               </div>
@@ -98,7 +97,7 @@
       </div>
       <div v-if="!pages.length">
         <button class="add-page"
-                @click="addPageAfter(0)">
+                @click="addPageAfter()">
           <em class="fa fa-plus"></em>
         </button>
       </div>

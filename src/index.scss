@@ -4,7 +4,7 @@
 
 :root {
   --cell-size: 0;
-  --font-size: 1.8cm;
+  --font-size: 1cm;
   --stroke-thick: 1px;
 }
 
@@ -119,36 +119,34 @@ body {
   .row {
     display: grid;
     grid-auto-flow: column;
-    grid-column-gap: 0px;
+    grid-auto-columns: min-content;
 
-    .col {
-      .cell {
-        padding: 0px;
-        margin: 0px;
-        border: var(--stroke-thick) dashed black;
-        font-size: var(--font-size);
-        color: white;
-        -webkit-text-stroke: 1px grey;
-        // font-family: 'Noto Serif TC', serif;
-        // font-family: 'China6', serif;
-        // font-family: 'China3', serif;
-        // font-family: 'China1', serif;
-        // font-family: 'China2', serif;
-        // font-family: 'China4', serif;
-        // font-family: 'China5', serif;
-        font-family: 'KaiTi_GB2312', 'China5', serif;
+    .cell {
+      padding: 0px;
+      margin: 0px;
+      border: var(--stroke-thick) dashed black;
+      font-size: var(--font-size);
+      color: white;
+      -webkit-text-stroke: 1px grey;
+      // font-family: 'Noto Serif TC', serif;
+      // font-family: 'China6', serif;
+      // font-family: 'China3', serif;
+      // font-family: 'China1', serif;
+      // font-family: 'China2', serif;
+      // font-family: 'China4', serif;
+      // font-family: 'China5', serif;
+      font-family: 'KaiTi_GB2312', 'China5', serif;
 
-        .text-wrapper {
-          display: grid;
-          width: 100%;
-          height: 100%;
-          align-content: center;
-          justify-content: center;
+      .text-wrapper {
+        display: grid;
+        width: 100%;
+        height: 100%;
+        align-content: center;
+        justify-content: center;
 
-          p {
-            margin: 0;
-            padding: 0;
-          }
+        p {
+          margin: 0;
+          padding: 0;
         }
       }
     }

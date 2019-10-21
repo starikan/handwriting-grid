@@ -29,20 +29,21 @@ const app = new Vue({
           // width: false,
         },
         grid: {
-          // rowGap: 0.5,
-          // colGap: 0.5,
-          // padding: 0.5,
-          // rowsHeight: 2,
-          // colsWidth: 2,
+          rowGap: 0.5,
+          colGap: 0.5,
+          padding: 0.5,
         },
-        content: [[{text: 1}, {text: 2}],[{text: 1}, {text: 2}]],
+        content: [
+          [{ text: 1, width: 1, height: 1 }, { text: 2, width: 2, height: 1 }],
+          [{ text: 1, width: 2, height: 1 }, { text: 2, width: 1, height: 1 }],
+        ],
       },
     ];
   },
   computed: {},
   watch: {},
   methods: {
-    addPageAfter: function(index) {
+    addPageAfter: function(index = 0) {
       this.pages.splice(index + 1, 0, {});
     },
 
@@ -59,18 +60,15 @@ const app = new Vue({
       return { colsCount, rowsCount, rowsRange, colsRange };
     },
 
-    getFormat: function(page) {
-      return _.get(page, 'size.format', 'A4');
-    },
-
-    getLayout: function(page) {
-      return _.get(page, 'size.layout', 'portrait');
-    },
-
-    getGridStyles: function(page){
+    getGridStyles: function(page, row = 0, col = 0) {
+      const padding = `padding: ${_.get(page, 'grid.padding', 0)}cm;`;
       const colGap = `grid-column-gap: ${_.get(page, 'grid.colGap', 0)}cm;`;
       const rowGap = `grid-row-gap: ${_.get(page, 'grid.rowGap', 0)}cm;`;
-      return {colGap, rowGap}
+      const format = _.get(page, 'size.format', 'A4');
+      const layout = _.get(page, 'size.layout', 'portrait');
+      const width = `width: ${_.get(page, ['content', row, col, 'width'], 0)}cm;`;
+      const height = `height: ${_.get(page, ['content', row, col, 'height'], 0)}cm;`;
+      return { colGap, rowGap, format, layout, padding, width, height };
     },
 
     getGridGaps: function(page) {
@@ -171,7 +169,7 @@ const app = new Vue({
     rowAdd: function(pageId) {
       const content = _.get(this.pages[pageId], 'content', []);
       if (!content.length) {
-        content.push([{text: " "}]);
+        content.push([{ text: ' ' }]);
       } else {
         content.push([]);
       }
@@ -184,7 +182,7 @@ const app = new Vue({
       if (!content.length) {
         content.push([]);
       }
-      content[0].push({text: " "});
+      content[0].push({ text: ' ' });
       console.log(content);
       Vue.set(this.pages[pageId], 'content', content);
     },
