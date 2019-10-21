@@ -67,6 +67,12 @@ const app = new Vue({
       return _.get(page, 'size.layout', 'portrait');
     },
 
+    getGridStyles: function(page){
+      const colGap = `grid-column-gap: ${_.get(page, 'grid.colGap', 0)}cm;`;
+      const rowGap = `grid-row-gap: ${_.get(page, 'grid.rowGap', 0)}cm;`;
+      return {colGap, rowGap}
+    },
+
     getGridGaps: function(page) {
       const styles = {};
       const colGap = _.get(page, 'grid.colGap', 0);

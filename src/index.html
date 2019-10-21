@@ -26,12 +26,15 @@
           <div :size="getFormat(page)"
                :layout="getLayout(page)"
                class="page">
-            <div class="symbols-grid">
+            <div class="symbols-grid"
+                 :style=getGridStyles(page).rowGap>
               <div class="row"
-                   v-for="row in getCellsCount(page).rowsRange">
+                   v-for="row in getCellsCount(page).rowsRange"
+                   :style=getGridStyles(page).colGap>
                 <div class="col"
                      v-for="col in getCellsCount(page).colsRange">
                   <div class="cell"
+                       :style="getGridStyles(page, row, col)"
                        @click="cellClick(page, row, col)">
                     <!-- <div class="cross">
                       <span class="stroke stroke-diag-left"></span>
@@ -42,7 +45,7 @@
                       <span class="stroke stroke-horiz-top"></span>
                       <span class="stroke stroke-horiz-center"></span>
                       <span class="stroke stroke-horiz-bottom"></span>
-                    </div> -->
+                    </div>-->
                     <div class="text-wrapper">
                       <p> {{getCellData(page, row, col).content}} </p>
                     </div>
