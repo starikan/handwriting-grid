@@ -29,7 +29,7 @@
             <div class="symbols-grid"
                  :style="getGridData(page).style">
               <div class="cell"
-                   v-for="cellId in getCellsCount(page)"
+                   v-for="cellId in getCellsCount(page).range"
                    :class="{['page_' + index + '_cell_' + cellId]: true}"
                    :style="getCellData(page, cellId).style">
                 <!-- <div class="cross">

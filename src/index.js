@@ -29,8 +29,6 @@ const app = new Vue({
           // width: false,
         },
         grid: {
-          // colsCount: 5,
-          // rowsCount: 3,
           //     rowGap: 0.5,
           //     colGap: 0.5,
           //     padding: 0.5,
@@ -39,16 +37,7 @@ const app = new Vue({
         },
         //   cellBorder: {},
         //   columnsWidth: {},
-        //   symbols: [
-        //     {
-        //       // TODO: сделать возможность добавления ссылок на картинки
-        //       text: ['熊', '猫'],
-        //       repeat: true,
-        //     },
-        //     { text: '鼠标' },
-        //     { text: '狗' },
-        //   ],
-        // content: [{ text: ['a', 'b'], repeat: true }, ['c', 'd'], 'x', 'zzz' { text: 'ef', repeat: false }],
+        content: [],
       },
     ];
   },
@@ -64,10 +53,12 @@ const app = new Vue({
     },
 
     getCellsCount: function(page) {
-      const colsCount = _.get(page, 'grid.colsCount', 1);
-      const rowsCount = _.get(page, 'grid.rowsCount', 1);
-
-      return [...range(0, colsCount * rowsCount - 1)];
+      const content = _.get(page, 'content', []);
+      const colsCount = content.map(v => v.length).reduce((v, s) => (v > s ? v : s), 0);
+      const rowsCount = content.length;
+      const result = { range: [...range(0, colsCount * rowsCount - 1)], colsCount, rowsCount };
+      console.log(result, content);
+      return result;
     },
 
     getFormat: function(page) {
@@ -93,10 +84,9 @@ const app = new Vue({
     getGridMainParams: function(page) {
       const styles = {};
       const padding = _.get(page, 'grid.padding', 0);
+      const { colsCount, rowsCount } = this.getCellsCount(page);
       const colsWidth = _.get(page, 'grid.colsWidth', 1);
       const rowsHeight = _.get(page, 'grid.rowsHeight', 1);
-      const colsCount = _.get(page, 'grid.colsCount', 1);
-      const rowsCount = _.get(page, 'grid.rowsCount', 1);
 
       styles['padding'] = `${padding}cm`;
       const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
@@ -151,7 +141,7 @@ const app = new Vue({
     },
 
     getCellData: function(page, index) {
-      const colsCount = _.get(page, 'grid.colsCount', 1);
+      const { colsCount } = this.getCellsCount(page);
       const row = Math.floor(index / colsCount);
       const col = index - row * colsCount;
 
@@ -165,41 +155,39 @@ const app = new Vue({
     },
 
     getCellContent: function(page, row, col) {
-      const colsCount = _.get(page, 'grid.colsCount', 1);
-      const symbols = _.get(page, ['symbols', row], []);
-      if (symbols) {
-        const text = symbols.text;
-        if (!text) {
-          return '';
-        }
-        if (typeof text === 'object' && text.length) {
-          const textPad = [];
-          if (_.get(symbols, 'repeat', true)) {
-            while (textPad.length < colsCount) {
-              textPad.splice(textPad.length + 1, 0, ...text);
-            }
-          } else {
-            textPad.splice(textPad.length + 1, 0, ...text);
-          }
-          return textPad[col];
-        }
-        if (typeof text === 'string' && text.length) {
-          const textPad = _.get(symbols, 'repeat', true) ? text.padEnd(colsCount, text) : text;
-          return textPad[col];
-        }
-      }
-      return '';
+      // const {colsCount} = this.getCellsCount(page);
+      // const symbols = _.get(page, ['symbols', row], []);
+      // if (symbols) {
+      //   const text = symbols.text;
+      //   if (!text) {
+      //     return '';
+      //   }
+      //   if (typeof text === 'object' && text.length) {
+      //     const textPad = [];
+      //     if (_.get(symbols, 'repeat', true)) {
+      //       while (textPad.length < colsCount) {
+      //         textPad.splice(textPad.length + 1, 0, ...text);
+      //       }
+      //     } else {
+      //       textPad.splice(textPad.length + 1, 0, ...text);
+      //     }
+      //     return textPad[col];
+      //   }
+      //   if (typeof text === 'string' && text.length) {
+      //     const textPad = _.get(symbols, 'repeat', true) ? text.padEnd(colsCount, text) : text;
+      //     return textPad[col];
+      //   }
+      // }
+      return _.get(page, 'content[row][col].text', '');
     },
 
     getLeftMenuStyle: function(page) {
-      console.log(this.getGridMainParams(page).styles['padding']);
       return `padding-top: ${this.getGridMainParams(page).styles['padding']};${this.getGridRows(page).stylesStr}${
         this.getGridGaps(page).stylesStr
       }`;
     },
 
     getTopMenuStyle: function(page) {
-      console.log(this.getGridMainParams(page).styles['padding']);
       return `padding-left: ${this.getGridMainParams(page).styles['padding']};${this.getGridCols(page).stylesStr}${
         this.getGridGaps(page).stylesStr
       }`;
@@ -208,15 +196,24 @@ const app = new Vue({
     rowRemove: function(pageId, rowId) {},
 
     rowAdd: function(pageId) {
-      const rows = this.getGridMainParams(this.pages[pageId]).rowsCount;
-      Vue.set(this.pages[pageId], 'grid.rowsCount', rows + 1);
+      const content = _.get(this.pages[pageId], 'content', []);
+      if (!content.length) {
+        content.push([{}]);
+      } else {
+        content.push([]);
+      }
     },
 
     colRemove: function(pageId, colId) {},
 
     colAdd: function(pageId) {
-      const cols = this.getGridMainParams(this.pages[pageId]).colsCount;
-      Vue.set(this.pages[pageId], 'grid.colsCount', cols + 1);
+      const content = _.get(this.pages[pageId], 'content', []);
+      if (!content.length) {
+        content.push([]);
+      }
+      content[0].push({});
+      console.log(content);
+      Vue.set(this.pages[pageId], 'content', content);
     },
   },
   data: {
