@@ -190,7 +190,7 @@ const app = new Vue({
     rowAdd: function(page) {
       const content = _.get(page, 'content', []);
       const colMaxIndex = this.getCellsCount(page).colsCount || 1;
-      content.push(new Array(colMaxIndex).fill(this.cellBlank));
+      content.push(new Array(colMaxIndex).fill(_.clone(this.cellBlank)));
     },
 
     colRemove: function(page) {
@@ -215,7 +215,7 @@ const app = new Vue({
         content.push([]);
       }
       content = content.map(v => {
-        v.push(this.cellBlank);
+        v.push(_.clone(this.cellBlank));
         return v;
       });
 
@@ -298,7 +298,7 @@ const app = new Vue({
   },
   data: {
     pages: [],
-    cellBlank: { text: ' ', width: 1, height: 1 },
+    cellBlank: { text: '', width: 1, height: 1 },
     selected: {},
   },
 });
