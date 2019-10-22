@@ -16,13 +16,21 @@ const range = function*(start, end) {
   }
 };
 
+const uuidv4 = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    let r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
+
 const app = new Vue({
   router,
   el: '#app',
   mounted: function() {
     this.pages = [
       {
-        id: '123321',
+        id: uuidv4(),
         size: {
           format: 'A4',
           layout: 'portrait',
@@ -45,7 +53,7 @@ const app = new Vue({
   watch: {},
   methods: {
     addPageAfter: function(index = 0) {
-      this.pages.splice(index + 1, 0, {});
+      this.pages.splice(index + 1, 0, { id: uuidv4() });
     },
 
     deletePage: function(index) {
@@ -176,11 +184,15 @@ const app = new Vue({
     colRemove: function(pageId, colId) {},
 
     colAdd: function(page) {
-      let content = _.get(page, 'content', [])
+      let content = _.get(page, 'content', []);
       if (!content.length) {
         content.push([]);
       }
-      content = content.map(v => {v.push(this.cellBlank); console.log(v);return v;});
+      content = content.map(v => {
+        v.push(this.cellBlank);
+        console.log(v);
+        return v;
+      });
 
       const pageId = this.pages.map(v => v.id).indexOf(page.id);
       Vue.set(this.pages[pageId], 'content', content);
