@@ -68,7 +68,12 @@
               </button>
             </div>
           </div>
-          <div class="right-menu"></div>
+          <div class="right-menu">
+            <button class="clear-page"
+                    @click="clearPage(page)">
+              <em class="fa fa-minus"></em>
+            </button>
+          </div>
           <div class="left-menu">
             <div class="row-add-remove"
                  :style="getLeftMenuStyle(page)">

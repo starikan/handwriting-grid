@@ -28,7 +28,12 @@ const app = new Vue({
   router,
   el: '#app',
   mounted: function() {
-    this.pages = [
+    let pages;
+    try {
+      pages = JSON.parse(localStorage.getItem('pages'));
+    } catch (error) {}
+
+    this.pages = pages || [
       {
         id: uuidv4(),
         size: {
@@ -50,7 +55,14 @@ const app = new Vue({
     ];
   },
   computed: {},
-  watch: {},
+  watch: {
+    pages: {
+      handler: function(curr) {
+        localStorage.setItem('pages', JSON.stringify(curr));
+      },
+      deep: true,
+    },
+  },
   methods: {
     addPageAfter: function(index = 0) {
       this.pages.splice(index + 1, 0, { id: uuidv4() });
@@ -61,7 +73,7 @@ const app = new Vue({
     },
 
     getCellsCount: function(page, content) {
-      content = page && _.get(page, 'content', []) || content;
+      content = (page && _.get(page, 'content', [])) || content;
       const colsCount = content.map(v => v.length).reduce((v, s) => (v > s ? v : s), 0);
       const rowsCount = content.length;
       const rowsRange = [...range(0, rowsCount)];
@@ -196,7 +208,10 @@ const app = new Vue({
     colRemove: function(page) {
       if (this.selected.pageId === page.id && !_.isUndefined(this.selected.col)) {
         const pageId = this.pages.map(v => v.id).indexOf(page.id);
-        let content = _.get(page, 'content', []).map(v => {v.splice(this.selected.col, 1); return v;});
+        let content = _.get(page, 'content', []).map(v => {
+          v.splice(this.selected.col, 1);
+          return v;
+        });
         const colsCount = this.getCellsCount(null, content).colsCount;
         if (!colsCount) {
           content = [];
@@ -222,7 +237,6 @@ const app = new Vue({
     },
 
     cellSelect: function(page, row, col, event) {
-      // debugger;
       if (!page || _.isUndefined(row) || _.isUndefined(col)) {
         Vue.set(this, 'selected', {});
       } else {
@@ -237,6 +251,11 @@ const app = new Vue({
     isSelectedCell: function(page, row, col) {
       return page.id === this.selected.pageId && (row === this.selected.row || col === this.selected.col);
     },
+
+    clearPage: function(page) {
+      const pageId = this.pages.map(v => v.id).indexOf(page.id);
+      Vue.set(this.pages[pageId], 'content', []);
+    }
   },
   data: {
     pages: [],
