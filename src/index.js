@@ -236,7 +236,10 @@ const app = new Vue({
     },
 
     isSelectedCell: function(page, row, col) {
-      return page.id === this.selected.pageId && (row === this.selected.row || col === this.selected.col);
+      return {
+        related: page.id === this.selected.pageId && (row === this.selected.row || col === this.selected.col),
+        main: page.id === this.selected.pageId && row === this.selected.row && col === this.selected.col,
+      };
     },
 
     clearPage: function(page) {

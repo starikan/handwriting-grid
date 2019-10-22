@@ -35,7 +35,7 @@
                    :style=getGridStyles(page).colGap>
                 <div class="cell"
                      v-for="col in getCellsCount(page).colsRange"
-                     :class="{['col_' + col]: true, ['row_' + row]: true, 'selected': isSelectedCell(page, row, col)}"
+                     :class="{['col_' + col]: true, ['row_' + row]: true, 'selected': isSelectedCell(page, row, col).related, 'selected-main': isSelectedCell(page, row, col).main}"
                      :style="getGridStyles(page, row, col).width + getGridStyles(page, row, col).height"
                      @click="cellSelect(page, row, col, $event)">
                   <!-- <div class="cross">

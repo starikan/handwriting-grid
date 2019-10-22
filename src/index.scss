@@ -21,6 +21,11 @@ body {
 
 .selected {
   background-color: burlywood;
+  opacity: 0.5;
+
+  &.selected-main {
+    opacity: 1;
+  }
 }
 
 .pages {
