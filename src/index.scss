@@ -1,6 +1,8 @@
 @import './styles/fonts.scss';
 @import './styles/pages.scss';
 @import './styles/cells.scss';
+@import './styles/dialog.scss';
+@import './styles/modal-edit-cell.scss';
 
 :root {
   --cell-size: 0;
@@ -20,7 +22,7 @@ body {
 }
 
 .selected {
-  background-color: burlywood;
+  background-color: gray;
   opacity: 0.5;
 
   &.selected-main {

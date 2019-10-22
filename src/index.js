@@ -24,6 +24,25 @@ const uuidv4 = () => {
   });
 };
 
+const openModal = (dialogId) => {
+  const modal = document.getElementById(dialogId);
+  modal.showModal();
+
+  const listnerClick = async event => {
+    event.stopPropagation();
+    if (event.target == modal) {
+      modal.close();
+      modal.removeEventListener('click', listnerClick);
+    }
+  }
+  modal.addEventListener('click', listnerClick, false);
+}
+
+const closeModal = (dialogId, modal) => {
+  modal = modal || document.getElementById(dialogId);
+  modal.close();
+}
+
 const app = new Vue({
   router,
   el: '#app',
@@ -245,6 +264,10 @@ const app = new Vue({
     clearPage: function(page) {
       const pageId = this.pages.map(v => v.id).indexOf(page.id);
       Vue.set(this.pages[pageId], 'content', []);
+    },
+
+    openModal: function(dialogId) {
+      openModal(dialogId)
     },
   },
   data: {
