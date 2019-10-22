@@ -21,7 +21,7 @@
     <div id="wrapper">
       <div v-for="(page, pageIndex) in pages"
            class='pages'
-           :class="{['page_' + page.id]: true}"
+           :id="page.id"
            v-if="pages.length">
         <div class="page-container">
           <div :size="getGridStyles(page).format"
@@ -34,7 +34,7 @@
                    :style=getGridStyles(page).colGap>
                 <div class="cell"
                      v-for="col in getCellsCount(page).colsRange"
-                     :class="{['col_' + col]: true, ['row_' + row]: true}"
+                     :class="{['col_' + col]: true, ['row_' + row]: true, 'selected': isSelectedCell(page, row, col)}"
                      :style="getGridStyles(page, row, col).width + getGridStyles(page, row, col).height"
                      @click="cellClick(page, row, col)">
                   <!-- <div class="cross">

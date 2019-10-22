@@ -199,7 +199,12 @@ const app = new Vue({
     },
 
     cellClick: function(page, row, col) {
+      Vue.set(this, 'selected', { pageId: page.id, row, col });
       console.log(row, col);
+    },
+
+    isSelectedCell: function(page, row, col) {
+      return page.id === this.selected.pageId && (row === this.selected.row || col === this.selected.col);
     },
   },
   data: {

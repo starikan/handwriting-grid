@@ -19,6 +19,10 @@ body {
   justify-content: center;
 }
 
+.selected {
+  background-color: burlywood;
+}
+
 .pages {
   display: grid;
   grid-template-columns: 1fr;
