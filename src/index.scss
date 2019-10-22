@@ -179,15 +179,3 @@ body {
     }
   }
 }
-
-#edit {
-  position: relative;
-  top: var(--edit-modal-top);
-  left: var(--edit-modal-left);
-  width: var(--edit-modal-width);
-  height: var(--edit-modal-height);
-  background-color: white;
-  margin: 0;
-
-  display:grid;
-}

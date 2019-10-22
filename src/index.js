@@ -256,7 +256,10 @@ const app = new Vue({
         return;
       }
 
-      let offsetTop, offsetLeft, offsetHeight, offsetWidth;
+      let offsetTop = 0;
+      let offsetLeft = 0;
+      let offsetHeight = 0;
+      let offsetWidth = 0;
 
       if (!drop) {
         const cellDom = document.querySelector(
