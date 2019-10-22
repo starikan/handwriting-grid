@@ -4,25 +4,45 @@
   left: var(--edit-modal-left);
   width: var(--edit-modal-width);
   height: var(--edit-modal-height);
-  background-color: white;
+  // background-color: white;
   margin: 0;
 
   .modal-base {
     width: 100%;
     height: 100%;
     position: relative;
-    top: 0;
-    left: 0;
+    top: calc(-1 * var(--edit-modal-height));
+    left: calc(-1 * var(--edit-modal-width));
     display: grid;
+
+    --button-size: min(var(--edit-modal-height), var(--edit-modal-width));
     grid:
-      "edit-text" var(--edit-modal-height)
-      / var(--edit-modal-width);
+      '. plus-height .' var(--edit-modal-height)
+      'minus-width edit-text plus-width' var(--edit-modal-height)
+      '. minus-height .' var(--edit-modal-height)
+      / var(--edit-modal-height) var(--edit-modal-width) var(--edit-modal-height);
   }
 
   #edit-text {
     grid-area: edit-text;
     border: none;
     text-align: center;
-    font-size: var(--font-size)
+    font-size: var(--font-size);
+  }
+
+  #minus-width {
+    grid-area: minus-width;
+  }
+
+  #plus-width {
+    grid-area: plus-width;
+  }
+
+  #minus-height {
+    grid-area: minus-height;
+  }
+
+  #plus-height {
+    grid-area: plus-height;
   }
 }

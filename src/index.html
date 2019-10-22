@@ -24,6 +24,22 @@
                id="edit-text"
                v-if="selected.page"
                v-model="selected.page.content[selected.row][selected.col].text">
+        <button id="minus-width"
+                @click="minusWidth()">
+          <em class="fa fa-minus"></em>
+        </button>
+        <button id="plus-width"
+                @click="plusWidth()">
+          <em class="fa fa-plus"></em>
+        </button>
+        <button id="minus-height"
+                @click="minusHeight()">
+          <em class="fa fa-minus"></em>
+        </button>
+        <button id="plus-height"
+                @click="plusHeight()">
+          <em class="fa fa-plus"></em>
+        </button>
       </div>
     </dialog>
     <div id="wrapper">
@@ -56,7 +72,7 @@
                       <span class="stroke stroke-horiz-top"></span>
                       <span class="stroke stroke-horiz-center"></span>
                       <span class="stroke stroke-horiz-bottom"></span>
-                    </div>-->
+                    </div> -->
                   <div class="text-wrapper">
                     <p> {{getCellData(page, row, col).content}} </p>
                   </div>
