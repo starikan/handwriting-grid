@@ -22,6 +22,7 @@ const app = new Vue({
   mounted: function() {
     this.pages = [
       {
+        id: '123321',
         size: {
           format: 'A4',
           layout: 'portrait',
@@ -166,24 +167,22 @@ const app = new Vue({
 
     rowRemove: function(pageId, rowId) {},
 
-    rowAdd: function(pageId) {
-      const content = _.get(this.pages[pageId], 'content', []);
-      if (!content.length) {
-        content.push([{ text: ' ' }]);
-      } else {
-        content.push([]);
-      }
+    rowAdd: function(page) {
+      const content = _.get(page, 'content', []);
+      const colMaxIndex = this.getCellsCount(page).colsCount || 1;
+      content.push(new Array(colMaxIndex).fill(this.cellBlank));
     },
 
     colRemove: function(pageId, colId) {},
 
-    colAdd: function(pageId) {
-      const content = _.get(this.pages[pageId], 'content', []);
+    colAdd: function(page) {
+      let content = _.get(page, 'content', [])
       if (!content.length) {
         content.push([]);
       }
-      content[0].push({ text: ' ' });
-      console.log(content);
+      content = content.map(v => {v.push(this.cellBlank); console.log(v);return v;});
+
+      const pageId = this.pages.map(v => v.id).indexOf(page.id);
       Vue.set(this.pages[pageId], 'content', content);
     },
 
@@ -193,5 +192,6 @@ const app = new Vue({
   },
   data: {
     pages: [],
+    cellBlank: { text: ' ', width: 1, height: 1 },
   },
 });

@@ -58,11 +58,11 @@
                  :style="getTopMenuStyle(page)">
               <button class="remove-button col-remove"
                       v-for="(colHeight, colIndex) in getGridData(page).data.widths"
-                      @click="colRemove(index, colIndex)">
+                      @click="colRemove(page, colIndex)">
                 <em class="fa fa-minus"></em>
               </button>
               <button class="add-button col-add"
-                      @click="colAdd(index)">
+                      @click="colAdd(page)">
                 <em class="fa fa-plus"></em>
               </button>
             </div>
@@ -73,11 +73,11 @@
                  :style="getLeftMenuStyle(page)">
               <button class="remove-button row-remove"
                       v-for="(rowHeight, rowIndex) in getGridData(page).data.heigths"
-                      @click="rowRemove(index, rowIndex)">
+                      @click="rowRemove(page, rowIndex)">
                 <em class="fa fa-minus"></em>
               </button>
               <button class="add-button row-add"
-                      @click="rowAdd(index)">
+                      @click="rowAdd(page)">
                 <em class="fa fa-plus"></em>
               </button>
             </div>
