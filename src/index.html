@@ -19,21 +19,22 @@
 <body>
   <div id="app">
     <div id="wrapper">
-      <div v-for="(page, index) in pages"
+      <div v-for="(page, pageIndex) in pages"
            class='pages'
+           :class="{['page_' + page.id]: true}"
            v-if="pages.length">
         <div class="page-container">
           <div :size="getGridStyles(page).format"
                :layout="getGridStyles(page).layout"
-               :style="getGridStyles(page).padding"
                class="page">
             <div class="symbols-grid"
-                 :style=getGridStyles(page).rowGap>
+                 :style="getGridStyles(page).rowGap + getGridStyles(page).margin">
               <div class="row"
                    v-for="row in getCellsCount(page).rowsRange"
                    :style=getGridStyles(page).colGap>
                 <div class="cell"
                      v-for="col in getCellsCount(page).colsRange"
+                     :class="{['col_' + col]: true, ['row_' + row]: true}"
                      :style="getGridStyles(page, row, col).width + getGridStyles(page, row, col).height"
                      @click="cellClick(page, row, col)">
                   <!-- <div class="cross">
@@ -84,12 +85,12 @@
           </div>
           <div class="bottom-menu">
             <button class="add-page"
-                    v-if="pages.length === index + 1"
-                    @click="addPageAfter(index)">
+                    v-if="pages.length === pageIndex + 1"
+                    @click="addPageAfter(pageIndex)">
               <em class="fa fa-plus"></em>
             </button>
             <button class="add-page"
-                    @click="deletePage(index)">
+                    @click="deletePage(pageIndex)">
               <em class="fa fa-minus"></em>
             </button>
           </div>

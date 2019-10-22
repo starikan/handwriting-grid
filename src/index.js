@@ -40,7 +40,7 @@ const app = new Vue({
         grid: {
           rowGap: 0.5,
           colGap: 0.5,
-          padding: 0.5,
+          margin: 0.5,
         },
         content: [
           [{ text: 1, width: 1, height: 1 }, { text: 2, width: 2, height: 1 }],
@@ -70,14 +70,14 @@ const app = new Vue({
     },
 
     getGridStyles: function(page, row = 0, col = 0) {
-      const padding = `padding: ${_.get(page, 'grid.padding', 0)}cm;`;
+      const margin = `margin: ${_.get(page, 'grid.margin', 0)}cm;`;
       const colGap = `grid-column-gap: ${_.get(page, 'grid.colGap', 0)}cm;`;
       const rowGap = `grid-row-gap: ${_.get(page, 'grid.rowGap', 0)}cm;`;
       const format = _.get(page, 'size.format', 'A4');
       const layout = _.get(page, 'size.layout', 'portrait');
       const width = `width: ${_.get(page, ['content', row, col, 'width'], 0)}cm;`;
       const height = `height: ${_.get(page, ['content', row, col, 'height'], 0)}cm;`;
-      return { colGap, rowGap, format, layout, padding, width, height };
+      return { colGap, rowGap, format, layout, margin, width, height };
     },
 
     getGridGaps: function(page) {
@@ -173,7 +173,7 @@ const app = new Vue({
       }`;
     },
 
-    rowRemove: function(pageId, rowId) {},
+    rowRemove: function(page, rowId) {},
 
     rowAdd: function(page) {
       const content = _.get(page, 'content', []);
@@ -181,7 +181,7 @@ const app = new Vue({
       content.push(new Array(colMaxIndex).fill(this.cellBlank));
     },
 
-    colRemove: function(pageId, colId) {},
+    colRemove: function(page, colId) {},
 
     colAdd: function(page) {
       let content = _.get(page, 'content', []);
@@ -205,5 +205,6 @@ const app = new Vue({
   data: {
     pages: [],
     cellBlank: { text: ' ', width: 1, height: 1 },
+    selected: {},
   },
 });
