@@ -24,31 +24,6 @@ const uuidv4 = () => {
   });
 };
 
-const openModal = dialogId => {
-  const modal = document.getElementById(dialogId);
-  modal.showModal();
-
-  const escapeKey = ({ key }) => {
-    key == 'Escape' && modal.close();
-    modal.removeEventListener('keydown', escapeKey);
-  };
-
-  const listnerClick = async event => {
-    event.stopPropagation();
-    if (event.target == modal) {
-      modal.close();
-      modal.removeEventListener('click', listnerClick);
-    }
-  };
-  modal.addEventListener('click', listnerClick, false);
-  modal.addEventListener('keydown', escapeKey);
-};
-
-const closeModal = (dialogId, modal) => {
-  modal = modal || document.getElementById(dialogId);
-  modal.close();
-};
-
 const app = new Vue({
   router,
   el: '#app',
@@ -274,6 +249,48 @@ const app = new Vue({
 
     openModal: function(dialogId) {
       openModal(dialogId);
+    },
+
+    getModalStyle: function(drop = false) {
+      if (_.isEmpty(this.selected)) {
+        return;
+      }
+
+      let offsetTop, offsetLeft, offsetHeight, offsetWidth;
+
+      if (!drop) {
+        const cellDom = document.querySelector(
+          `#${this.selected.pageId} .col_${this.selected.col}.row_${this.selected.row}`,
+        );
+        ({ offsetTop, offsetLeft, offsetHeight, offsetWidth } = cellDom);
+      }
+
+      document.documentElement.style.setProperty('--edit-modal-top', `${offsetTop}px`);
+      document.documentElement.style.setProperty('--edit-modal-left', `${offsetLeft}px`);
+      document.documentElement.style.setProperty('--edit-modal-width', `${offsetWidth}px`);
+      document.documentElement.style.setProperty('--edit-modal-height', `${offsetHeight}px`);
+    },
+
+    openModal: function(dialogId, onClose = function() {}) {
+      const modal = document.getElementById(dialogId);
+      modal.showModal();
+
+      const escapeKey = ({ key }) => {
+        key == 'Escape' && modal.close();
+        modal.removeEventListener('keydown', escapeKey);
+      };
+
+      const listnerClick = async event => {
+        event.stopPropagation();
+        if (event.target == modal) {
+          modal.close();
+          modal.removeEventListener('click', listnerClick);
+        }
+      };
+
+      modal.addEventListener('close', onClose);
+      modal.addEventListener('click', listnerClick, false);
+      modal.addEventListener('keydown', escapeKey);
     },
   },
   data: {

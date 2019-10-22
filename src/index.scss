@@ -5,9 +5,13 @@
 @import './styles/modal-edit-cell.scss';
 
 :root {
-  --cell-size: 0;
   --font-size: 1cm;
   --stroke-thick: 1px;
+
+  --edit-modal-top: 0px;
+  --edit-modal-left: 0px;
+  --edit-modal-width: 0px;
+  --edit-modal-height: 0px;
 }
 
 body {
@@ -174,4 +178,16 @@ body {
       }
     }
   }
+}
+
+#edit {
+  position: relative;
+  top: var(--edit-modal-top);
+  left: var(--edit-modal-left);
+  width: var(--edit-modal-width);
+  height: var(--edit-modal-height);
+  background-color: white;
+  margin: 0;
+
+  display:grid;
 }
