@@ -60,8 +60,8 @@ const app = new Vue({
       this.pages.splice(index, 1);
     },
 
-    getCellsCount: function(page) {
-      const content = _.get(page, 'content', []);
+    getCellsCount: function(page, content) {
+      content = page && _.get(page, 'content', []) || content;
       const colsCount = content.map(v => v.length).reduce((v, s) => (v > s ? v : s), 0);
       const rowsCount = content.length;
       const rowsRange = [...range(0, rowsCount)];
@@ -173,7 +173,19 @@ const app = new Vue({
       }`;
     },
 
-    rowRemove: function(page, rowId) {},
+    rowRemove: function(page) {
+      if (this.selected.pageId === page.id && !_.isUndefined(this.selected.row)) {
+        const pageId = this.pages.map(v => v.id).indexOf(page.id);
+        let content = _.get(page, 'content', []);
+        content.splice(this.selected.row, 1);
+        const rowsCount = this.getCellsCount(null, content).rowsCount;
+        if (!rowsCount) {
+          content = [];
+        }
+        Vue.set(this.pages[pageId], 'content', content);
+        this.cellSelect();
+      }
+    },
 
     rowAdd: function(page) {
       const content = _.get(page, 'content', []);
@@ -181,7 +193,18 @@ const app = new Vue({
       content.push(new Array(colMaxIndex).fill(this.cellBlank));
     },
 
-    colRemove: function(page, colId) {},
+    colRemove: function(page) {
+      if (this.selected.pageId === page.id && !_.isUndefined(this.selected.col)) {
+        const pageId = this.pages.map(v => v.id).indexOf(page.id);
+        let content = _.get(page, 'content', []).map(v => {v.splice(this.selected.col, 1); return v;});
+        const colsCount = this.getCellsCount(null, content).colsCount;
+        if (!colsCount) {
+          content = [];
+        }
+        Vue.set(this.pages[pageId], 'content', content);
+        this.cellSelect();
+      }
+    },
 
     colAdd: function(page) {
       let content = _.get(page, 'content', []);
@@ -198,9 +221,17 @@ const app = new Vue({
       Vue.set(this.pages[pageId], 'content', content);
     },
 
-    cellClick: function(page, row, col) {
-      Vue.set(this, 'selected', { pageId: page.id, row, col });
-      console.log(row, col);
+    cellSelect: function(page, row, col, event) {
+      // debugger;
+      if (!page || _.isUndefined(row) || _.isUndefined(col)) {
+        Vue.set(this, 'selected', {});
+      } else {
+        Vue.set(this, 'selected', { pageId: page.id, row, col });
+      }
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
     },
 
     isSelectedCell: function(page, row, col) {

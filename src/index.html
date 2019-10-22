@@ -28,7 +28,8 @@
                :layout="getGridStyles(page).layout"
                class="page">
             <div class="symbols-grid"
-                 :style="getGridStyles(page).rowGap + getGridStyles(page).margin">
+                 :style="getGridStyles(page).rowGap + getGridStyles(page).margin"
+                 @click="cellSelect()">
               <div class="row"
                    v-for="row in getCellsCount(page).rowsRange"
                    :style=getGridStyles(page).colGap>
@@ -36,7 +37,7 @@
                      v-for="col in getCellsCount(page).colsRange"
                      :class="{['col_' + col]: true, ['row_' + row]: true, 'selected': isSelectedCell(page, row, col)}"
                      :style="getGridStyles(page, row, col).width + getGridStyles(page, row, col).height"
-                     @click="cellClick(page, row, col)">
+                     @click="cellSelect(page, row, col, $event)">
                   <!-- <div class="cross">
                       <span class="stroke stroke-diag-left"></span>
                       <span class="stroke stroke-diag-right"></span>
@@ -58,8 +59,7 @@
             <div class="col-add-remove"
                  :style="getTopMenuStyle(page)">
               <button class="remove-button col-remove"
-                      v-for="(colHeight, colIndex) in getGridData(page).data.widths"
-                      @click="colRemove(page, colIndex)">
+                      @click="colRemove(page)">
                 <em class="fa fa-minus"></em>
               </button>
               <button class="add-button col-add"
@@ -73,8 +73,7 @@
             <div class="row-add-remove"
                  :style="getLeftMenuStyle(page)">
               <button class="remove-button row-remove"
-                      v-for="(rowHeight, rowIndex) in getGridData(page).data.heigths"
-                      @click="rowRemove(page, rowIndex)">
+                      @click="rowRemove(page)">
                 <em class="fa fa-minus"></em>
               </button>
               <button class="add-button row-add"
