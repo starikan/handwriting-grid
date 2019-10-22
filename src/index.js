@@ -24,9 +24,14 @@ const uuidv4 = () => {
   });
 };
 
-const openModal = (dialogId) => {
+const openModal = dialogId => {
   const modal = document.getElementById(dialogId);
   modal.showModal();
+
+  const escapeKey = ({ key }) => {
+    key == 'Escape' && modal.close();
+    modal.removeEventListener('keydown', escapeKey);
+  };
 
   const listnerClick = async event => {
     event.stopPropagation();
@@ -34,14 +39,15 @@ const openModal = (dialogId) => {
       modal.close();
       modal.removeEventListener('click', listnerClick);
     }
-  }
+  };
   modal.addEventListener('click', listnerClick, false);
-}
+  modal.addEventListener('keydown', escapeKey);
+};
 
 const closeModal = (dialogId, modal) => {
   modal = modal || document.getElementById(dialogId);
   modal.close();
-}
+};
 
 const app = new Vue({
   router,
@@ -246,7 +252,7 @@ const app = new Vue({
       if (!page || _.isUndefined(row) || _.isUndefined(col)) {
         Vue.set(this, 'selected', {});
       } else {
-        Vue.set(this, 'selected', { pageId: page.id, row, col });
+        Vue.set(this, 'selected', { pageId: page.id, row, col, page });
       }
       if (event) {
         event.preventDefault();
@@ -267,7 +273,7 @@ const app = new Vue({
     },
 
     openModal: function(dialogId) {
-      openModal(dialogId)
+      openModal(dialogId);
     },
   },
   data: {

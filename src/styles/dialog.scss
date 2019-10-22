@@ -14,7 +14,7 @@ dialog {
   border-radius: 8px;
   border: none;
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-  transform: translateY(50vh) scale(0, 1.2);
+  // transform: translateY(50vh) scale(0, 1.2);
   will-change: transform, opacity;
 
   &::backdrop {

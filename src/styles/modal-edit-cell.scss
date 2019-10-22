@@ -1,6 +1,26 @@
 .modal-base {
   width: 100%;
   height: 100%;
-  display: grid;
-  padding: 50px;
+
+  .grid {
+    width: 300px;
+    padding: 50px;
+    display: grid;
+    grid-auto-flow: row;
+
+    .row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-column-gap: 15px;
+
+      p {
+      }
+
+      input {
+        font-size: 25px;
+        padding-left: 10px;
+        width: 100%;
+      }
+    }
+  }
 }

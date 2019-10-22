@@ -149,6 +149,8 @@ body {
       font-size: var(--font-size);
       color: white;
       -webkit-text-stroke: 1px grey;
+      cursor: pointer;
+      user-select: none;
       // font-family: 'Noto Serif TC', serif;
       // font-family: 'China6', serif;
       // font-family: 'China3', serif;

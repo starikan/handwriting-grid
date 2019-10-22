@@ -20,7 +20,15 @@
   <div id="app">
     <dialog id="edit-cell">
       <div class="modal-base">
-        <p> {{selected}} </p>
+        <div class="grid">
+          <div class="row">
+            <p>Text</p>
+            <input type="text"
+                   v-if="selected.page"
+                   v-model="selected.page.content[selected.row][selected.col].text">
+          </div>
+        </div>
+        <!-- <p> {{selected}} </p> -->
       </div>
     </dialog>
     <div id="wrapper">
