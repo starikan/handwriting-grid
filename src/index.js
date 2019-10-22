@@ -173,18 +173,6 @@ const app = new Vue({
       return { style, content };
     },
 
-    getLeftMenuStyle: function(page) {
-      return `padding-top: ${this.getGridMainParams(page).styles['padding']};${this.getGridRows(page).stylesStr}${
-        this.getGridGaps(page).stylesStr
-      }`;
-    },
-
-    getTopMenuStyle: function(page) {
-      return `padding-left: ${this.getGridMainParams(page).styles['padding']};${this.getGridCols(page).stylesStr}${
-        this.getGridGaps(page).stylesStr
-      }`;
-    },
-
     rowRemove: function(page) {
       if (this.selected.pageId === page.id && !_.isUndefined(this.selected.row)) {
         const pageId = this.pages.map(v => v.id).indexOf(page.id);
@@ -228,7 +216,6 @@ const app = new Vue({
       }
       content = content.map(v => {
         v.push(this.cellBlank);
-        console.log(v);
         return v;
       });
 
@@ -255,7 +242,7 @@ const app = new Vue({
     clearPage: function(page) {
       const pageId = this.pages.map(v => v.id).indexOf(page.id);
       Vue.set(this.pages[pageId], 'content', []);
-    }
+    },
   },
   data: {
     pages: [],

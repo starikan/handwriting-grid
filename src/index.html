@@ -56,8 +56,7 @@
             </div>
           </div>
           <div class="top-menu">
-            <div class="col-add-remove"
-                 :style="getTopMenuStyle(page)">
+            <div class="col-add-remove">
               <button class="remove-button col-remove"
                       @click="colRemove(page)">
                 <em class="fa fa-minus"></em>
@@ -71,12 +70,11 @@
           <div class="right-menu">
             <button class="clear-page"
                     @click="clearPage(page)">
-              <em class="fa fa-minus"></em>
+              <em class="fa fa-trash"></em>
             </button>
           </div>
           <div class="left-menu">
-            <div class="row-add-remove"
-                 :style="getLeftMenuStyle(page)">
+            <div class="row-add-remove">
               <button class="remove-button row-remove"
                       @click="rowRemove(page)">
                 <em class="fa fa-minus"></em>
