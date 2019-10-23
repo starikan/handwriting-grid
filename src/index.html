@@ -25,19 +25,19 @@
                v-if="selected.page"
                v-model="selected.page.content[selected.row][selected.col].text">
         <button id="minus-width"
-                @click="minusWidth()">
+                @click="editWidth(0)">
           <em class="fa fa-minus"></em>
         </button>
         <button id="plus-width"
-                @click="plusWidth()">
+                @click="editWidth(1)">
           <em class="fa fa-plus"></em>
         </button>
         <button id="minus-height"
-                @click="minusHeight()">
+                @click="editHeight(0)">
           <em class="fa fa-minus"></em>
         </button>
         <button id="plus-height"
-                @click="plusHeight()">
+                @click="editHeight(1)">
           <em class="fa fa-plus"></em>
         </button>
         <button id="extend-rigth"

@@ -235,39 +235,53 @@ const app = new Vue({
       document.documentElement.style.setProperty('--edit-modal-height', `${offsetHeight}px`);
     },
 
-    minusWidth: function() {},
-    plusWidth: function() {},
-    minusHeight: function() {},
-    plusHeight: function() {},
+    editWidth: function(sign = 1, step = 0.1) {
+      const { row, col } = this.selected;
+      const width = _.get(this.selected.page, ['content', row, col, 'width'], 1);
+      if (sign) {
+        Vue.set(this.selected.page.content[row][col], 'width', width + step);
+      } else {
+        Vue.set(this.selected.page.content[row][col], 'width', width - step);
+      }
+    },
+    editHeight: function(sign = 1, step = 0.1) {
+      const { row, col } = this.selected;
+      const height = _.get(this.selected.page, ['content', row, col, 'height'], 1);
+      if (sign) {
+        Vue.set(this.selected.page.content[row][col], 'height', height + step);
+      } else {
+        Vue.set(this.selected.page.content[row][col], 'height', height - step);
+      }
+    },
     extendHoriz: function(direction) {
       let content = _.get(this.selected.page, 'content', []);
       const { row, col } = this.selected;
-      const cell = { ..._.get(this.selected.page, ['content', row, col], { ...this.cellBlank }) };
+      const cell = _.get(this.selected.page, ['content', row, col], { ...this.cellBlank });
       content[row].forEach((v, i) => {
         if (!direction) {
-          Vue.set(this.selected.page.content[row], i, cell);
+          Vue.set(this.selected.page.content[row], i, { ...cell });
         }
-        if (i > row && direction === 'right') {
-          Vue.set(this.selected.page.content[row], i, cell);
+        if (i >= row && direction === 'right') {
+          Vue.set(this.selected.page.content[row], i, { ...cell });
         }
-        if (i < row && direction === 'left') {
-          Vue.set(this.selected.page.content[row], i, cell);
+        if (i <= row && direction === 'left') {
+          Vue.set(this.selected.page.content[row], i, { ...cell });
         }
       });
     },
     extendVertical: function(direction) {
       let content = _.get(this.selected.page, 'content', []);
       const { row, col } = this.selected;
-      const cell = { ..._.get(this.selected.page, ['content', row, col], { ...this.cellBlank }) };
+      const cell = _.get(this.selected.page, ['content', row, col], { ...this.cellBlank });
       content.forEach((v, i) => {
         if (!direction) {
-          Vue.set(this.selected.page.content[i], col, cell);
+          Vue.set(this.selected.page.content[i], col, { ...cell });
         }
-        if (i < col && direction === 'up') {
-          Vue.set(this.selected.page.content[i], col, cell);
+        if (i <= col && direction === 'up') {
+          Vue.set(this.selected.page.content[i], col, { ...cell });
         }
-        if (i > col && direction === 'down') {
-          Vue.set(this.selected.page.content[i], col, cell);
+        if (i >= col && direction === 'down') {
+          Vue.set(this.selected.page.content[i], col, { ...cell });
         }
       });
     },
