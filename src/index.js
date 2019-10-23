@@ -24,6 +24,28 @@ const uuidv4 = () => {
   });
 };
 
+const openModal = function(dialogId, onClose = () => {}) {
+  const modal = document.getElementById(dialogId);
+  modal.showModal();
+
+  const escapeKey = ({ key }) => {
+    key == 'Escape' && modal.close();
+    modal.removeEventListener('keydown', escapeKey);
+  };
+
+  const listnerClick = async event => {
+    event.stopPropagation();
+    if (event.target == modal) {
+      modal.close();
+      modal.removeEventListener('click', listnerClick);
+    }
+  };
+
+  modal.addEventListener('close', onClose);
+  modal.addEventListener('click', listnerClick, false);
+  modal.addEventListener('keydown', escapeKey);
+};
+
 const app = new Vue({
   router,
   el: '#app',
@@ -190,7 +212,15 @@ const app = new Vue({
     rowAdd: function(page) {
       const content = _.get(page, 'content', []);
       const colMaxIndex = this.getCellsCount(page).colsCount || 1;
-      content.push(new Array(colMaxIndex).fill(_.clone(this.cellBlank)));
+      // Fill array not work
+      const newRow = [];
+      for (let index = 0; index < Array(colMaxIndex).length; index++) {
+        newRow.push({ ...this.cellBlank });
+      }
+      content.push(newRow);
+
+      const pageId = this.pages.map(v => v.id).indexOf(page.id);
+      Vue.set(this.pages[pageId], 'content', content);
     },
 
     colRemove: function(page) {
@@ -245,10 +275,11 @@ const app = new Vue({
     clearPage: function(page) {
       const pageId = this.pages.map(v => v.id).indexOf(page.id);
       Vue.set(this.pages[pageId], 'content', []);
+      Vue.set(this, 'selected', {});
     },
 
-    openModal: function(dialogId) {
-      openModal(dialogId);
+    openModal: function(dialogId, onClose) {
+      openModal(dialogId, onClose);
     },
 
     getModalStyle: function(drop = false) {
@@ -272,28 +303,6 @@ const app = new Vue({
       document.documentElement.style.setProperty('--edit-modal-left', `${offsetLeft}px`);
       document.documentElement.style.setProperty('--edit-modal-width', `${offsetWidth}px`);
       document.documentElement.style.setProperty('--edit-modal-height', `${offsetHeight}px`);
-    },
-
-    openModal: function(dialogId, onClose = function() {}) {
-      const modal = document.getElementById(dialogId);
-      modal.showModal();
-
-      const escapeKey = ({ key }) => {
-        key == 'Escape' && modal.close();
-        modal.removeEventListener('keydown', escapeKey);
-      };
-
-      const listnerClick = async event => {
-        event.stopPropagation();
-        if (event.target == modal) {
-          modal.close();
-          modal.removeEventListener('click', listnerClick);
-        }
-      };
-
-      modal.addEventListener('close', onClose);
-      modal.addEventListener('click', listnerClick, false);
-      modal.addEventListener('keydown', escapeKey);
     },
   },
   data: {
