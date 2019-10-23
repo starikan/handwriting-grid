@@ -78,7 +78,36 @@ const app = new Vue({
       },
     ];
   },
-  computed: {},
+  computed: {
+    pageStyles: function() {
+      return this.pages.map(v => {
+        const data = {
+          margin: `margin: ${_.get(v, 'grid.margin', 0)}cm;`,
+          colGap: `column-gap: ${_.get(v, 'grid.colGap', 0)}cm;`,
+          rowGap: `row-gap: ${_.get(v, 'grid.rowGap', 0)}cm;`,
+          format: _.get(v, 'size.format', 'A4'),
+          layout: _.get(v, 'size.layout', 'portrait'),
+          content: v.content && v.content.map(row => {
+            if (row) {
+              return row.map(col => {
+                if (col) {
+                  return {
+                    width: `width: ${_.get(col, ['width'], 0)}cm;`,
+                    height: `height: ${_.get(col, ['height'], 0)}cm;`,
+                  };
+                } else {
+                  return [];
+                }
+              });
+            } else {
+              return [[]];
+            }
+          }),
+        };
+        return data;
+      });
+    },
+  },
   watch: {
     pages: {
       handler: function(curr) {
@@ -94,17 +123,6 @@ const app = new Vue({
 
     deletePage: function(index) {
       this.pages.splice(index, 1);
-    },
-
-    getGridStyles: function(page, row = 0, col = 0) {
-      const margin = `margin: ${_.get(page, 'grid.margin', 0)}cm;`;
-      const colGap = `grid-column-gap: ${_.get(page, 'grid.colGap', 0)}cm;`;
-      const rowGap = `grid-row-gap: ${_.get(page, 'grid.rowGap', 0)}cm;`;
-      const format = _.get(page, 'size.format', 'A4');
-      const layout = _.get(page, 'size.layout', 'portrait');
-      const width = `width: ${_.get(page, ['content', row, col, 'width'], 0)}cm;`;
-      const height = `height: ${_.get(page, ['content', row, col, 'height'], 0)}cm;`;
-      return { colGap, rowGap, format, layout, margin, width, height };
     },
 
     rowRemove: function(page) {
@@ -222,7 +240,7 @@ const app = new Vue({
     extendRight: function() {
       const content = _.get(this.selected.page, 'content', []);
       const { row, col } = this.selected;
-      const cell = {..._.get(this.selected.page, ['content', row, col], { ...this.cellBlank })};
+      const cell = { ..._.get(this.selected.page, ['content', row, col], { ...this.cellBlank }) };
       const pageId = this.pages.map(v => v.id).indexOf(this.selected.page.id);
 
       // debugger
@@ -231,10 +249,10 @@ const app = new Vue({
         existRow.forEach((v, i) => {
           // debugger
           if (i > row) {
-            Vue.set(this.pages[pageId].content[row], col, cell );
-            console.log(this.pages[pageId].content[row][col])
+            Vue.set(this.pages[pageId].content[row], col, cell);
+            console.log(this.pages[pageId].content[row][col]);
             // return { ...cell };
-          } 
+          }
         });
       }
       // content[row] = [...existRow];
