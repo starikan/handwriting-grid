@@ -185,16 +185,6 @@ const app = new Vue({
       return { style, data };
     },
 
-    getCellData: function(page, row, col) {
-      const styles = {};
-      styles['grid-row'] = `${row + 1} / ${row + 2}`;
-      styles['grid-column'] = `${col + 1} / ${col + 2}`;
-
-      const content = _.get(page, ['content', row, col, 'text'], '');
-      const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
-      return { style, content };
-    },
-
     rowRemove: function(page) {
       if (this.selected.pageId === page.id && !_.isUndefined(this.selected.row)) {
         const pageId = this.pages.map(v => v.id).indexOf(page.id);
@@ -304,6 +294,35 @@ const app = new Vue({
       document.documentElement.style.setProperty('--edit-modal-width', `${offsetWidth}px`);
       document.documentElement.style.setProperty('--edit-modal-height', `${offsetHeight}px`);
     },
+
+    minusWidth: function() {},
+    plusWidth: function() {},
+    minusHeight: function() {},
+    plusHeight: function() {},
+    extendRight: function() {
+      const content = _.get(this.selected.page, 'content', []);
+      const { row, col } = this.selected;
+      const cell = {..._.get(this.selected.page, ['content', row, col], { ...this.cellBlank })};
+      const pageId = this.pages.map(v => v.id).indexOf(this.selected.page.id);
+
+      // debugger
+      let existRow = _.get(content, [row]);
+      if (existRow) {
+        existRow.forEach((v, i) => {
+          // debugger
+          if (i > row) {
+            Vue.set(this.pages[pageId].content[row], col, cell );
+            console.log(this.pages[pageId].content[row][col])
+            // return { ...cell };
+          } 
+        });
+      }
+      // content[row] = [...existRow];
+      // debugger;
+    },
+    extendDown: function() {},
+    extendLeft: function() {},
+    extendUp: function() {},
   },
   data: {
     pages: [],
