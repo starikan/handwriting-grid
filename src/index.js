@@ -96,6 +96,8 @@ const app = new Vue({
                     return {
                       width: `width: ${_.get(col, ['width'], 0)}cm;`,
                       height: `height: ${_.get(col, ['height'], 0)}cm;`,
+                      fontSize: `font-size: ${_.get(col, ['fontSize'], 0)}cm;`,
+                      fontFamily: `font-family: ${_.get(col, ['fontFamily'], 0)};`,
                     };
                   } else {
                     return [];
@@ -187,7 +189,14 @@ const app = new Vue({
       if (!page || _.isUndefined(row) || _.isUndefined(col)) {
         Vue.set(this, 'selected', {});
       } else {
-        Vue.set(this, 'selected', {row, col, page, cell: page.content[row][col] });
+        const pageIndex = this.pages.map(v => v.id == page.id).indexOf(true);
+        Vue.set(this, 'selected', {
+          row,
+          col,
+          page,
+          pageIndex,
+          cell: page.content[row][col],
+        });
       }
       if (event) {
         event.preventDefault();
@@ -197,7 +206,8 @@ const app = new Vue({
 
     isSelectedCell: function(page, row, col) {
       return {
-        related: page.id === _.get(this.selected, 'page.id') && (row === this.selected.row || col === this.selected.col),
+        related:
+          page.id === _.get(this.selected, 'page.id') && (row === this.selected.row || col === this.selected.col),
         main: page.id === _.get(this.selected, 'page.id') && row === this.selected.row && col === this.selected.col,
       };
     },
@@ -287,10 +297,18 @@ const app = new Vue({
         }
       });
     },
+
+    editFont: function(sign = 1, step = 0.1) {},
+
+    setFont: function(font) {
+      const { row, col } = this.selected;
+      Vue.set(this.selected.page.content[row][col], 'fontFamily', font);
+    },
   },
   data: {
     pages: [],
-    cellBlank: { text: '', width: 1, height: 1 },
+    cellBlank: { text: '', width: 1, height: 1, fontSize: 1, fontFamily: null },
     selected: {},
+    fonts: ['China1', 'China2', 'China3', 'China4', 'China5', 'China6', 'KaiTi_GB2312'],
   },
 });
