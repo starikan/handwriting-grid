@@ -128,7 +128,7 @@ const app = new Vue({
     },
 
     rowRemove: function(page) {
-      if (this.selected.pageId === page.id && !_.isUndefined(this.selected.row)) {
+      if (this.selected.page.id === page.id && !_.isUndefined(this.selected.row)) {
         const pageId = this.pages.map(v => v.id).indexOf(page.id);
         let content = _.get(page, 'content', []);
         content.splice(this.selected.row, 1);
@@ -155,7 +155,7 @@ const app = new Vue({
     },
 
     colRemove: function(page) {
-      if (this.selected.pageId === page.id && !_.isUndefined(this.selected.col)) {
+      if (this.selected.page.id === page.id && !_.isUndefined(this.selected.col)) {
         const pageId = this.pages.map(v => v.id).indexOf(page.id);
         let content = _.get(page, 'content', []).map(v => {
           v.splice(this.selected.col, 1);
@@ -187,7 +187,7 @@ const app = new Vue({
       if (!page || _.isUndefined(row) || _.isUndefined(col)) {
         Vue.set(this, 'selected', {});
       } else {
-        Vue.set(this, 'selected', { pageId: page.id, row, col, page, cell: page.content[row][col] });
+        Vue.set(this, 'selected', {row, col, page, cell: page.content[row][col] });
       }
       if (event) {
         event.preventDefault();
@@ -197,8 +197,8 @@ const app = new Vue({
 
     isSelectedCell: function(page, row, col) {
       return {
-        related: page.id === this.selected.pageId && (row === this.selected.row || col === this.selected.col),
-        main: page.id === this.selected.pageId && row === this.selected.row && col === this.selected.col,
+        related: page.id === _.get(this.selected, 'page.id') && (row === this.selected.row || col === this.selected.col),
+        main: page.id === _.get(this.selected, 'page.id') && row === this.selected.row && col === this.selected.col,
       };
     },
 
@@ -224,7 +224,7 @@ const app = new Vue({
 
       if (!drop) {
         const cellDom = document.querySelector(
-          `#${this.selected.pageId} .col_${this.selected.col}.row_${this.selected.row}`,
+          `#${this.selected.page.id} .col_${this.selected.col}.row_${this.selected.row}`,
         );
         ({ offsetTop, offsetLeft, offsetHeight, offsetWidth } = cellDom);
       }
@@ -243,6 +243,7 @@ const app = new Vue({
       } else {
         Vue.set(this.selected.page.content[row][col], 'width', width - step);
       }
+      this.setModalStyle();
     },
     editHeight: function(sign = 1, step = 0.1) {
       const { row, col } = this.selected;
@@ -252,6 +253,7 @@ const app = new Vue({
       } else {
         Vue.set(this.selected.page.content[row][col], 'height', height - step);
       }
+      this.setModalStyle();
     },
     extendHoriz: function(direction) {
       let content = _.get(this.selected.page, 'content', []);
