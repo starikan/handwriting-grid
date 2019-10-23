@@ -151,19 +151,8 @@ body {
       padding: 0px;
       margin: 0px;
       border: var(--stroke-thick) dashed black;
-      font-size: var(--font-size);
-      color: white;
-      -webkit-text-stroke: 1px grey;
       cursor: pointer;
       user-select: none;
-      // font-family: 'Noto Serif TC', serif;
-      // font-family: 'China6', serif;
-      // font-family: 'China3', serif;
-      // font-family: 'China1', serif;
-      // font-family: 'China2', serif;
-      // font-family: 'China4', serif;
-      // font-family: 'China5', serif;
-      font-family: 'KaiTi_GB2312', 'China5', serif;
 
       .text-wrapper {
         display: grid;

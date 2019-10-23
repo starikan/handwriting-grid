@@ -98,6 +98,9 @@ const app = new Vue({
                       height: `height: ${_.get(col, ['height'], 0)}cm;`,
                       fontSize: `font-size: ${_.get(col, ['fontSize'], 0)}cm;`,
                       fontFamily: `font-family: ${_.get(col, ['fontFamily'], 0)};`,
+                      opacityGrid: `opacity: ${_.get(col, ['opacityGrid'], 1)};`,
+                      opacityText: `opacity: ${_.get(col, ['opacityText'], 1)};`,
+                      conture: _.get(col, ['conture'], false) ? `-webkit-text-stroke: 1px black; color: white;` : '',
                     };
                   } else {
                     return [];
@@ -311,6 +314,12 @@ const app = new Vue({
     setFont: function(font) {
       const { row, col } = this.selected;
       Vue.set(this.selected.page.content[row][col], 'fontFamily', font);
+    },
+
+    contureFontSwitch: function() {
+      const { row, col } = this.selected;
+      const conture = _.get(this.selected.page, ['content', row, col, 'conture'], false);
+      Vue.set(this.selected.page.content[row][col], 'conture', !conture);
     },
   },
   data: {

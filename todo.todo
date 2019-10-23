@@ -11,12 +11,11 @@ https://github.com/bobbrady/chinese-character-game
 https://github.com/KanjiVG/kanjivg
 
 
+Сделать сетку на ячейки
+Сделать расшаривание
 Редактирование шрифта
   Прозрачность
-  Контуры
   Цвет
-Сделать сетку на ячейки
-Сделать шейринг
 Вынести в templates html
 Сделать компоненты
 Завести vuex
