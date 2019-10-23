@@ -46,6 +46,8 @@ const openModal = function(dialogId, onClose = () => {}) {
   modal.addEventListener('keydown', escapeKey);
 };
 
+const colsCount = content => content.map(v => v.length).reduce((v, s) => (v > s ? v : s), 0);
+
 const app = new Vue({
   router,
   el: '#app',
@@ -94,15 +96,6 @@ const app = new Vue({
       this.pages.splice(index, 1);
     },
 
-    getCellsCount: function(page, content) {
-      content = (page && _.get(page, 'content', [])) || content;
-      const colsCount = content.map(v => v.length).reduce((v, s) => (v > s ? v : s), 0);
-      const rowsCount = content.length;
-      const rowsRange = [...range(0, rowsCount)];
-      const colsRange = [...range(0, colsCount)];
-      return { colsCount, rowsCount, rowsRange, colsRange };
-    },
-
     getGridStyles: function(page, row = 0, col = 0) {
       const margin = `margin: ${_.get(page, 'grid.margin', 0)}cm;`;
       const colGap = `grid-column-gap: ${_.get(page, 'grid.colGap', 0)}cm;`;
@@ -114,84 +107,12 @@ const app = new Vue({
       return { colGap, rowGap, format, layout, margin, width, height };
     },
 
-    getGridGaps: function(page) {
-      const styles = {};
-      const colGap = _.get(page, 'grid.colGap', 0);
-      const rowGap = _.get(page, 'grid.rowGap', 0);
-
-      styles['grid-column-gap'] = `${colGap}cm`;
-      styles['grid-row-gap'] = `${rowGap}cm`;
-      const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
-      const stylesObj = Object.keys(styles).reduce((t, key) => ({ ...t, ...{ [key]: `${key}: ${styles[key]};` } }), {});
-      return { styles, stylesStr, stylesObj, colGap, rowGap };
-    },
-
-    getGridMainParams: function(page) {
-      const styles = {};
-      const padding = _.get(page, 'grid.padding', 0);
-      const { colsCount, rowsCount } = this.getCellsCount(page);
-      const colsWidth = _.get(page, 'grid.colsWidth', 1);
-      const rowsHeight = _.get(page, 'grid.rowsHeight', 1);
-
-      styles['padding'] = `${padding}cm`;
-      const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
-      const stylesObj = Object.keys(styles).reduce((t, key) => ({ ...t, ...{ [key]: `${key}: ${styles[key]};` } }), {});
-      return { styles, stylesStr, stylesObj, padding, colsWidth, rowsHeight, colsCount, rowsCount };
-    },
-
-    getGridRows: function(page) {
-      const styles = {};
-      const { rowsHeight, rowsCount } = this.getGridMainParams(page);
-      let heigths = typeof rowsHeight === 'number' ? Array(rowsCount).fill(rowsHeight) : rowsHeight;
-      styles['grid-template-rows'] = heigths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
-      const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
-      return { styles, stylesStr, heigths };
-    },
-
-    getGridCols: function(page) {
-      const styles = {};
-      const { colsWidth, colsCount } = this.getGridMainParams(page);
-      let widths = typeof colsWidth === 'number' ? Array(colsCount).fill(colsWidth) : colsWidth;
-      styles['grid-template-columns'] = widths.map(v => (v ? `${v}cm ` : 'auto ')).reduce((s, v) => s + v, '');
-      const stylesStr = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
-
-      return { styles, stylesStr, widths };
-    },
-
-    getGridData: function(page) {
-      let styles = {};
-
-      const { styles: stylesGap, colGap, rowGap, verticalGap, horizontalGap } = this.getGridGaps(page);
-      const { styles: stylesMain, padding, colsWidth, rowsHeight, colsCount, rowsCount } = this.getGridMainParams(page);
-      const { styles: stylesRows, heigths } = this.getGridRows(page);
-      const { styles: stylesCols, widths } = this.getGridCols(page);
-
-      styles = { ...styles, ...stylesMain, ...stylesGap, ...stylesRows, ...stylesCols };
-
-      const style = Object.keys(styles).reduce((t, key) => t + `${key}: ${styles[key]};`, '');
-      const data = {
-        padding,
-        colGap,
-        rowGap,
-        colsWidth,
-        rowsHeight,
-        colsCount,
-        rowsCount,
-        verticalGap,
-        horizontalGap,
-        heigths,
-        widths,
-      };
-      return { style, data };
-    },
-
     rowRemove: function(page) {
       if (this.selected.pageId === page.id && !_.isUndefined(this.selected.row)) {
         const pageId = this.pages.map(v => v.id).indexOf(page.id);
         let content = _.get(page, 'content', []);
         content.splice(this.selected.row, 1);
-        const rowsCount = this.getCellsCount(null, content).rowsCount;
-        if (!rowsCount) {
+        if (!content.length) {
           content = [];
         }
         Vue.set(this.pages[pageId], 'content', content);
@@ -201,7 +122,7 @@ const app = new Vue({
 
     rowAdd: function(page) {
       const content = _.get(page, 'content', []);
-      const colMaxIndex = this.getCellsCount(page).colsCount || 1;
+      const colMaxIndex = colsCount(content) || 1;
       // Fill array not work
       const newRow = [];
       for (let index = 0; index < Array(colMaxIndex).length; index++) {
@@ -220,8 +141,7 @@ const app = new Vue({
           v.splice(this.selected.col, 1);
           return v;
         });
-        const colsCount = this.getCellsCount(null, content).colsCount;
-        if (!colsCount) {
+        if (!colsCount(content)) {
           content = [];
         }
         Vue.set(this.pages[pageId], 'content', content);
