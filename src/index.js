@@ -252,9 +252,9 @@ const app = new Vue({
       const { row, col } = this.selected;
       const width = _.get(this.selected.page, ['content', row, col, 'width'], 1);
       if (sign) {
-        Vue.set(this.selected.page.content[row][col], 'width', width + step);
+        Vue.set(this.selected.page.content[row][col], 'width', parseFloat((width + step).toFixed(2)));
       } else {
-        Vue.set(this.selected.page.content[row][col], 'width', width - step);
+        Vue.set(this.selected.page.content[row][col], 'width', parseFloat((width - step).toFixed(2)));
       }
       this.setModalStyle();
     },
@@ -262,9 +262,9 @@ const app = new Vue({
       const { row, col } = this.selected;
       const height = _.get(this.selected.page, ['content', row, col, 'height'], 1);
       if (sign) {
-        Vue.set(this.selected.page.content[row][col], 'height', height + step);
+        Vue.set(this.selected.page.content[row][col], 'height', parseFloat((height + step).toFixed(2)));
       } else {
-        Vue.set(this.selected.page.content[row][col], 'height', height - step);
+        Vue.set(this.selected.page.content[row][col], 'height', parseFloat((height - step).toFixed(2)));
       }
       this.setModalStyle();
     },
@@ -305,9 +305,9 @@ const app = new Vue({
       const { row, col } = this.selected;
       const fontSize = _.get(this.selected.page, ['content', row, col, 'fontSize'], 1);
       if (sign) {
-        Vue.set(this.selected.page.content[row][col], 'fontSize', fontSize + step);
+        Vue.set(this.selected.page.content[row][col], 'fontSize', parseFloat((fontSize + step).toFixed(2)));
       } else {
-        Vue.set(this.selected.page.content[row][col], 'fontSize', fontSize - step);
+        Vue.set(this.selected.page.content[row][col], 'fontSize', parseFloat((fontSize - step).toFixed(2)));
       }
     },
 
