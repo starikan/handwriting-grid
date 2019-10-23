@@ -298,7 +298,15 @@ const app = new Vue({
       });
     },
 
-    editFont: function(sign = 1, step = 0.1) {},
+    editFont: function(sign = 1, step = 0.1) {
+      const { row, col } = this.selected;
+      const fontSize = _.get(this.selected.page, ['content', row, col, 'fontSize'], 1);
+      if (sign) {
+        Vue.set(this.selected.page.content[row][col], 'fontSize', fontSize + step);
+      } else {
+        Vue.set(this.selected.page.content[row][col], 'fontSize', fontSize - step);
+      }
+    },
 
     setFont: function(font) {
       const { row, col } = this.selected;
