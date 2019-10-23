@@ -326,6 +326,7 @@ const app = new Vue({
     pages: [],
     cellBlank: { text: '', width: 1, height: 1, fontSize: 1, fontFamily: null },
     selected: {},
-    fonts: ['China1', 'China2', 'China3', 'China4', 'China5', 'China6', 'KaiTi_GB2312'],
+    fonts: ['China1', 'China2', 'China3', 'China4', 'China5', 'China6', 'KaiTi_GB2312', "DFPHeiW5-GB"],
+    // , "FangSong_GB2312", "FZCuQian-M17S", "FZDaBiaoSong-B06S", "FZHuaLi-M14S", "FZXiaoBiaoSong-B05S", "MicrosoftYaHei", "SimHei", "STZhongsong", "MSungHKS-Bold", "MFXingHei_Noncommercial-Light"
   },
 });
