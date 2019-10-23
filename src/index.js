@@ -87,22 +87,24 @@ const app = new Vue({
           rowGap: `row-gap: ${_.get(v, 'grid.rowGap', 0)}cm;`,
           format: _.get(v, 'size.format', 'A4'),
           layout: _.get(v, 'size.layout', 'portrait'),
-          content: v.content && v.content.map(row => {
-            if (row) {
-              return row.map(col => {
-                if (col) {
-                  return {
-                    width: `width: ${_.get(col, ['width'], 0)}cm;`,
-                    height: `height: ${_.get(col, ['height'], 0)}cm;`,
-                  };
-                } else {
-                  return [];
-                }
-              });
-            } else {
-              return [[]];
-            }
-          }),
+          content:
+            v.content &&
+            v.content.map(row => {
+              if (row) {
+                return row.map(col => {
+                  if (col) {
+                    return {
+                      width: `width: ${_.get(col, ['width'], 0)}cm;`,
+                      height: `height: ${_.get(col, ['height'], 0)}cm;`,
+                    };
+                  } else {
+                    return [];
+                  }
+                });
+              } else {
+                return [[]];
+              }
+            }),
         };
         return data;
       });
@@ -185,7 +187,7 @@ const app = new Vue({
       if (!page || _.isUndefined(row) || _.isUndefined(col)) {
         Vue.set(this, 'selected', {});
       } else {
-        Vue.set(this, 'selected', { pageId: page.id, row, col, page });
+        Vue.set(this, 'selected', { pageId: page.id, row, col, page, cell: page.content[row][col] });
       }
       if (event) {
         event.preventDefault();
@@ -237,30 +239,38 @@ const app = new Vue({
     plusWidth: function() {},
     minusHeight: function() {},
     plusHeight: function() {},
-    extendRight: function() {
-      const content = _.get(this.selected.page, 'content', []);
+    extendHoriz: function(direction) {
+      let content = _.get(this.selected.page, 'content', []);
       const { row, col } = this.selected;
       const cell = { ..._.get(this.selected.page, ['content', row, col], { ...this.cellBlank }) };
-      const pageId = this.pages.map(v => v.id).indexOf(this.selected.page.id);
-
-      // debugger
-      let existRow = _.get(content, [row]);
-      if (existRow) {
-        existRow.forEach((v, i) => {
-          // debugger
-          if (i > row) {
-            Vue.set(this.pages[pageId].content[row], col, cell);
-            console.log(this.pages[pageId].content[row][col]);
-            // return { ...cell };
-          }
-        });
-      }
-      // content[row] = [...existRow];
-      // debugger;
+      content[row].forEach((v, i) => {
+        if (!direction) {
+          Vue.set(this.selected.page.content[row], i, cell);
+        }
+        if (i > row && direction === 'right') {
+          Vue.set(this.selected.page.content[row], i, cell);
+        }
+        if (i < row && direction === 'left') {
+          Vue.set(this.selected.page.content[row], i, cell);
+        }
+      });
     },
-    extendDown: function() {},
-    extendLeft: function() {},
-    extendUp: function() {},
+    extendVertical: function(direction) {
+      let content = _.get(this.selected.page, 'content', []);
+      const { row, col } = this.selected;
+      const cell = { ..._.get(this.selected.page, ['content', row, col], { ...this.cellBlank }) };
+      content.forEach((v, i) => {
+        if (!direction) {
+          Vue.set(this.selected.page.content[i], col, cell);
+        }
+        if (i < col && direction === 'up') {
+          Vue.set(this.selected.page.content[i], col, cell);
+        }
+        if (i > col && direction === 'down') {
+          Vue.set(this.selected.page.content[i], col, cell);
+        }
+      });
+    },
   },
   data: {
     pages: [],
