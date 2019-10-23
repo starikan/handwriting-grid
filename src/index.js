@@ -210,7 +210,7 @@ const app = new Vue({
       openModal(dialogId, onClose);
     },
 
-    getModalStyle: function(drop = false) {
+    setModalStyle: function(drop = false) {
       if (_.isEmpty(this.selected)) {
         return;
       }
