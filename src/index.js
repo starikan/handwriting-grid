@@ -96,6 +96,8 @@ const app = new Vue({
                     return {
                       width: `width: ${_.get(col, ['width'], 0)}cm;`,
                       height: `height: ${_.get(col, ['height'], 0)}cm;`,
+                      widthGrid: `--cell-width: ${_.get(col, ['width'], 0)}cm;`,
+                      heightGrid: `--cell-height: ${_.get(col, ['height'], 0)}cm;`,
                       fontSize: `font-size: ${_.get(col, ['fontSize'], 0)}cm;`,
                       fontFamily: `font-family: ${_.get(col, ['fontFamily'], 0)};`,
                       opacityGrid: `opacity: ${_.get(col, ['opacityGrid'], 1)};`,
