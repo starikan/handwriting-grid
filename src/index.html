@@ -100,7 +100,7 @@
                      @click="cellSelect(page, row, col, $event);"
                      @dblclick="openModal('edit', setModalStyle.bind(null, true)); setModalStyle()">
                   <div class="cross"
-                       :style="pageStyles[pageIndex].content[row][col].opacityGrid + pageStyles[pageIndex].content[row][col].widthGrid + pageStyles[pageIndex].content[row][col].heightGrid">
+                       :style="pageStyles[pageIndex].content[row][col].angDiagGrid + pageStyles[pageIndex].content[row][col].diagGrid + pageStyles[pageIndex].content[row][col].opacityGrid + pageStyles[pageIndex].content[row][col].widthGrid + pageStyles[pageIndex].content[row][col].heightGrid">
                     <span class="stroke stroke-diag stroke-diag-left"></span>
                     <span class="stroke stroke-diag stroke-diag-right"></span>
                     <span class="stroke stroke-vert stroke-vert-first"></span>

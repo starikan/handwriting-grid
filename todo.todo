@@ -10,10 +10,21 @@ https://github.com/bonham000/everyday-luck-app
 https://github.com/bobbrady/chinese-character-game
 https://github.com/KanjiVG/kanjivg
 
+https://chinesefontdesign.com/category/chinese-font - Fonts
+https://chinesehacks.com/resources/web/generate-free-chinese-handwriting-practice-paper-with-hanzigrids/ - Alternative
+https://www.hanzigrids.com/examples
 
-Сделать сетку на ячейки
+https://characterpop.com/
+https://store.mandarinposter.com/shop/the-first-1000-chinese-characters
+
+Chinese Handwriting Grid
+samples in words
+
 Печать
 Сделать расшаривание
+CI + GitHub (закрытое репо)
+Обфускация при сборке
+Выбор стиля ячеек
 Редактирование шрифта
   Прозрачность
   Цвет
@@ -23,4 +34,8 @@ https://github.com/KanjiVG/kanjivg
 Сделать градиенты
 Тайпскрипт
 Тесты
-CI + GitHub
+Прикрутить статистику
+Сделать просмотр локальных сохранений
+Сделать экспорт всех данных и импорт
+Отписаться тут
+https://www.chinese-forums.com/forums/topic/36263-introducing-hanzi-grids-a-tool-for-creating-printable-workshe

@@ -93,11 +93,17 @@ const app = new Vue({
               if (row) {
                 return row.map(col => {
                   if (col) {
+                    const width = _.get(col, ['width'], 0);
+                    const height = _.get(col, ['height'], 0);
+                    const diag = Math.sqrt(width * width + height * height);
+                    const ang = 180 * Math.atan(width/height) / 3.1415;
                     return {
-                      width: `width: ${_.get(col, ['width'], 0)}cm;`,
-                      height: `height: ${_.get(col, ['height'], 0)}cm;`,
-                      widthGrid: `--cell-width: ${_.get(col, ['width'], 0)}cm;`,
-                      heightGrid: `--cell-height: ${_.get(col, ['height'], 0)}cm;`,
+                      width: `width: ${width}cm;`,
+                      height: `height: ${height}cm;`,
+                      widthGrid: `--cell-width: ${width}cm;`,
+                      heightGrid: `--cell-height: ${height}cm;`,
+                      diagGrid: `--cell-diag: ${diag}cm;`,
+                      angDiagGrid: `--cell-ang-diag: ${ang}deg;`,
                       fontSize: `font-size: ${_.get(col, ['fontSize'], 0)}cm;`,
                       fontFamily: `font-family: ${_.get(col, ['fontFamily'], 0)};`,
                       opacityGrid: `opacity: ${_.get(col, ['opacityGrid'], 1)};`,
@@ -328,7 +334,7 @@ const app = new Vue({
     pages: [],
     cellBlank: { text: '', width: 1, height: 1, fontSize: 1, fontFamily: null },
     selected: {},
-    fonts: ['China1', 'China2', 'China3', 'China4', 'China5', 'China6', 'KaiTi_GB2312', "DFPHeiW5-GB"],
+    fonts: ['China1', 'China2', 'China3', 'China4', 'China5', 'China6', 'KaiTi_GB2312', 'DFPHeiW5-GB'],
     // , "FangSong_GB2312", "FZCuQian-M17S", "FZDaBiaoSong-B06S", "FZHuaLi-M14S", "FZXiaoBiaoSong-B05S", "MicrosoftYaHei", "SimHei", "STZhongsong", "MSungHKS-Bold", "MFXingHei_Noncommercial-Light"
   },
 });

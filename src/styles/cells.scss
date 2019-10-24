@@ -1,7 +1,8 @@
 .cross {
   --cell-height: 2cm;
   --cell-width: 2cm;
-  --cell-diag: 2.828427cm;
+  --cell-diag: 2.84cm;
+  --cell-ang-diag: 45deg;
 
   --stroke-gap: calc(var(--stroke-thick));
   --stroke-gap-minus: calc(-1 * var(--stroke-gap));
@@ -28,7 +29,6 @@
     margin: 0px;
     position: absolute;
     border-right: var(--stroke-thick) dashed black;
-    // opacity: 0.2;
     width: 0;
   }
 
@@ -77,13 +77,13 @@
   }
 
   .stroke-diag-left:before {
-    height: calc(var(--cell-diag) - 2 * var(--stroke-thick));
+    height: var(--cell-diag);
     transform-origin: 0% 0%;
-    transform: rotate(-45deg) translateX(calc(-1 * var(--stroke-thick) / 2));
+    transform: rotate(calc(-1 * var(--cell-ang-diag))) translateX(var(--stroke-gap-half-minus));
   }
   .stroke-diag-right:before {
-    height: calc(var(--cell-diag) - 2 * var(--stroke-thick));
+    height: var(--cell-diag);
     transform-origin: 0% 0%;
-    transform: translateX(var(--cell-width)) translateX(calc(-1 * var(--stroke-thick) / 2)) rotate(45deg);
+    transform: translateX(var(--cell-width)) translateX(var(--stroke-gap-half-minus)) rotate(var(--cell-ang-diag));
   }
 }
