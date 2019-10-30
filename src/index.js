@@ -1,6 +1,10 @@
 import _ from 'lodash';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import LZString from 'lz-string';
+import { Base64 } from 'js-base64';
+
+Vue.use(VueRouter);
 
 import './index.scss';
 import './print.scss';
@@ -8,7 +12,7 @@ import 'font-awesome/scss/font-awesome.scss';
 
 const router = new VueRouter({
   mode: 'history',
-  routes: [],
+  routes: [{ name: 'pages-view', path: '/' }],
 });
 
 const range = function*(start, end) {
@@ -18,7 +22,7 @@ const range = function*(start, end) {
 };
 
 const uuidv4 = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     let r = (Math.random() * 16) | 0,
       v = c == 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
@@ -54,8 +58,13 @@ const app = new Vue({
   el: '#app',
   mounted: function() {
     let pages;
+    // try {
+    //   pages = JSON.parse(localStorage.getItem('pages'));
+    // } catch (error) {}
+
     try {
-      pages = JSON.parse(localStorage.getItem('pages'));
+      const pagesRoute = _.get(this.$route, 'query.pages', '');
+      pages = JSON.parse(LZString.decompress(Base64.decode(pagesRoute)));
     } catch (error) {}
 
     this.pages = pages || [
@@ -97,7 +106,7 @@ const app = new Vue({
                     const width = _.get(col, ['width'], 0);
                     const height = _.get(col, ['height'], 0);
                     const diag = Math.sqrt(width * width + height * height);
-                    const ang = 180 * Math.atan(width/height) / 3.1415;
+                    const ang = (180 * Math.atan(width / height)) / 3.1415;
                     return {
                       width: `width: ${width}cm;`,
                       height: `height: ${height}cm;`,
@@ -127,7 +136,11 @@ const app = new Vue({
   watch: {
     pages: {
       handler: function(curr) {
-        localStorage.setItem('pages', JSON.stringify(curr));
+        // localStorage.setItem('pages', JSON.stringify(curr));
+        const data = Base64.encode(LZString.compress(JSON.stringify(curr)));
+        if (_.get(this.$route.currentRoute, 'query.pages') !== data) {
+          this.$router.push({ name: 'pages-view', query: { pages: data } }).catch(err => {});
+        }
       },
       deep: true,
     },
@@ -246,7 +259,8 @@ const app = new Vue({
 
       if (!drop) {
         const cellDom = document.querySelector(
-          `#${this.selected.page.id} .col_${this.selected.col}.row_${this.selected.row}`,
+          // `#${this.selected.page.id} .col_${this.selected.col}.row_${this.selected.row}`,
+          `[data-id="${this.selected.page.id}"] .col_${this.selected.col}.row_${this.selected.row}`,
         );
         ({ offsetTop, offsetLeft, offsetHeight, offsetWidth } = cellDom);
       }

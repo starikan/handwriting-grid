@@ -8,7 +8,6 @@
   <title>Kanji Prescription</title>
   <meta name="viewport"
         content="width=device-width, initial-scale=1">
-
 </head>
 
 <body>
@@ -76,11 +75,12 @@
     <div id="wrapper">
       <div v-for="(page, pageIndex) in pages"
            class='pages'
-           :id="page.id"
            v-if="pages.length">
         <div class="page-container">
           <div :size="pageStyles[pageIndex].format"
                :layout="pageStyles[pageIndex].layout"
+               :id="page.id"
+               :data-id="page.id"
                class="page">
             <div class="symbols-grid"
                  :style="pageStyles[pageIndex].rowGap + pageStyles[pageIndex].margin"
