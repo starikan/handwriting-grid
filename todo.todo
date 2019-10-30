@@ -42,6 +42,8 @@ CI/CD
   eslint - https://habr.com/ru/company/dodopizzaio/blog/473648/
   prettier
 Тесты
+  puppeDo
+PWA
 Обфускация при сборке
 Описать баг про ID динамический
 Прикрутить статистику

@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -30,6 +31,7 @@ module.exports = {
       filename: isDevelopment ? '[name].css' : '[name].[hash].css',
       // chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css',
     }),
+    new VueLoaderPlugin(),
   ],
   module: {
     rules: [
@@ -54,6 +56,7 @@ module.exports = {
       { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=application/font-woff' },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=application/octet-stream' },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader' },
+      { test: /\.vue$/, loader: 'vue-loader' },
     ],
   },
 };
