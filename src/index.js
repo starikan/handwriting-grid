@@ -1,10 +1,12 @@
 import _ from 'lodash';
 import Vue from 'vue';
+import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import LZString from 'lz-string';
 import { Base64 } from 'js-base64';
 
 Vue.use(VueRouter);
+Vue.use(Vuex);
 
 import './index.scss';
 import './print.scss';
