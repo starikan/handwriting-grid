@@ -16,11 +16,11 @@ https://www.hanzigrids.com/examples
 
 https://characterpop.com/
 https://store.mandarinposter.com/shop/the-first-1000-chinese-characters
+https://github.com/googlefonts/noto-fonts
 
 Chinese Handwriting Grid
 samples in words
 
-Печать
 Сделать расшаривание
 CI + GitHub (закрытое репо)
 Обфускация при сборке
@@ -33,6 +33,8 @@ CI + GitHub (закрытое репо)
 Завести vuex
 Сделать градиенты
 Тайпскрипт
+  eslint - https://habr.com/ru/company/dodopizzaio/blog/473648/
+  prettier
 Тесты
 Прикрутить статистику
 Сделать просмотр локальных сохранений

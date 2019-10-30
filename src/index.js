@@ -3,6 +3,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import './index.scss';
+import './print.scss';
 import 'font-awesome/scss/font-awesome.scss';
 
 const router = new VueRouter({

@@ -1,0 +1,16 @@
+@import './index.scss';
+
+@media print {
+  .page {
+    box-shadow: none !important;
+  }
+
+  .top-menu,
+  .right-menu,
+  .left-menu,
+  .bottom-menu,
+  .add-page,
+  dialog {
+    display: none !important;
+  }
+}

@@ -1,6 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 module.exports = {
   mode: 'development',
@@ -20,13 +23,32 @@ module.exports = {
   devServer: {
     contentBase: './dist',
   },
-  plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin({ template: './src/index.html' })],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
+    new MiniCssExtractPlugin({
+      filename: isDevelopment ? '[name].css' : '[name].[hash].css',
+      // chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css',
+    }),
+  ],
   module: {
     rules: [
       { test: /\.html$/, exclude: /node_modules/, use: { loader: 'html-loader' } },
       { test: /\.(png|svg|jpg|gif)$/, use: ['file-loader'] },
-      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
-      { test: /\.s[ac]ss?$/, loaders: ['style-loader', 'css-loader', 'sass-loader'] },
+      {
+        test: /\.(sc|sa|c)ss?$/,
+        loaders: [
+          'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: isDevelopment,
+            },
+          },
+          'css-loader',
+          'sass-loader',
+        ],
+      },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=image/svg+xml' },
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=application/font-woff' },
       { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=application/font-woff' },
