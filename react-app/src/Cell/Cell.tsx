@@ -2,19 +2,19 @@ import React from 'react';
 import { Property } from 'csstype';
 
 type PropsType = {
-  borderWidth: number;
+  borderWidth: Property.BorderWidth;
   borderWidthStrict?: {
-    top?: number;
-    left?: number;
-    right?: number;
-    bottom?: number;
+    top?: Property.BorderWidth;
+    left?: Property.BorderWidth;
+    right?: Property.BorderWidth;
+    bottom?: Property.BorderWidth;
   };
-  borderColor: string;
+  borderColor: Property.Color;
   borderColorStrict?: {
-    top?: string;
-    left?: string;
-    right?: string;
-    bottom?: string;
+    top?: Property.Color;
+    left?: Property.Color;
+    right?: Property.Color;
+    bottom?: Property.Color;
   };
   borderStyle: Property.BorderInlineStyle;
   borderStyleStrict?: {
@@ -23,8 +23,11 @@ type PropsType = {
     right?: Property.BorderInlineStyle;
     bottom?: Property.BorderInlineStyle;
   };
-  width: number;
-  height: number;
+  width: Property.Width;
+  height: Property.Height;
+  fontFamily: Property.FontFamily;
+  fontSize: Property.FontSize;
+  conture: boolean;
 };
 
 const defaultBorderWidth = 1;
@@ -78,6 +81,23 @@ function Cell(props: PropsType) {
     setHeight(props.height);
   }, [props.height]);
 
+  const [fontFamily, setFontFamily] = React.useState(props.fontFamily);
+  const [fontSize, setFontSize] = React.useState(props.fontSize);
+
+  React.useEffect(() => {
+    setFontFamily(props.fontFamily);
+  }, [props.fontFamily]);
+
+  React.useEffect(() => {
+    setFontSize(props.fontSize);
+  }, [props.fontSize]);
+
+  const [conture, setConture] = React.useState(props.conture);
+
+  React.useEffect(() => {
+    setConture(props.conture);
+  }, [props.conture]);
+
   const style: React.CSSProperties = {
     borderTopWidth: borderWidthStrict?.top || borderWidth,
     borderLeftWidth: borderWidthStrict?.left || borderWidth,
@@ -96,9 +116,21 @@ function Cell(props: PropsType) {
 
     width,
     height,
+
+    fontFamily,
+    fontSize,
+
+    display: 'grid',
+    justifyContent: 'center',
+    alignContent: 'center',
   };
 
-  return <div style={style}></div>;
+  if (conture) {
+    style.color = 'white';
+    style.WebkitTextStroke = '1px black';
+  }
+
+  return <div style={style}>T</div>;
 }
 
 Cell.defaultProps = {
@@ -107,6 +139,9 @@ Cell.defaultProps = {
   borderStyle: defaultBorderStyle,
   width: defaultWidth,
   height: defaultHeight,
+  fontFamily: 'sans-serif',
+  fontSize: 40,
+  conture: false,
 };
 
 export default Cell;
