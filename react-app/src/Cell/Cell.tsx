@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Property } from 'csstype';
 
 import './Cell.scss';
@@ -32,7 +32,7 @@ interface PropsType {
   fontFamily: Property.FontFamily;
   fontSize: Property.FontSize;
   conture: boolean;
-};
+}
 
 const defaultBorderWidth = 1;
 const defaultBorderColor = 'black';
@@ -41,64 +41,64 @@ const defaultWidth = 100;
 const defaultHeight = 100;
 
 function Cell(props: PropsType) {
-  const [borderWidth, setBorderWidth] = React.useState(props.borderWidth);
-  const [borderWidthStrict, setBorderWidthStrict] = React.useState(props.borderWidthStrict);
+  const [borderWidth, setBorderWidth] = useState(props.borderWidth);
+  const [borderWidthStrict, setBorderWidthStrict] = useState(props.borderWidthStrict);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setBorderWidth(props.borderWidth);
   }, [props.borderWidth]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setBorderWidthStrict(props.borderWidthStrict);
   }, [props.borderWidthStrict]);
 
-  const [borderColor, setBorderColor] = React.useState(props.borderColor);
-  const [borderColorStrict, setBorderColorStrict] = React.useState(props.borderColorStrict);
+  const [borderColor, setBorderColor] = useState(props.borderColor);
+  const [borderColorStrict, setBorderColorStrict] = useState(props.borderColorStrict);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setBorderColor(props.borderColor);
   }, [props.borderColor]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setBorderColorStrict(props.borderColorStrict);
   }, [props.borderColorStrict]);
 
-  const [borderStyle, setBorderStyle] = React.useState(props.borderStyle);
-  const [borderStyleStrict, setBorderStyleStrict] = React.useState(props.borderStyleStrict);
+  const [borderStyle, setBorderStyle] = useState(props.borderStyle);
+  const [borderStyleStrict, setBorderStyleStrict] = useState(props.borderStyleStrict);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setBorderStyle(props.borderStyle);
   }, [props.borderStyle]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setBorderStyleStrict(props.borderStyleStrict);
   }, [props.borderStyleStrict]);
 
-  const [width, setWidth] = React.useState(props.width);
-  const [height, setHeight] = React.useState(props.height);
+  const [width, setWidth] = useState(props.width);
+  const [height, setHeight] = useState(props.height);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setWidth(props.width);
   }, [props.width]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setHeight(props.height);
   }, [props.height]);
 
-  const [fontFamily, setFontFamily] = React.useState(props.fontFamily);
-  const [fontSize, setFontSize] = React.useState(props.fontSize);
+  const [fontFamily, setFontFamily] = useState(props.fontFamily);
+  const [fontSize, setFontSize] = useState(props.fontSize);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setFontFamily(props.fontFamily);
   }, [props.fontFamily]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setFontSize(props.fontSize);
   }, [props.fontSize]);
 
-  const [conture, setConture] = React.useState(props.conture);
+  const [conture, setConture] = useState(props.conture);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setConture(props.conture);
   }, [props.conture]);
 
@@ -123,10 +123,6 @@ function Cell(props: PropsType) {
 
     fontFamily,
     fontSize,
-
-    display: 'grid',
-    justifyContent: 'center',
-    alignContent: 'center',
   };
 
   if (conture) {
@@ -137,11 +133,15 @@ function Cell(props: PropsType) {
   const styleTextBlock: React.CSSProperties = {
     padding: 0,
     margin: 0,
+    height: '100%',
+    display: 'grid',
+    justifyContent: 'center',
+    alignContent: 'center',
   };
 
   return (
     <div style={style}>
-      <Grid></Grid>
+      <Grid cell={{ width, height }}></Grid>
       <p style={styleTextBlock}>T</p>
     </div>
   );
