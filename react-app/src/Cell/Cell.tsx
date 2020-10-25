@@ -3,7 +3,9 @@ import { Property } from 'csstype';
 
 import './Cell.scss';
 
-type PropsType = {
+import Grid from '../Grid';
+
+interface PropsType {
   borderWidth: Property.BorderWidth;
   borderWidthStrict?: {
     top?: Property.BorderWidth;
@@ -139,11 +141,7 @@ function Cell(props: PropsType) {
 
   return (
     <div style={style}>
-
-      <span className="stroke stroke-vert"></span>
-      <span className="stroke stroke-horiz"></span>
-      <span className="stroke stroke-diag-right"></span>
-      <span className="stroke stroke-diag-left"></span>
+      <Grid></Grid>
       <p style={styleTextBlock}>T</p>
     </div>
   );
