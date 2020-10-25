@@ -1,6 +1,8 @@
 import React from 'react';
 import { Property } from 'csstype';
 
+import './Cell.scss';
+
 type PropsType = {
   borderWidth: Property.BorderWidth;
   borderWidthStrict?: {
@@ -130,7 +132,21 @@ function Cell(props: PropsType) {
     style.WebkitTextStroke = '1px black';
   }
 
-  return <div style={style}>T</div>;
+  const styleTextBlock: React.CSSProperties = {
+    padding: 0,
+    margin: 0,
+  };
+
+  return (
+    <div style={style}>
+
+      <span className="stroke stroke-vert"></span>
+      <span className="stroke stroke-horiz"></span>
+      <span className="stroke stroke-diag-right"></span>
+      <span className="stroke stroke-diag-left"></span>
+      <p style={styleTextBlock}>T</p>
+    </div>
+  );
 }
 
 Cell.defaultProps = {
@@ -140,8 +156,8 @@ Cell.defaultProps = {
   width: defaultWidth,
   height: defaultHeight,
   fontFamily: 'sans-serif',
-  fontSize: 40,
-  conture: false,
+  fontSize: 70,
+  conture: true,
 };
 
 export default Cell;
