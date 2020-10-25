@@ -4,56 +4,60 @@ import { Property } from 'csstype';
 import './style.scss';
 
 interface Border {
-  strokeWidth?: number;
-  strokeColor?: Property.BorderRightColor;
-  strokeStyle?: Property.BorderRightStyle;
-  percent?: number;
-  borderRightWidth?: Property.BorderRightWidth;
-  borderRightColor?: Property.BorderRightColor;
-  borderRightStyle?: Property.BorderRightStyle;
+  borderRightWidth: Property.BorderRightWidth;
+  borderRightColor: Property.BorderRightColor;
+  borderRightStyle: Property.BorderRightStyle;
   width?: Property.Width;
   height?: Property.Height;
 }
 
+interface Stroke {
+  strokeWidth: number;
+  strokeColor: Property.BorderRightColor;
+  strokeStyle: Property.BorderRightStyle;
+  percent?: number;
+}
+
 interface Props {
-  strokesStyle?: Border;
-  vertical?: number[] | Border[];
-  horizontal?: number[] | Border[];
-  diagonalUp?: number[] | Border[];
-  diagonalDown?: number[] | Border[];
+  strokesStyle?: Stroke;
+  vertical?: number[] | Stroke[];
+  horizontal?: number[] | Stroke[];
+  diagonalUp?: number[] | Stroke[];
+  diagonalDown?: number[] | Stroke[];
   cell: {
-    width: Property.Width;
-    height: Property.Height;
+    width: number;
+    height: number;
   };
 }
 
 const Grid: React.FC<Props> = (props: Props) => {
-  const [strokesStyle, setStrokesStyle] = useState(props.strokesStyle);
+  // const [strokesStyle, ] = useState(props.strokesStyle);
+  const [mainStrokesStyle, setMainStrokesStyle] = useState({});
 
   useEffect(() => {
     const borderRight: Border = {
       borderRightWidth: `${props.strokesStyle?.strokeWidth}px`,
-      borderRightColor: props.strokesStyle?.strokeColor,
-      borderRightStyle: props.strokesStyle?.strokeStyle,
-      width: props.cell.width,
-      height: props.cell.height,
+      borderRightColor: props.strokesStyle?.strokeColor || 'black',
+      borderRightStyle: props.strokesStyle?.strokeStyle || 'dashed',
+      width: `${props.cell.width}px`,
+      height: `${props.cell.height}px`,
     };
-    setStrokesStyle(borderRight);
+    setMainStrokesStyle(borderRight);
   }, [props.strokesStyle, props.cell]);
 
   return (
     <>
-      <span style={strokesStyle} className="stroke stroke-vertical"></span>
-      <span style={strokesStyle} className="stroke stroke-horizontal"></span>
-      <span style={strokesStyle} className="stroke stroke-diagonal-up"></span>
-      <span style={strokesStyle} className="stroke stroke-diagonal-down"></span>
+      <span style={mainStrokesStyle} className="stroke stroke-vertical"></span>
+      <span style={mainStrokesStyle} className="stroke stroke-horizontal"></span>
+      <span style={mainStrokesStyle} className="stroke stroke-diagonal-up"></span>
+      <span style={mainStrokesStyle} className="stroke stroke-diagonal-down"></span>
     </>
   );
 };
 
 Grid.defaultProps = {
   strokesStyle: {
-    strokeWidth: 5,
+    strokeWidth: 1,
     strokeColor: 'black',
     strokeStyle: 'dashed',
   },

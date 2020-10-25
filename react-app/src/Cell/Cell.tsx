@@ -27,18 +27,12 @@ interface PropsType {
     right?: Property.BorderInlineStyle;
     bottom?: Property.BorderInlineStyle;
   };
-  width: Property.Width;
-  height: Property.Height;
+  width: number;
+  height: number;
   fontFamily: Property.FontFamily;
   fontSize: Property.FontSize;
   conture: boolean;
 }
-
-const defaultBorderWidth = 1;
-const defaultBorderColor = 'black';
-const defaultBorderStyle = 'solid';
-const defaultWidth = 100;
-const defaultHeight = 100;
 
 function Cell(props: PropsType) {
   const [borderWidth, setBorderWidth] = useState(props.borderWidth);
@@ -118,8 +112,8 @@ function Cell(props: PropsType) {
     borderRightStyle: borderStyleStrict?.right || borderStyle,
     borderBottomStyle: borderStyleStrict?.bottom || borderStyle,
 
-    width,
-    height,
+    width: `${width}px`,
+    height: `${height}px`,
 
     fontFamily,
     fontSize,
@@ -148,11 +142,11 @@ function Cell(props: PropsType) {
 }
 
 Cell.defaultProps = {
-  borderWidth: defaultBorderWidth,
-  borderColor: defaultBorderColor,
-  borderStyle: defaultBorderStyle,
-  width: defaultWidth,
-  height: defaultHeight,
+  borderWidth: 3,
+  borderColor: 'black',
+  borderStyle: 'solid',
+  width: 100,
+  height: 100,
   fontFamily: 'sans-serif',
   fontSize: 70,
   conture: true,
