@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Property } from 'csstype';
 
 import './Cell.scss';
 
 import Grid from '../Grid';
 
+interface BorderWidths {
+  top: number;
+  left: number;
+  right: number;
+  bottom: number;
+}
+
 interface PropsType {
-  borderWidth: Property.BorderWidth;
-  borderWidthStrict?: {
-    top?: Property.BorderWidth;
-    left?: Property.BorderWidth;
-    right?: Property.BorderWidth;
-    bottom?: Property.BorderWidth;
-  };
+  borderWidth: number;
+  borderWidthStrict?: BorderWidths;
   borderColor: Property.Color;
   borderColorStrict?: {
     top?: Property.Color;
@@ -34,17 +36,32 @@ interface PropsType {
   conture: boolean;
 }
 
+const resolveBorderWidth = (borderWidth: number, borderWidthStrict: BorderWidths): BorderWidths => {
+  return {
+    ...{
+      top: borderWidth,
+      left: borderWidth,
+      right: borderWidth,
+      bottom: borderWidth,
+    },
+    ...borderWidthStrict,
+  } as BorderWidths;
+};
+
 function Cell(props: PropsType) {
-  const [borderWidth, setBorderWidth] = useState(props.borderWidth);
-  const [borderWidthStrict, setBorderWidthStrict] = useState(props.borderWidthStrict);
+  const {
+    borderWidth = 1,
+    borderWidthStrict = { top: borderWidth, left: borderWidth, right: borderWidth, bottom: borderWidth },
+  } = props;
+
+  const [borderWidthLocal, setBorderWidthStrict]: [BorderWidths, Dispatch<SetStateAction<BorderWidths>>] = useState(
+    resolveBorderWidth(borderWidth, borderWidthStrict),
+  );
 
   useEffect(() => {
-    setBorderWidth(props.borderWidth);
-  }, [props.borderWidth]);
-
-  useEffect(() => {
-    setBorderWidthStrict(props.borderWidthStrict);
-  }, [props.borderWidthStrict]);
+    setBorderWidthStrict(resolveBorderWidth(borderWidth, borderWidthStrict));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.borderWidth, props.borderWidthStrict]);
 
   const [borderColor, setBorderColor] = useState(props.borderColor);
   const [borderColorStrict, setBorderColorStrict] = useState(props.borderColorStrict);
@@ -97,10 +114,10 @@ function Cell(props: PropsType) {
   }, [props.conture]);
 
   const style: React.CSSProperties = {
-    borderTopWidth: borderWidthStrict?.top || borderWidth,
-    borderLeftWidth: borderWidthStrict?.left || borderWidth,
-    borderRightWidth: borderWidthStrict?.right || borderWidth,
-    borderBottomWidth: borderWidthStrict?.bottom || borderWidth,
+    borderTopWidth: `${borderWidthLocal.top}px`,
+    borderLeftWidth: `${borderWidthLocal.left}px`,
+    borderRightWidth: `${borderWidthLocal.right}px`,
+    borderBottomWidth: `${borderWidthLocal.bottom}px`,
 
     borderTopColor: borderColorStrict?.top || borderColor,
     borderLeftColor: borderColorStrict?.left || borderColor,
@@ -135,7 +152,7 @@ function Cell(props: PropsType) {
 
   return (
     <div style={style}>
-      <Grid cell={{ width, height }}></Grid>
+      <Grid cell={{ width, height, border: borderWidthLocal }}></Grid>
       <p style={styleTextBlock}>T</p>
     </div>
   );
