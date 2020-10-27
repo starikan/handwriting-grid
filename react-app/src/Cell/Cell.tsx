@@ -159,11 +159,11 @@ function Cell(props: PropsType) {
 }
 
 Cell.defaultProps = {
-  borderWidth: 3,
+  borderWidth: 5,
   borderColor: 'black',
   borderStyle: 'solid',
-  width: 100,
-  height: 100,
+  width: 150,
+  height: 70,
   fontFamily: 'sans-serif',
   fontSize: 70,
   conture: true,

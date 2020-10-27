@@ -43,62 +43,77 @@ const Grid: React.FC<Props> = (props) => {
     const coeff = typeof v === 'number' ? Math.min(v, 1) : Math.min(v.percent || 1, 1);
     const strokeWidth = typeof v === 'number' ? strokesStyle.strokeWidth : v.strokeWidth;
     const verticalStyle = {
-      width: `${cell.width * coeff - cell.border.right / 2 + strokeWidth}px`,
-      height: `${cell.height}px`,
-      borderRightWidth: `${strokesStyle.strokeWidth}px`,
-      borderRightColor: strokesStyle.strokeColor || 'black',
-      borderRightStyle: strokesStyle.strokeStyle || 'dashed',
+      width: `${cell.height}px`,
+      borderBottomWidth: `${strokesStyle.strokeWidth}px`,
+      borderBottomColor: strokesStyle.strokeColor || 'black',
+      borderBottomStyle: strokesStyle.strokeStyle || 'dashed',
+      transform: `translateX(${cell.width * coeff + strokeWidth / 2}px) rotate(90deg)`,
+      transformOrigin: 'left top',
     };
     return <span key={i} style={{ ...verticalStyle }} className="stroke stroke-vertical"></span>;
   });
 
   const horizontalSpans = horizontal.map((v: number | Stroke, i: number) => {
-    console.log(typeof v);
     const coeff = typeof v === 'number' ? Math.min(v, 1) : Math.min(v.percent || 1, 1);
-    const strokeWidth = typeof v === 'number' ? strokesStyle.strokeWidth : v.strokeWidth;
     const horizontalStyle = {
       width: `${cell.width}px`,
-      height: `${cell.height * coeff - cell.border.right / 2 + strokeWidth}px`,
       borderBottomWidth: `${strokesStyle.strokeWidth}px`,
       borderBottomColor: strokesStyle.strokeColor || 'black',
       borderBottomStyle: strokesStyle.strokeStyle || 'dashed',
+      transform: `translateY(${cell.height * coeff}px)`,
     };
     return <span key={i} style={{ ...horizontalStyle }} className="stroke stroke-horizontal"></span>;
   });
 
   const diagonalUpSpans = diagonalUp.map((v: number | Stroke, i: number) => {
-    console.log(typeof v);
-    const coeff = typeof v === 'number' ? Math.min(v, 1) : Math.min(v.percent || 1, 1);
+    const { width, height } = cell;
     const strokeWidth = typeof v === 'number' ? strokesStyle.strokeWidth : v.strokeWidth;
-    const diagLength =
-      coeff <= 0.5 ? cell.width * Math.sqrt(2) * coeff * 2 : cell.width * Math.sqrt(2) * (1 - coeff) * 2;
+    const coeff = typeof v === 'number' ? Math.min(v, 1) : Math.min(v.percent || 1, 1);
+    const angular = -(Math.atan(height / width) * 180) / Math.PI;
+    const fullDiag = Math.sqrt(width ** 2 + height ** 2);
+    const diagLength = coeff <= 0.5 ? fullDiag * 2 * coeff : fullDiag * 2 * (1 - coeff);
     const diagonalStyle = {
       width: `${diagLength}px`,
-      height: `${(cell.height * coeff - cell.border.right / 2 + strokeWidth) * Math.sqrt(2)}px`,
       borderBottomWidth: `${strokesStyle.strokeWidth}px`,
       borderBottomColor: strokesStyle.strokeColor || 'black',
       borderBottomStyle: strokesStyle.strokeStyle || 'dashed',
-      transform: `translate(${- diagLength / 2}px) rotate(-45deg)`,
-      transformOrigin: 'center top',
+      transform: '',
+      transformOrigin: 'left top',
     };
+
+    if (coeff <= 0.5) {
+      diagonalStyle.transform = `translateY(${height * 2 * coeff - strokeWidth / 2}px) rotate(${angular}deg)`;
+    } else {
+      diagonalStyle.transform = `translateX(${width * 2 * (1 - coeff)}px) translateY(${
+        height - strokeWidth / 2
+      }px) rotate(${angular}deg)`;
+    }
+
     return <span key={i} style={{ ...diagonalStyle }} className="stroke stroke-diagonal"></span>;
   });
 
   const diagonalDownSpans = diagonalDown.map((v: number | Stroke, i: number) => {
-    console.log(typeof v);
-    const coeff = typeof v === 'number' ? Math.min(v, 1) : Math.min(v.percent || 1, 1);
+    const { width, height } = cell;
     const strokeWidth = typeof v === 'number' ? strokesStyle.strokeWidth : v.strokeWidth;
-    const diagLength =
-      coeff <= 0.5 ? cell.width * Math.sqrt(2) * coeff * 2 : cell.width * Math.sqrt(2) * (1 - coeff) * 2;
+    const coeff = typeof v === 'number' ? Math.min(v, 1) : Math.min(v.percent || 1, 1);
+    const angular = (Math.atan(height / width) * 180) / Math.PI;
+    const fullDiag = Math.sqrt(width ** 2 + height ** 2);
+    const diagLength = coeff <= 0.5 ? fullDiag * 2 * coeff : fullDiag * 2 * (1 - coeff);
     const diagonalStyle = {
       width: `${diagLength}px`,
-      height: `${(cell.height * coeff - cell.border.right / 2 + strokeWidth) * Math.sqrt(2)}px`,
       borderBottomWidth: `${strokesStyle.strokeWidth}px`,
       borderBottomColor: strokesStyle.strokeColor || 'black',
       borderBottomStyle: strokesStyle.strokeStyle || 'dashed',
-      transform: `translate(${cell.width - diagLength / 2}px) rotate(45deg)`,
-      transformOrigin: 'center top',
+      transform: '',
+      transformOrigin: 'left top',
     };
+
+    if (coeff <= 0.5) {
+      diagonalStyle.transform = `translateX(${width * 2 * (0.5 - coeff) + strokeWidth / 2}px) rotate(${angular}deg)`;
+    } else {
+      diagonalStyle.transform = `translateY(${height * 2 * (1 - coeff) - strokeWidth / 2}px) rotate(${angular}deg)`;
+    }
+
     return <span key={i} style={{ ...diagonalStyle }} className="stroke stroke-diagonal"></span>;
   });
 
