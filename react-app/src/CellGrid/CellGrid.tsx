@@ -24,7 +24,7 @@ interface Props {
   };
 }
 
-const Grid: React.FC<Props> = (props) => {
+const CellGrid: React.FC<Props> = (props) => {
   const {
     strokesStyle = {
       strokeWidth: 1,
@@ -127,4 +127,4 @@ const Grid: React.FC<Props> = (props) => {
   );
 };
 
-export default Grid;
+export default CellGrid;

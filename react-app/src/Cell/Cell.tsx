@@ -3,7 +3,7 @@ import { Property } from 'csstype';
 
 import './Cell.scss';
 
-import Grid from '../Grid';
+import CellGrid from '../CellGrid';
 
 interface BorderWidths {
   top: number;
@@ -152,7 +152,7 @@ function Cell(props: PropsType) {
 
   return (
     <div style={style}>
-      <Grid cell={{ width, height, border: borderWidthLocal }}></Grid>
+      <CellGrid cell={{ width, height, border: borderWidthLocal }}></CellGrid>
       <p style={styleTextBlock}>T</p>
     </div>
   );
