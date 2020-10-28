@@ -23,7 +23,6 @@ https://learn-chinese.online/
 Chinese Handwriting Grid
 samples in words
 
-Завести vuex
 CI/CD
 Выбор стиля ячеек
 Редактирование шрифта
@@ -38,14 +37,10 @@ CI/CD
 Сделать свободные яцейки
 Картинки в ячейке
 Проигрывание музыки при нажатии или что-то другое
-Тайпскрипт
-  eslint - https://habr.com/ru/company/dodopizzaio/blog/473648/
-  prettier
 Тесты
   puppeDo
 PWA
 Обфускация при сборке
-Описать баг про ID динамический
 Прикрутить статистику
 Отписаться тут
 https://www.chinese-forums.com/forums/topic/36263-introducing-hanzi-grids-a-tool-for-creating-printable-workshe

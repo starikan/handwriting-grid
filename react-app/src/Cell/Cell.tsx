@@ -14,27 +14,27 @@ type PropsType = {
     right: number;
     bottom: number;
   };
-  borderColor: Property.Color;
+  borderColor?: Property.Color;
   borderColorStrict?: {
-    top?: Property.Color;
-    left?: Property.Color;
-    right?: Property.Color;
-    bottom?: Property.Color;
+    top: Property.Color;
+    left: Property.Color;
+    right: Property.Color;
+    bottom: Property.Color;
   };
-  borderStyle: Property.BorderInlineStyle;
+  borderStyle?: Property.BorderInlineStyle;
   borderStyleStrict?: {
-    top?: Property.BorderInlineStyle;
-    left?: Property.BorderInlineStyle;
-    right?: Property.BorderInlineStyle;
-    bottom?: Property.BorderInlineStyle;
+    top: Property.BorderInlineStyle;
+    left: Property.BorderInlineStyle;
+    right: Property.BorderInlineStyle;
+    bottom: Property.BorderInlineStyle;
   };
   width?: number;
   height?: number;
   left?: number;
   top?: number;
-  fontFamily: Property.FontFamily;
-  fontSize: number;
-  conture: boolean;
+  fontFamily?: Property.FontFamily;
+  fontSize?: number;
+  conture?: boolean;
   grid?: StrokesParams;
 };
 
