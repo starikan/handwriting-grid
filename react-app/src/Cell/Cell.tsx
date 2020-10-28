@@ -1,20 +1,19 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Property } from 'csstype';
 
 import './Cell.scss';
 
 import CellGrid from '../CellGrid';
-
-interface BorderWidths {
-  top: number;
-  left: number;
-  right: number;
-  bottom: number;
-}
+import { StrokesParams } from '../CellGrid/CellGrid';
 
 type PropsType = {
   borderWidth?: number;
-  borderWidthStrict?: BorderWidths;
+  borderWidthStrict?: {
+    top: number;
+    left: number;
+    right: number;
+    bottom: number;
+  };
   borderColor: Property.Color;
   borderColorStrict?: {
     top?: Property.Color;
@@ -34,100 +33,45 @@ type PropsType = {
   left?: number;
   top?: number;
   fontFamily: Property.FontFamily;
-  fontSize: Property.FontSize;
+  fontSize: number;
   conture: boolean;
+  grid?: StrokesParams;
 };
 
 export type CellPropsType = PropsType;
 
-const resolveBorderWidth = (borderWidth: number, borderWidthStrict: BorderWidths): BorderWidths => {
-  return {
-    ...{
-      top: borderWidth,
-      left: borderWidth,
-      right: borderWidth,
-      bottom: borderWidth,
-    },
-    ...borderWidthStrict,
-  } as BorderWidths;
-};
-
 function Cell(props: PropsType) {
-  const {
-    borderWidth = 3,
-    borderWidthStrict = { top: borderWidth, left: borderWidth, right: borderWidth, bottom: borderWidth },
-    width: _width = 100,
-    height: _height = 100,
-  } = props;
-
-  console.log(props)
   const [left] = useState(props.left || 0);
   const [top] = useState(props.top || 0);
-
-  const [_borderWidth, setBorderWidthStrict]: [BorderWidths, Dispatch<SetStateAction<BorderWidths>>] = useState(
-    resolveBorderWidth(borderWidth, borderWidthStrict),
+  const [width] = useState(props.width || 50);
+  const [height] = useState(props.height || 50);
+  const [borderWidth] = useState(props.borderWidth || 1);
+  const [borderWidthStrict] = useState(
+    props.borderWidthStrict || { top: borderWidth, left: borderWidth, right: borderWidth, bottom: borderWidth },
   );
 
-  useEffect(() => {
-    setBorderWidthStrict(resolveBorderWidth(borderWidth, borderWidthStrict));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.borderWidth, props.borderWidthStrict]);
+  const [borderColor] = useState(props.borderColor || 'black');
+  const [borderColorStrict] = useState(
+    props.borderColorStrict || { top: borderColor, left: borderColor, right: borderColor, bottom: borderColor },
+  );
 
-  const [borderColor, setBorderColor] = useState(props.borderColor);
-  const [borderColorStrict, setBorderColorStrict] = useState(props.borderColorStrict);
+  const [borderStyle] = useState(props.borderStyle || 'solid');
+  const [borderStyleStrict] = useState(
+    props.borderStyleStrict || { top: borderStyle, left: borderStyle, right: borderStyle, bottom: borderStyle },
+  );
 
-  useEffect(() => {
-    setBorderColor(props.borderColor);
-  }, [props.borderColor]);
+  const [fontFamily] = useState(props.fontFamily || 'sans-serif');
+  const [fontSize] = useState(props.fontSize || 70);
 
-  useEffect(() => {
-    setBorderColorStrict(props.borderColorStrict);
-  }, [props.borderColorStrict]);
+  const [conture] = useState(props.conture !== undefined ? props.conture : true);
 
-  const [borderStyle, setBorderStyle] = useState(props.borderStyle);
-  const [borderStyleStrict, setBorderStyleStrict] = useState(props.borderStyleStrict);
-
-  useEffect(() => {
-    setBorderStyle(props.borderStyle);
-  }, [props.borderStyle]);
-
-  useEffect(() => {
-    setBorderStyleStrict(props.borderStyleStrict);
-  }, [props.borderStyleStrict]);
-
-  const [width, setWidth] = useState(_width);
-  const [height, setHeight] = useState(_height);
-
-  useEffect(() => {
-    setWidth(props.width || _width);
-  }, [props.width]);
-
-  useEffect(() => {
-    setHeight(props.height || _height);
-  }, [props.height]);
-
-  const [fontFamily, setFontFamily] = useState(props.fontFamily);
-  const [fontSize, setFontSize] = useState(props.fontSize);
-
-  useEffect(() => {
-    setFontFamily(props.fontFamily);
-  }, [props.fontFamily]);
-
-  useEffect(() => {
-    setFontSize(props.fontSize);
-  }, [props.fontSize]);
-
-  const [conture, setConture] = useState(props.conture);
-
-  useEffect(() => {
-    setConture(props.conture);
-  }, [props.conture]);
+  const [grid] = useState(props.grid || {});
 
   const style: React.CSSProperties = {
-    borderTopWidth: `${_borderWidth.top}px`,
-    borderLeftWidth: `${_borderWidth.left}px`,
-    borderRightWidth: `${_borderWidth.right}px`,
-    borderBottomWidth: `${_borderWidth.bottom}px`,
+    borderTopWidth: `${borderWidthStrict.top}px`,
+    borderLeftWidth: `${borderWidthStrict.left}px`,
+    borderRightWidth: `${borderWidthStrict.right}px`,
+    borderBottomWidth: `${borderWidthStrict.bottom}px`,
 
     borderTopColor: borderColorStrict?.top || borderColor,
     borderLeftColor: borderColorStrict?.left || borderColor,
@@ -146,7 +90,7 @@ function Cell(props: PropsType) {
     top: `${top}px`,
 
     fontFamily,
-    fontSize,
+    fontSize: `${fontSize}px`,
 
     position: 'absolute',
   };
@@ -167,18 +111,10 @@ function Cell(props: PropsType) {
 
   return (
     <div style={style}>
-      <CellGrid cell={{ width, height, border: _borderWidth, left, top }}></CellGrid>
+      <CellGrid cell={{ width, height, border: borderWidthStrict, left, top }} {...grid}></CellGrid>
       <p style={styleTextBlock}>T</p>
     </div>
   );
 }
-
-Cell.defaultProps = {
-  borderColor: 'black',
-  borderStyle: 'solid',
-  fontFamily: 'sans-serif',
-  fontSize: 70,
-  conture: true,
-};
 
 export default Cell;

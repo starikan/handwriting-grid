@@ -21,8 +21,8 @@ const Block: React.FC<Props> = (props) => {
     top: positionY,
   };
 
-  const cellsTags = cells.map((v: CellPropsType) => {
-    return <Cell {...v}></Cell>;
+  const cellsTags = cells.map((v: CellPropsType, i: number) => {
+    return <Cell key={i} {...v}></Cell>;
   });
 
   return (
