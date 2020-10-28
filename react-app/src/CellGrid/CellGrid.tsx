@@ -31,13 +31,7 @@ export interface StrokesParams {
 type Props = StrokesParams & { cell: CellParams };
 
 const CellGrid: React.FC<Props> = (props) => {
-  const {
-    // horizontal = [0.25, 0.5, 0.75],
-    // diagonalUp = [0.25, 0.5, 0.75],
-    // diagonalDown = [0.25, 0.5, 0.75],
-    cell,
-  } = props;
-
+  const [cell] = useState(props.cell);
   const [strokesStyle] = useState(props.strokesStyle || ({ width: 1, color: 'black', style: 'dashed' } as Stroke));
 
   const [vertical] = useState(

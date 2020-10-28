@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Block from './Block';
 import { BlockProps } from './Block/Block';
-import { CellPropsType } from './Cell/Cell';
 import './index.css';
 
 const App: React.FC = () => {
@@ -16,7 +15,7 @@ const App: React.FC = () => {
         width: 100,
         height: 120,
         borderWidth: 4,
-      } as CellPropsType,
+      },
       {
         left: 50,
         top: 50,
@@ -31,7 +30,19 @@ const App: React.FC = () => {
           diagonalUp: [0.25, 0.75],
           diagonalDown: [0.25, 0.75],
         },
-      } as CellPropsType,
+      },
+    ],
+    multiply: [
+      {
+        times: 3,
+        direction: 90,
+        distance: 200,
+      },
+      {
+        times: 2,
+        direction: 0,
+        distance: 300,
+      },
     ],
   } as BlockProps);
 
