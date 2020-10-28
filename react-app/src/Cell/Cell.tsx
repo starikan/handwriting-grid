@@ -12,7 +12,7 @@ interface BorderWidths {
   bottom: number;
 }
 
-interface PropsType {
+type PropsType = {
   borderWidth?: number;
   borderWidthStrict?: BorderWidths;
   borderColor: Property.Color;
@@ -31,10 +31,14 @@ interface PropsType {
   };
   width?: number;
   height?: number;
+  left?: number;
+  top?: number;
   fontFamily: Property.FontFamily;
   fontSize: Property.FontSize;
   conture: boolean;
-}
+};
+
+export type CellPropsType = PropsType;
 
 const resolveBorderWidth = (borderWidth: number, borderWidthStrict: BorderWidths): BorderWidths => {
   return {
@@ -55,6 +59,10 @@ function Cell(props: PropsType) {
     width: _width = 100,
     height: _height = 100,
   } = props;
+
+  console.log(props)
+  const [left] = useState(props.left || 0);
+  const [top] = useState(props.top || 0);
 
   const [_borderWidth, setBorderWidthStrict]: [BorderWidths, Dispatch<SetStateAction<BorderWidths>>] = useState(
     resolveBorderWidth(borderWidth, borderWidthStrict),
@@ -134,8 +142,13 @@ function Cell(props: PropsType) {
     width: `${width}px`,
     height: `${height}px`,
 
+    left: `${left}px`,
+    top: `${top}px`,
+
     fontFamily,
     fontSize,
+
+    position: 'absolute',
   };
 
   if (conture) {
@@ -154,7 +167,7 @@ function Cell(props: PropsType) {
 
   return (
     <div style={style}>
-      <CellGrid cell={{ width, height, border: _borderWidth }}></CellGrid>
+      <CellGrid cell={{ width, height, border: _borderWidth, left, top }}></CellGrid>
       <p style={styleTextBlock}>T</p>
     </div>
   );

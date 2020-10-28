@@ -21,6 +21,8 @@ interface Props {
     width: number;
     height: number;
     border: { top: number; left: number; right: number; bottom: number };
+    left: number;
+    top: number;
   };
 }
 
