@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import Block from './Block';
 import { BlockProps } from './Block/Block';
 import './index.css';
+import Page from './Page';
 
 const App: React.FC = () => {
   const [sampleBlock] = useState({
@@ -46,9 +46,13 @@ const App: React.FC = () => {
     ],
   } as BlockProps);
 
+  const [pageSample] = useState({
+    blocks: [sampleBlock],
+  });
+
   return (
     <div className="App">
-      <Block {...sampleBlock}></Block>
+      <Page {...pageSample}></Page>
     </div>
   );
 };
