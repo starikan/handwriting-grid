@@ -39,9 +39,9 @@ const App: React.FC = () => {
         distance: 200,
       },
       {
-        times: 2,
-        direction: 0,
-        distance: 300,
+        times: 3,
+        direction: 45,
+        distance: 400,
       },
     ],
   } as BlockProps);
@@ -50,9 +50,13 @@ const App: React.FC = () => {
     blocks: [sampleBlock],
   });
 
+  const [pages] = useState([pageSample]);
+
+  const pagesTags = pages.map((page) => <Page {...page}></Page>);
+
   return (
     <div className="App">
-      <Page {...pageSample}></Page>
+      <div className="pages">{pagesTags}</div>
     </div>
   );
 };
