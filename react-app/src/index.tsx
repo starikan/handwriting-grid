@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { Base64 } from 'js-base64';
+
 import { BlockProps } from './Block/Block';
 import './index.scss';
 import Page from './Page';
@@ -39,7 +41,7 @@ const App: React.FC = () => {
         distance: 200,
       },
       {
-        times: 3,
+        times: 2,
         direction: 45,
         distance: 400,
       },
@@ -52,7 +54,12 @@ const App: React.FC = () => {
 
   const [pages] = useState([pageSample]);
 
-  const pagesTags = pages.map((page) => <Page {...page}></Page>);
+  useEffect(() => {
+    const data = Base64.encode(JSON.stringify(pages));
+    window.location.hash = data;
+  }, [pages]);
+
+  const pagesTags = pages.map((page, i) => <Page key={i} {...page}></Page>);
 
   return (
     <div className="App">
