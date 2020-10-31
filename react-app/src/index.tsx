@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BlockProps } from './Block/Block';
-import './index.css';
+import './index.scss';
 import Page from './Page';
 
 const App: React.FC = () => {
