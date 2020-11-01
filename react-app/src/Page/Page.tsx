@@ -32,6 +32,8 @@ const Page: React.FC<Props> = (props: Props) => {
   const [width, setWidth] = useState(props.width);
   const [height, setheight] = useState(props.height);
 
+  const [showEditButton, setShowEditButton] = useState(false);
+
   useEffect(() => {
     const { width, height } = sizes[type];
     if (landscape) {
@@ -50,9 +52,24 @@ const Page: React.FC<Props> = (props: Props) => {
   const stylePage: React.CSSProperties = {
     width: `${width}cm`,
     height: `${height}cm`,
-  }
+  };
 
-  return <div style={stylePage} className="page">{blocksTags}</div>;
+  const onPageMouse = (flag: boolean): void => {
+    setShowEditButton(flag);
+  };
+
+  return (
+    <>
+      <div className="page-wrapper" onMouseOver={() => onPageMouse(true)} onMouseOut={() => onPageMouse(false)}>
+        <div style={stylePage} className="page">
+          {blocksTags}
+        </div>
+        <div style={{ display: showEditButton ? 'block' : 'none' }} className="right-menu">
+          ✏️
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Page;
