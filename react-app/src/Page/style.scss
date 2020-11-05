@@ -1,6 +1,8 @@
 .page-wrapper {
   display: grid;
-  grid: '. page right-menu' 1fr / 1fr 1fr 1fr;
+  grid: '. page edit-button' 1fr
+        '. page remove-button' 1fr
+        / 1fr 1fr 1fr;
   width: 100%;
   margin: 0 auto;
   justify-items: center;
@@ -15,8 +17,16 @@
   overflow: hidden;
 }
 
-.right-menu {
-  grid-area: right-menu;
+.edit-button {
+  grid-area: edit-button;
+  padding: 0;
+  margin-top: 0.5cm;
+  font-size: 30px;
+  justify-self: left;
+}
+
+.remove-button {
+  grid-area: remove-button;
   padding: 0;
   margin-top: 0.5cm;
   font-size: 30px;

@@ -1,15 +1,12 @@
-import { createStore } from 'effector';
 import { Base64 } from 'js-base64';
 
-import { PageType } from '../../Page/Page';
+import { replaceAllPages } from './pages';
 import { samplePages } from './samplePage';
 
-const hash = window.location.hash;
-let dataHash = samplePages;
 try {
-  dataHash = JSON.parse(Base64.decode(hash));
+  const dataHash = JSON.parse(Base64.decode(window.location.hash));
+  replaceAllPages(dataHash);
 } catch (error) {
-  console.log(error)
+  console.log(error);
+  replaceAllPages(samplePages);
 }
-
-export const $pages = createStore<PageType[]>(dataHash);

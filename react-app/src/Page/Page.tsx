@@ -66,8 +66,11 @@ const Page: React.FC<Props> = (props: Props) => {
         <div style={stylePage} className="page">
           {blocksTags}
         </div>
-        <div style={{ display: showEditButton ? 'block' : 'none' }} className="right-menu">
+        <div style={{ display: showEditButton ? 'block' : 'none' }} className="edit-button">
           ✏️
+        </div>
+        <div style={{ display: showEditButton ? 'block' : 'none' }} className="remove-button">
+          ❌
         </div>
       </div>
     </>
