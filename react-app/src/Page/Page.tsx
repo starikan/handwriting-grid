@@ -25,6 +25,8 @@ interface Props {
   landscape?: boolean;
 }
 
+export type PageType = Props;
+
 const Page: React.FC<Props> = (props: Props) => {
   const [blocks] = useState(props.blocks || []);
   const [landscape] = useState(props.landscape || false);
