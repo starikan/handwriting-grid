@@ -10,7 +10,6 @@ try {
   dataHash = JSON.parse(Base64.decode(hash));
 } catch (error) {
   console.log(error)
-  // Nothing
 }
 
 export const $pages = createStore<PageType[]>(dataHash);
