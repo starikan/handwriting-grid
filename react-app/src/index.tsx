@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { useList, useStore } from 'effector-react';
 
 import './index.scss';
-import Page from './Page';
+import Page from './components/Page';
 
 import './models/init';
 import { $pages, dropAllPages } from './models/pages/pages';

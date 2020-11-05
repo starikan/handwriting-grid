@@ -1,7 +1,7 @@
 import { Base64 } from 'js-base64';
 import { createEvent, createStore } from 'effector';
 
-import { PageType } from '../../Page/Page';
+import { PageType } from '../../components/Page/Page';
 
 const $pages = createStore<PageType[]>([]);
 const addPage = createEvent<PageType>();

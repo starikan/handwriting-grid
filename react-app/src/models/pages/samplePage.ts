@@ -1,4 +1,4 @@
-import { BlockProps } from '../../Block/Block';
+import { BlockProps } from '../../components/Block/Block';
 
 export const samplePages = [
   {
