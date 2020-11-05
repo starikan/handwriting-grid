@@ -1,46 +1,11 @@
 import React, { useState } from 'react';
-import { Property } from 'csstype';
 
 import './Cell.scss';
 
 import CellGrid from '../CellGrid';
-import { StrokesParams } from '../CellGrid/CellGrid';
+import { CellType } from '../../global';
 
-type PropsType = {
-  borderWidth?: number;
-  borderWidthStrict?: {
-    top: number;
-    left: number;
-    right: number;
-    bottom: number;
-  };
-  borderColor?: Property.Color;
-  borderColorStrict?: {
-    top: Property.Color;
-    left: Property.Color;
-    right: Property.Color;
-    bottom: Property.Color;
-  };
-  borderStyle?: Property.BorderInlineStyle;
-  borderStyleStrict?: {
-    top: Property.BorderInlineStyle;
-    left: Property.BorderInlineStyle;
-    right: Property.BorderInlineStyle;
-    bottom: Property.BorderInlineStyle;
-  };
-  width?: number;
-  height?: number;
-  left?: number;
-  top?: number;
-  fontFamily?: Property.FontFamily;
-  fontSize?: number;
-  conture?: boolean;
-  grid?: StrokesParams;
-};
-
-export type CellPropsType = PropsType;
-
-function Cell(props: PropsType) {
+function Cell(props: CellType) {
   const [left] = useState(props.left || 0);
   const [top] = useState(props.top || 0);
   const [width] = useState(props.width || 50);

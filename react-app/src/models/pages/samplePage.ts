@@ -1,4 +1,4 @@
-import { BlockProps } from '../../components/Block/Block';
+import { BlockType } from "../../global";
 
 export const samplePages = [
   {
@@ -42,7 +42,7 @@ export const samplePages = [
             distance: 400,
           },
         ],
-      } as BlockProps,
+      } as BlockType,
     ],
   },
 ];

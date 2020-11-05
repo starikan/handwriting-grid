@@ -1,36 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
-import { Property } from 'csstype';
 
 import './style.scss';
+import { CellParams, Stroke, StrokeExtend, StrokesParams } from '../../global';
 
-interface Stroke {
-  width: number;
-  color: Property.BorderBottomColor;
-  style: Property.BorderBottomStyle;
-}
-
-type StrokeExtend = Stroke & { percent: number };
-
-interface CellParams {
-  width: number;
-  height: number;
-  border: { top: number; left: number; right: number; bottom: number };
-  left: number;
-  top: number;
-}
-
-export interface StrokesParams {
-  strokesStyle?: Stroke;
-  vertical?: Array<number | StrokeExtend>;
-  horizontal?: Array<number | StrokeExtend>;
-  diagonalUp?: Array<number | StrokeExtend>;
-  diagonalDown?: Array<number | StrokeExtend>;
-}
-
-type Props = StrokesParams & { cell: CellParams };
-
-const CellGrid: React.FC<Props> = (props) => {
+const CellGrid: React.FC<StrokesParams & { cell: CellParams }> = (props) => {
   const [cell] = useState(props.cell);
   const [strokesStyle] = useState(props.strokesStyle || ({ width: 1, color: 'black', style: 'dashed' } as Stroke));
 

@@ -1,33 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Block, { BlockProps } from '../Block/Block';
+import Block from '../Block/Block';
 import './style.scss';
 
-const sizes = {
-  A3: {
-    width: 29.7,
-    height: 42,
-  },
-  A4: {
-    width: 21,
-    height: 29.7,
-  },
-  A5: {
-    width: 14.8,
-    height: 21,
-  },
-};
+import { PageType, BlockType } from '../../global';
+import { useStore } from 'effector-react';
+import { $sizes } from '../../models/pageSizes/pageSizes';
 
-interface Props {
-  blocks?: BlockProps[];
-  type?: keyof typeof sizes;
-  width?: number;
-  height?: number;
-  landscape?: boolean;
-}
-
-export type PageType = Props;
-
-const Page: React.FC<Props> = (props: Props) => {
+const Page: React.FC<PageType> = (props) => {
   const [blocks] = useState(props.blocks || []);
   const [landscape] = useState(props.landscape || false);
   const [type] = useState(props.type || 'A4');
@@ -35,6 +14,7 @@ const Page: React.FC<Props> = (props: Props) => {
   const [height, setheight] = useState(props.height);
 
   const [showEditButton, setShowEditButton] = useState(false);
+  const sizes = useStore($sizes);
 
   useEffect(() => {
     const { width, height } = sizes[type];
@@ -47,7 +27,7 @@ const Page: React.FC<Props> = (props: Props) => {
     }
   }, [landscape, type]);
 
-  const blocksTags = blocks.map((v: BlockProps, i: number) => {
+  const blocksTags = blocks.map((v: BlockType, i: number) => {
     return <Block key={i} {...v}></Block>;
   });
 

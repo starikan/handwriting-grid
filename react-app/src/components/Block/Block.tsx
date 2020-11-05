@@ -1,31 +1,10 @@
 import React, { useState } from 'react';
-import { Property } from 'csstype';
 
-import Cell, { CellPropsType } from '../Cell/Cell';
+import Cell from '../Cell/Cell';
 import './style.scss';
+import { BlockStyle, BlockType, CellType } from '../../global';
 
-type MultiplyType = {
-  times: number;
-  distance: number;
-  direction: number;
-};
-
-type BlockStyle = {
-  position: Property.Position;
-  left: number;
-  top: number;
-};
-
-interface Props {
-  positionX?: number;
-  positionY?: number;
-  cells?: CellPropsType[];
-  multiply?: MultiplyType[];
-}
-
-export type BlockProps = Props;
-
-const Block: React.FC<Props> = (props) => {
+const Block: React.FC<BlockType> = (props) => {
   const [positionX] = useState(props.positionX || 0);
   const [positionY] = useState(props.positionY || 0);
   const [cells] = useState(props.cells || []);
@@ -37,7 +16,7 @@ const Block: React.FC<Props> = (props) => {
     top: positionY,
   };
 
-  const cellsTags = cells.map((v: CellPropsType, i: number) => {
+  const cellsTags = cells.map((v: CellType, i: number) => {
     return <Cell key={i} {...v}></Cell>;
   });
 
