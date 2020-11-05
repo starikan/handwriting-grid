@@ -5,7 +5,7 @@ import { samplePages } from './samplePage';
 
 try {
   const dataHash = JSON.parse(Base64.decode(window.location.hash));
-  replaceAllPages(dataHash);
+  replaceAllPages(dataHash.length ? dataHash : samplePages);
 } catch (error) {
   console.log(error);
   replaceAllPages(samplePages);

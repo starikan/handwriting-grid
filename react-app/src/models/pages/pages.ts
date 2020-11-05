@@ -14,9 +14,6 @@ $pages
   .on(replaceAllPages, (_, value) => value);
 
 $pages.watch((state) => {
-  if (!state.length) {
-    return;
-  }
   const dataHash = Base64.encode(JSON.stringify(state));
   window.location.hash = dataHash;
 });
