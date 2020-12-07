@@ -62,12 +62,6 @@ export type CellType = {
 
 // BLOCK
 
-export type MultiplyType = {
-  times: number;
-  distance: number;
-  direction: number;
-};
-
 export type BlockStyle = {
   position: Property.Position;
   left: number;
@@ -78,11 +72,14 @@ export interface BlockType {
   positionX?: number;
   positionY?: number;
   cells?: CellType[];
-  multiply?: MultiplyType[];
+  multiply?: Array<{
+    times: number;
+    distance: number;
+    direction: number;
+  }>;
 }
 
 // PAGE
-
 export interface PageType {
   blocks?: BlockProps[];
   type?: keyof typeof sizes;
