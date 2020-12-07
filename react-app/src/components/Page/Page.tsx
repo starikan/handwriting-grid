@@ -25,7 +25,7 @@ const Page: React.FC<PageType> = (props) => {
       setWidth(width);
       setheight(height);
     }
-  }, [landscape, type]);
+  }, [landscape, type, sizes]);
 
   const blocksTags = blocks.map((v: BlockType, i: number) => {
     return <Block key={i} {...v}></Block>;

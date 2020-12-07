@@ -4,7 +4,7 @@ import { PageType } from '../../global';
 
 const $pages = createStore<PageType[]>([]);
 const addPage = createEvent<PageType>();
-const dropAllPages = createEvent<void>();
+const dropAllPages = createEvent<unknown>();
 const replaceAllPages = createEvent<PageType[]>();
 
 $pages
