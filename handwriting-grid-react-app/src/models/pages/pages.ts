@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 import { Base64 } from 'js-base64';
 import { createEvent, createStore } from 'effector';
 export interface PageType {
@@ -16,7 +18,7 @@ export interface PageType {
 }
 
 const defaultPage: PageType = {
-  id: '111',
+  id: crypto.randomBytes(6).toString('hex'),
   width: 500,
   height: 500,
   visible: true,
@@ -31,7 +33,7 @@ export const dropAllPages = createEvent<unknown>();
 export const replaceAllPages = createEvent<PageType[]>();
 
 $pages
-  .on(addPage, (state, value = {}) => [...state, {...defaultPage, ...value}])
+  .on(addPage, (state, value = {}) => [...state, { ...defaultPage, ...value }])
   .on(removePage, () => {})
   .on(dropAllPages, () => [])
   .on(replaceAllPages, (_, value) => value);
