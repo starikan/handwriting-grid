@@ -6,14 +6,16 @@ import './index.scss';
 import Page from './components/Page';
 
 import './models/init';
-import { $pages, dropAllPages } from './models/pages/pages';
+import { $pages, addPage, dropAllPages } from './models/pages/pages';
 
 const App: React.FC = () => {
   const pagesTags = useList($pages, (page, i) => <Page key={i} {...page}></Page>);
   const pagesStore = useStore($pages);
+  const addFirstPage = <button onClick={() => addPage({})}>+</button>
 
   return (
     <div className="App">
+      {!pagesStore.length ? addFirstPage : null}
       <div style={{ display: pagesStore.length ? 'block' : 'none' }} className="remove-button" onClick={dropAllPages}>
         ❌
       </div>

@@ -7,4 +7,5 @@
 /yarn-error.log
 /dist
 **/*/fontsExt
-/react-app/.eslintcache
+/handwrighting-app/.eslintcache
+/handwriting-grid-react-app/.history
