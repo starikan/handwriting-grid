@@ -2,6 +2,8 @@ import crypto from 'crypto';
 
 import { Base64 } from 'js-base64';
 import { createEvent, createStore } from 'effector';
+import { pagesInit } from './pagesInit';
+
 export interface PageType {
   id: string;
   width: number;
@@ -25,7 +27,12 @@ const defaultPage: PageType = {
   blocks: [],
 };
 
-export const $pages = createStore<PageType[]>([]);
+const replaceHash = (data: PageType[]) => {
+  const dataHash = Base64.encode(JSON.stringify(data));
+  window.location.hash = dataHash;
+};
+
+export const $pages = createStore<PageType[]>(pagesInit());
 
 export const addPage = createEvent<Partial<PageType>>();
 export const removePage = createEvent<unknown>();
@@ -35,10 +42,9 @@ export const replaceAllPages = createEvent<PageType[]>();
 $pages
   .on(addPage, (state, value = {}) => [...state, { ...defaultPage, ...value }])
   .on(removePage, () => {})
-  .on(dropAllPages, () => [])
-  .on(replaceAllPages, (_, value) => value);
-
-$pages.watch((state) => {
-  const dataHash = Base64.encode(JSON.stringify(state));
-  window.location.hash = dataHash;
-});
+  .on(dropAllPages, () => {
+    replaceHash([]);
+    return [];
+  })
+  .on(replaceAllPages, (_, value) => value)
+  .watch((state) => replaceHash(state));
