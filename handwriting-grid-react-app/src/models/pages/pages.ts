@@ -34,14 +34,26 @@ const replaceHash = (data: PageType[]) => {
 
 export const $pages = createStore<PageType[]>(pagesInit());
 
-export const addPage = createEvent<Partial<PageType>>();
-export const removePage = createEvent<unknown>();
+export const addPage = createEvent<{ id?: string; pageData?: Partial<PageType> }>();
+export const removePage = createEvent<string>();
 export const dropAllPages = createEvent<unknown>();
 export const replaceAllPages = createEvent<PageType[]>();
+export const changeOrderPage = createEvent<unknown>();
+export const setDimensionsPage = createEvent<unknown>();
+export const setColorPage = createEvent<unknown>();
+export const setBlockParamsPage = createEvent<unknown>();
+export const setShapePage = createEvent<unknown>();
+export const setVisiblePage = createEvent<unknown>();
+export const setRotatePage = createEvent<unknown>();
+export const printPage = createEvent<unknown>();
+// export const savePageToImage = createEffect<unknown>();
+// export const sharePage = createEffect<unknown>();
+// export const postPageToURL = createEffect<unknown>();
+// export const getPageFromURL = createEffect<unknown>();
 
 $pages
-  .on(addPage, (state, value = {}) => [...state, { ...defaultPage, ...value }])
-  .on(removePage, () => {})
+  .on(addPage, (state, { pageData, id }) => [...state, { ...defaultPage, ...(pageData || {}) }])
+  .on(removePage, (state, id) => state.filter((page) => page.id !== id))
   .on(dropAllPages, () => {
     replaceHash([]);
     return [];
