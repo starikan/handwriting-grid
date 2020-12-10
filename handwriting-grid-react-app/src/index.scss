@@ -25,16 +25,13 @@ body {
   height: 100%;
 }
 
-.pages {
-}
-
 @media print {
   .page {
     box-shadow: none !important;
   }
 
   body {
-    background:white;
+    background: white;
     margin: 0;
     padding: 0;
   }
