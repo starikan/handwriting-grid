@@ -1,11 +1,11 @@
 .page-wrapper {
   display: grid;
-  grid: '. page edit-button' 1fr
-        '. page remove-button' 1fr
-        / 1fr 1fr 1fr;
+  justify-items: center;
+  grid:
+    'page' 1fr
+    / 1fr;
   width: 100%;
   margin: 0 auto;
-  justify-items: center;
 }
 
 .page {
@@ -15,20 +15,4 @@
   margin: 0.5cm;
   box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
   overflow: hidden;
-}
-
-.edit-button {
-  grid-area: edit-button;
-  padding: 0;
-  margin-top: 0.5cm;
-  font-size: 30px;
-  justify-self: left;
-}
-
-.remove-button {
-  grid-area: remove-button;
-  padding: 0;
-  margin-top: 0.5cm;
-  font-size: 30px;
-  justify-self: left;
 }

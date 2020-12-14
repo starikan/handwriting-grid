@@ -81,9 +81,16 @@ export interface BlockType {
 
 // PAGE
 export interface PageType {
-  blocks?: BlockProps[];
-  type?: keyof typeof sizes;
-  width?: number;
-  height?: number;
-  landscape?: boolean;
+  id: string;
+  width: number;
+  height: number;
+  visible: boolean;
+  blocks: string[];
+  color?: string;
+  padding?: number;
+  margin?: number;
+  border?: number;
+  shape?: unknown;
+  angle?: number;
+  externalUrl?: string;
 }

@@ -1,34 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Block from '../Block/Block';
 import './style.scss';
 
-import { PageType, BlockType } from '../../global';
+import PageMenuButton from '../PageMenuButton';
 import { useStore } from 'effector-react';
-import { $sizes } from '../../models/pageSizes/pageSizes';
+import { $pages } from '../../models/pages/pages';
 
-const Page: React.FC<PageType> = (props) => {
-  const [blocks] = useState(props.blocks || []);
-  const [landscape] = useState(props.landscape || false);
-  const [type] = useState(props.type || 'A4');
-  const [width, setWidth] = useState(props.width);
-  const [height, setheight] = useState(props.height);
+const Page: React.FC<{id: string}> = (props) => {
+  const pagesStore = useStore($pages.map(pages => {
+    return pages.filter(page => page.id === props.id)[0]
+  }));
 
+  const [width] = useState(pagesStore.width);
+  const [height] = useState(pagesStore.height);
+  const [blocks] = useState(pagesStore.blocks);
   const [showEditButton, setShowEditButton] = useState(false);
-  const sizes = useStore($sizes);
 
-  useEffect(() => {
-    const { width, height } = sizes[type];
-    if (landscape) {
-      setWidth(height);
-      setheight(width);
-    } else {
-      setWidth(width);
-      setheight(height);
-    }
-  }, [landscape, type, sizes]);
-
-  const blocksTags = blocks.map((v: BlockType, i: number) => {
-    return <Block key={i} {...v}></Block>;
+  const blocksTags = blocks.map((blockId: string) => {
+    return <Block id={blockId}></Block>;
   });
 
   const stylePage: React.CSSProperties = {
@@ -46,13 +35,8 @@ const Page: React.FC<PageType> = (props) => {
         <div style={stylePage} className="page">
           {blocksTags}
         </div>
-        <div style={{ display: showEditButton ? 'block' : 'none' }} className="edit-button">
-          ✏️
-        </div>
-        <div style={{ display: showEditButton ? 'block' : 'none' }} className="remove-button">
-          ❌
-        </div>
       </div>
+      {showEditButton && <PageMenuButton></PageMenuButton>}
     </>
   );
 };

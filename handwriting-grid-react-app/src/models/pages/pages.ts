@@ -3,26 +3,12 @@ import crypto from 'crypto';
 import { Base64 } from 'js-base64';
 import { createEvent, createStore } from 'effector';
 import { pagesInit } from './pagesInit';
-
-export interface PageType {
-  id: string;
-  width: number;
-  height: number;
-  visible: boolean;
-  blocks: string[];
-  color?: string;
-  padding?: number;
-  margin?: number;
-  border?: number;
-  shape?: unknown;
-  angle?: number;
-  externalUrl?: string;
-}
+import { PageType } from '../../global';
 
 const defaultPage: PageType = {
   id: crypto.randomBytes(6).toString('hex'),
-  width: 500,
-  height: 500,
+  width: 21,
+  height: 29.7,
   visible: true,
   blocks: [],
 };
