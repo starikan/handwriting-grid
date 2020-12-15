@@ -8,16 +8,18 @@ interface Props {
 
 const PageMenuButton: React.FC<Props> = (props) => {
   return (
-    <div className="page-menu-buttons">
-      <div className="menu-button edit-button">✏️</div>
-      <div className="menu-button remove-button">❌</div>
-      <div
-        className="menu-button landscape-portrait-button"
-        onClick={() => {
-          switchLandscapePortrait(props.pageId);
-        }}
-      >
-        🔄
+    <div className="page-menu-buttons-wraper">
+      <div className="page-menu-buttons">
+        <div className="menu-button edit-button">✏️</div>
+        <div className="menu-button remove-button">❌</div>
+        <div
+          className="menu-button landscape-portrait-button"
+          onClick={() => {
+            switchLandscapePortrait(props.pageId);
+          }}
+        >
+          🔄
+        </div>
       </div>
     </div>
   );

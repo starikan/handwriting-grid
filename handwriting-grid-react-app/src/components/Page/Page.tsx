@@ -10,13 +10,12 @@ interface Props {
   pageId: string;
 }
 
-const Page: React.FC<Props> = ({pageId}) => {
+const Page: React.FC<Props> = ({ pageId }) => {
   const pagesStore = useStore(
     $pages.map((pages) => {
       return pages.filter((page) => page.id === pageId)[0];
     }),
   );
-
 
   const [showEditButton, setShowEditButton] = useState(false);
 
@@ -37,13 +36,14 @@ const Page: React.FC<Props> = ({pageId}) => {
     <>
       <div
         className="page-wrapper"
+        onClick={() => onPageMouse(true)}
         onMouseEnter={() => onPageMouse(true)}
         onMouseLeave={() => onPageMouse(false)}
       >
         <div style={stylePage} className="page">
           {/* {blocksTags} */}
-          {showEditButton && <PageMenuButton pageId={pagesStore.id}></PageMenuButton>}
         </div>
+        {showEditButton && <PageMenuButton pageId={pagesStore.id}></PageMenuButton>}
       </div>
     </>
   );

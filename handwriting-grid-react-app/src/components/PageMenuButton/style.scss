@@ -1,13 +1,17 @@
-.page-menu-buttons {
-  display: grid;
-  width: 20px;
-  row-gap: 10px;
-  // position: absolute;
-  // left: -30px;
+.page-menu-buttons-wraper {
 
-  .menu-button {
-    width: 30px;
-    height: 30px;
-    font-size: 30px;
+  .page-menu-buttons {
+    display: grid;
+    width: 20px;
+    row-gap: 10px;
+    position: absolute;
+    right: 40px;
+    top: 50px;
+
+    .menu-button {
+      width: 30px;
+      height: 30px;
+      font-size: 30px;
+    }
   }
 }
