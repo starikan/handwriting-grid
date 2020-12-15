@@ -1,0 +1,13 @@
+.page-menu-buttons {
+  display: grid;
+  width: 20px;
+  row-gap: 10px;
+  // position: absolute;
+  // left: -30px;
+
+  .menu-button {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+  }
+}

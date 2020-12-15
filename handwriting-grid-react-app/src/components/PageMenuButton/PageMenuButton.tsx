@@ -1,14 +1,24 @@
 import React from 'react';
+import { switchLandscapePortrait } from '../../models/pages/pages';
 import './style.scss';
 
-interface Props {}
+interface Props {
+  pageId: string;
+}
 
 const PageMenuButton: React.FC<Props> = (props) => {
-  // debugger;
   return (
-    <div>
-      <div className="edit-button">✏️</div>
-      <div className="remove-button">❌</div>
+    <div className="page-menu-buttons">
+      <div className="menu-button edit-button">✏️</div>
+      <div className="menu-button remove-button">❌</div>
+      <div
+        className="menu-button landscape-portrait-button"
+        onClick={() => {
+          switchLandscapePortrait(props.pageId);
+        }}
+      >
+        🔄
+      </div>
     </div>
   );
 };

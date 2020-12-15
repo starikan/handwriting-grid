@@ -13,7 +13,7 @@ import AddFirstPageButton from './components/AddFirstPageButton';
 import MainMenu from './components/MainMenu';
 
 const App: React.FC = () => {
-  const pagesTags = useList($pages, (page) => <Page id={page.id}></Page>);
+  const pagesTags = useList($pages, (page) => <Page pageId={page.id}></Page>);
   const pagesStore = useStore($pages);
 
   return (
