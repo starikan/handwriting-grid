@@ -1,4 +1,4 @@
-import { createStore, createEvent } from 'effector';
+import { createStore, createEvent, sample } from 'effector';
 import { PageType } from '../../global';
 import { documentsInit } from './documentInit';
 
@@ -19,10 +19,12 @@ export interface DocumentType {
 
 // Create store to hold the array of DocumentType objects
 export const $documents = createStore<DocumentType[]>(documentsInit());
+export const $documentCurrent = createStore<DocumentType | null>(null);
 
 export const addDocument = createEvent<DocumentType>();
 export const removeDocument = createEvent<string>();
 export const modifyDocument = createEvent<{ id: string; document: Partial<DocumentType> }>();
+export const selectDocumentById = createEvent<string>();
 
 $documents
   .on(addDocument, (state, document) => [...state, document])
@@ -39,15 +41,15 @@ $documents
     }),
   );
 
-// TODO: 2023-02-08 S.Starodubov реактивность
-// Function to find a document in the store by its id
-export const findDocumentById = (id: string) => {
-  const result = $documents.map((documents) => documents.find(document => document.id === id)).getState();
-  return result;
-};
-
-// Function to find a document in the store by its name
-export const findDocumentByName = (name: string) => {
-  const result = $documents.map((documents) => documents.find(document => document.name === name)).getState();
-  return result;
-};
+sample({
+  clock: selectDocumentById,
+  source: $documents,
+  fn: (documents, id) => {
+    const doc = documents.find((v) => v.id === id);
+    if (doc) {
+      return doc;
+    }
+    return null;
+  },
+  target: $documentCurrent,
+});
