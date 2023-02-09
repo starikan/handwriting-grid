@@ -1,28 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { useList, useStore } from 'effector-react';
+import React, { useEffect } from 'react';
+import { createRoot } from 'react-dom/client';
+
+import DocumentList from './components/Document/DocumentList';
 
 import './index.scss';
 
-import './models/init';
+// import './models/init';
 
-import { $pages } from './models/pages/pages';
-
-import Page from './components/Page';
-import AddFirstPageButton from './components/AddFirstPageButton';
-import MainMenu from './components/MainMenu';
-
-const App: React.FC = () => {
-  const pagesTags = useList($pages, (page) => <Page pageId={page.id}></Page>);
-  const pagesStore = useStore($pages);
+function AppWithCallbackAfterRender() {
+  useEffect(() => {
+    console.log('App rendered');
+  });
 
   return (
     <div className="App">
-      {!pagesStore.length && <AddFirstPageButton></AddFirstPageButton>}
+      {/* {!pagesStore.length && <AddFirstPageButton></AddFirstPageButton>}
       <MainMenu></MainMenu>
-      <div className="pages">{pagesTags}</div>
+      <div className="pages">{pagesTags}</div> */}
+      <DocumentList></DocumentList>
     </div>
   );
-};
+}
 
-ReactDOM.render(<App></App>, document.getElementById('root'));
+const container = document.getElementById('root') as HTMLElement;
+const root = createRoot(container);
+root.render(<AppWithCallbackAfterRender />);
