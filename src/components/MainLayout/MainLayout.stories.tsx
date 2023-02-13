@@ -1,32 +1,32 @@
 import React from 'react';
-// import type {Meta, StoryFn} from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 
-// import type {MainLayoutProps} from './MainLayout';
-// import {MainLayout} from './MainLayout';
+import type { MainLayoutProps } from './MainLayout';
+import { MainLayout } from './MainLayout';
 
-// // Learn how to write stories:
-// // https://web.docs.shopify.io/docs/guides/storybook/how-to-write-story-files
-// const meta: Meta = {
-//   component: MainLayout,
-//   parameters: {
-//     // Embedding Figma designs
-//     // The embed appears in the "Design" tab of the story
-//     // Learn more: https://pocka.github.io/storybook-addon-designs/?path=/docs/docs-figma-readme--page
-//     design: {
-//       type: 'figma',
-//       url: 'https://www.figma.com/file/...?node-id=...',
-//     },
-//   },
-// };
+// Learn how to write stories:
+// https://web.docs.shopify.io/docs/guides/storybook/how-to-write-story-files
+const meta: Meta = {
+  component: MainLayout,
+  parameters: {
+    // Embedding Figma designs
+    // The embed appears in the "Design" tab of the story
+    // Learn more: https://pocka.github.io/storybook-addon-designs/?path=/docs/docs-figma-readme--page
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/...?node-id=...',
+    },
+  },
+};
 
-// export default meta;
+export default meta;
 
-// // 👇 We create a "template" of how args map to rendering
-// const Template: StoryFn<MainLayoutProps> = (args) => <MainLayout {...args} />;
+// 👇 We create a "template" of how args map to rendering
+const Template: StoryFn<MainLayoutProps> = (args) => <MainLayout {...args} />;
 
-// // 👇 Each story then reuses that template
-// export const Basic = Template.bind({});
+// 👇 Each story then reuses that template
+export const Basic = Template.bind({});
 
-// // Story args
-// // Learn more: https://storybook.js.org/docs/react/writing-stories/args
-// Basic.args = {};
+// Story args
+// Learn more: https://storybook.js.org/docs/react/writing-stories/args
+Basic.args = {};
