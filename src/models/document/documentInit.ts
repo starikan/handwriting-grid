@@ -6,7 +6,8 @@ export const generateRandomDocument = (): DocumentType => {
   const id = Math.floor(10000 * Math.random()).toString();
   return {
     id,
+    apiVersion: 1,
     pages: [],
-    name: id,
+    name: 'Give me a name!',
   };
 };

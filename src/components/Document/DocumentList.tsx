@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useStore } from 'effector-react';
 import {
   $documents,
@@ -13,11 +13,6 @@ import { generateRandomDocument } from '../../models/document/documentInit';
 export const DocumentList = () => {
   const documents = useStore($documents);
   const documentCurrent = useStore($currentDocument);
-
-  useEffect(() => {
-    addDocument(generateRandomDocument());
-    addDocument(generateRandomDocument());
-  }, []);
 
   const handleAddDocument = () => {
     addDocument(generateRandomDocument());
@@ -47,7 +42,7 @@ export const DocumentList = () => {
             <p>{doc.name}</p>
             <button onClick={() => handleRemove(doc.id)}>Remove</button>
             <button onClick={() => handleUpdate(doc.id, { name: 'Updated Document' })}>Update</button>
-            <button onClick={() => handleFindById(doc.id)}>Find by ID</button>
+            <button onClick={() => handleFindById(doc.id)}>Use this</button>
           </li>
         ))}
       </ul>

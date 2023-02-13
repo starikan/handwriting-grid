@@ -8,10 +8,12 @@ export interface DocumentType {
   id: string;
 
   // document name, optional field
-  name?: string;
+  name: string;
 
   // an array of pages, required field
   pages: Array<string | PageType>;
+
+  apiVersion: number;
 
   // short link to document, optional field
   shortLink?: string;
