@@ -6,13 +6,13 @@ import {
   removeDocument,
   modifyDocument,
   selectDocumentById,
-  $documentCurrent,
+  $currentDocument,
 } from '../../models/document/document';
 import { generateRandomDocument } from '../../models/document/documentInit';
 
-const DocumentList = () => {
+export const DocumentList = () => {
   const documents = useStore($documents);
-  const documentCurrent = useStore($documentCurrent);
+  const documentCurrent = useStore($currentDocument);
 
   useEffect(() => {
     addDocument(generateRandomDocument());
@@ -61,5 +61,3 @@ const DocumentList = () => {
     </div>
   );
 };
-
-export default DocumentList;

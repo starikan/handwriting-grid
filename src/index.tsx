@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import DocumentList from './components/Document/DocumentList';
+import { DocumentList } from './components';
 
 import './index.scss';
-
-// import './models/init';
 
 function AppWithCallbackAfterRender() {
   useEffect(() => {
@@ -14,9 +12,6 @@ function AppWithCallbackAfterRender() {
 
   return (
     <div className="App">
-      {/* {!pagesStore.length && <AddFirstPageButton></AddFirstPageButton>}
-      <MainMenu></MainMenu>
-      <div className="pages">{pagesTags}</div> */}
       <DocumentList></DocumentList>
     </div>
   );

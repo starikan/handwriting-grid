@@ -1,4 +1,4 @@
-import { createStore, createEvent, sample } from 'effector';
+import { createStore, createEvent, sample, combine } from 'effector';
 import { PageType } from '../../global';
 import { documentsInit } from './documentInit';
 
@@ -19,7 +19,12 @@ export interface DocumentType {
 
 // Create store to hold the array of DocumentType objects
 export const $documents = createStore<DocumentType[]>(documentsInit());
-export const $documentCurrent = createStore<DocumentType | null>(null);
+export const $currentDocumentId = createStore<string | null>(null);
+export const $currentDocument = combine(
+  $currentDocumentId,
+  $documents,
+  (id, docs) => docs.find((v) => v.id === id) ?? null,
+);
 
 export const addDocument = createEvent<DocumentType>();
 export const removeDocument = createEvent<string>();
@@ -29,27 +34,9 @@ export const selectDocumentById = createEvent<string>();
 $documents
   .on(addDocument, (state, document) => [...state, document])
   .on(removeDocument, (state, id) => state.filter((document) => document.id !== id))
-  .on(modifyDocument, (state, { id, document }) =>
-    state.map((doc) => {
-      if (doc.id === id) {
-        return {
-          ...doc,
-          ...document,
-        };
-      }
-      return doc;
-    }),
-  );
+  .on(modifyDocument, (state, { id, document }) => state.map((doc) => (doc.id === id ? { ...doc, ...document } : doc)));
 
 sample({
   clock: selectDocumentById,
-  source: $documents,
-  fn: (documents, id) => {
-    const doc = documents.find((v) => v.id === id);
-    if (doc) {
-      return doc;
-    }
-    return null;
-  },
-  target: $documentCurrent,
+  target: $currentDocumentId,
 });
