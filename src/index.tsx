@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { DocumentList } from './components';
+import { MainLayout } from './components';
 
 import './index.scss';
 
@@ -12,7 +12,7 @@ function AppWithCallbackAfterRender() {
 
   return (
     <div className="App">
-      <DocumentList></DocumentList>
+      <MainLayout></MainLayout>
     </div>
   );
 }

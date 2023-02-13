@@ -1,0 +1,39 @@
+.container {
+  display: grid;
+  grid:
+    'top-panel top-panel top-panel' 50px
+    'left-panel main-content right-panel' auto
+    'footer-panel footer-panel footer-panel' 50px
+    / 50px auto 50px;
+  height: 100vh;
+
+  .top-panel {
+    grid-area: top-panel;
+    background: #333;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .left-panel {
+    grid-area: left-panel;
+    background: #ddd;
+  }
+
+  .right-panel {
+    grid-area: right-panel;
+    background: #ddd;
+  }
+
+  .footer-panel {
+    grid-area: footer-panel;
+    background: #787878;
+  }
+
+  .main-content {
+    grid-area: main-content;
+    align-self: center;
+    justify-self: center;
+    padding: 20px;
+  }
+}
