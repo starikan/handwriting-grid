@@ -1,7 +1,6 @@
 {
   "name": "react-app",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "effector": "22.5.0",
     "effector-react": "22.4.0"
