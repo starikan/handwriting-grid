@@ -1,7 +1,19 @@
 .Page {
-  background: white;
-  padding: 0;
-  margin: 0.5cm;
-  box-shadow: 0 0 0.5cm rgba(255, 255, 255, 1);
-  overflow: hidden;
+  display: grid;
+  grid: 'page buttons' auto / auto auto;
+  justify-content: center;
+
+  .page {
+    grid-area: page;
+    background: white;
+    padding: 0;
+    margin: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(255, 255, 255, 1);
+    overflow: hidden;
+  }
+
+  .buttons {
+    grid-area: buttons;
+    padding-top: 0.5cm;
+  }
 }

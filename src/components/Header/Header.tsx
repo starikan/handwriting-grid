@@ -15,7 +15,7 @@ export function Header() {
         <Typography variant="h5">{currentDocument?.name ?? ''}</Typography>
       </Container>
       <Container className={styles.buttons}>
-        <IconButton aria-label="delete" size="small">
+        <IconButton size="small">
           <SettingsIcon fontSize="small" />
         </IconButton>
       </Container>
