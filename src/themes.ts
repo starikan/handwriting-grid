@@ -9,13 +9,13 @@ export const themeDarkOptions: ThemeOptions = {
   palette: {
     mode: 'dark',
     primary: {
-      main: '#5893df',
+      main: '#FFFFFF',
     },
     secondary: {
       main: '#2ec5d3',
     },
     background: {
-      default: '#202020',
+      default: '#282A36',
       paper: '#24344d',
     },
   },

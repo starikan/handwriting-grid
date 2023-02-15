@@ -9,6 +9,7 @@ import {
   $currentDocument,
 } from '../../models/document/document';
 import { generateRandomDocument } from '../../models/document/documentInit';
+import { Button } from '@mui/material';
 
 export const DocumentList = () => {
   const documents = useStore($documents);
@@ -34,15 +35,23 @@ export const DocumentList = () => {
     <div>
       <h2>Document List</h2>
 
-      <button onClick={() => handleAddDocument()}>Create</button>
+      <Button variant="outlined" onClick={() => handleAddDocument()}>
+        Create
+      </Button>
 
       <ul>
         {documents.map((doc) => (
           <li key={doc.id}>
             <p>{doc.name}</p>
-            <button onClick={() => handleRemove(doc.id)}>Remove</button>
-            <button onClick={() => handleUpdate(doc.id, { name: 'Updated Document' })}>Update</button>
-            <button onClick={() => handleFindById(doc.id)}>Use this</button>
+            <Button variant="outlined" onClick={() => handleRemove(doc.id)}>
+              Remove
+            </Button>
+            <Button variant="outlined" onClick={() => handleUpdate(doc.id, { name: 'Updated Document' })}>
+              Update
+            </Button>
+            <Button variant="outlined" onClick={() => handleFindById(doc.id)}>
+              Use this
+            </Button>
           </li>
         ))}
       </ul>

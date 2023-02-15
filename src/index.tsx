@@ -5,9 +5,9 @@ import { DocumentAddButton, DocumentList, DocumentView, MainLayout } from './com
 import { $currentDocument, $documents } from './models/document/document';
 import { ThemeProvider } from '@mui/material/styles';
 import { themeDark } from './themes';
+import { CssBaseline } from '@mui/material';
 
 import './index.scss';
-
 
 function AppWithCallbackAfterRender() {
   useEffect(() => {
@@ -17,15 +17,14 @@ function AppWithCallbackAfterRender() {
   const documentCurrent = useStore($currentDocument);
   const documents = useStore($documents);
 
-  const result = documents.length ? (
-    <MainLayout MainContent={documentCurrent ? <DocumentView /> : <DocumentList />}></MainLayout>
-  ) : (
-    <DocumentAddButton />
-  );
+  const MainContent = documents.length ? documentCurrent ? <DocumentView /> : <DocumentList /> : <DocumentAddButton />;
 
   return (
     <div className="App">
-      <ThemeProvider theme={themeDark}>{result}</ThemeProvider>
+      <ThemeProvider theme={themeDark}>
+        <CssBaseline />
+        <MainLayout MainContent={MainContent}></MainLayout>
+      </ThemeProvider>
     </div>
   );
 }
