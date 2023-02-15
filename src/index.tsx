@@ -1,11 +1,13 @@
-import { useStore } from 'effector-react';
 import React, { useEffect } from 'react';
+import { useStore } from 'effector-react';
 import { createRoot } from 'react-dom/client';
-
 import { DocumentAddButton, DocumentList, DocumentView, MainLayout } from './components';
+import { $currentDocument, $documents } from './models/document/document';
+import { ThemeProvider } from '@mui/material/styles';
+import { themeDark } from './themes';
 
 import './index.scss';
-import { $currentDocument, $documents } from './models/document/document';
+
 
 function AppWithCallbackAfterRender() {
   useEffect(() => {
@@ -21,7 +23,11 @@ function AppWithCallbackAfterRender() {
     <DocumentAddButton />
   );
 
-  return <div className="App">{result}</div>;
+  return (
+    <div className="App">
+      <ThemeProvider theme={themeDark}>{result}</ThemeProvider>
+    </div>
+  );
 }
 
 const container = document.getElementById('root') as HTMLElement;

@@ -9,25 +9,20 @@
 
   .top-panel {
     grid-area: top-panel;
-    background: #333;
-    color: #fff;
     align-items: center;
     justify-content: center;
   }
 
   .left-panel {
     grid-area: left-panel;
-    background: #ddd;
   }
 
   .right-panel {
     grid-area: right-panel;
-    background: #ddd;
   }
 
   .footer-panel {
     grid-area: footer-panel;
-    background: #787878;
   }
 
   .main-content {
