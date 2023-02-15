@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useStore } from 'effector-react';
 import { createRoot } from 'react-dom/client';
 import { DocumentAddButton, DocumentList, DocumentView, Header, MainLayout } from './components';

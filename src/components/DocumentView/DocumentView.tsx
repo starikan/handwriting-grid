@@ -13,5 +13,5 @@ export function DocumentView() {
     return <></>;
   }
 
-  return <div className={styles.DocumentView}>{doc.name}</div>;
+  return <div className={styles.DocumentView}></div>;
 }

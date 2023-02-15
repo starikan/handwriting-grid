@@ -13,7 +13,10 @@
   }
 
   .title {
+    display: grid;
     grid-area: title;
+    align-items: center;
+    justify-items: center;
   }
 
   .buttons {
