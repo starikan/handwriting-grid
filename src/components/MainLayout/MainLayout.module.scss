@@ -1,10 +1,10 @@
 .container {
   display: grid;
   grid:
-    'top-panel top-panel top-panel' 50px
+    'top-panel top-panel top-panel' auto
     'left-panel main-content right-panel' auto
-    'footer-panel footer-panel footer-panel' 50px
-    / 50px auto 50px;
+    'footer-panel footer-panel footer-panel' auto
+    / auto auto auto;
   height: 100vh;
 
   .top-panel {
@@ -29,6 +29,5 @@
     grid-area: main-content;
     align-self: center;
     justify-self: center;
-    padding: 20px;
   }
 }
