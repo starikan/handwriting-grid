@@ -1,0 +1,24 @@
+.Header {
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid:
+    'logo title buttons' 50px
+    / 150px 1fr 150px;
+  width: 100%;
+
+  .logo {
+    grid-area: logo;
+  }
+
+  .title {
+    grid-area: title;
+  }
+
+  .buttons {
+    display: grid;
+    grid-area: buttons;
+    align-items: center;
+    justify-items: end;
+  }
+}

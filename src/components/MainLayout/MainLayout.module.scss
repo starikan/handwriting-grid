@@ -1,16 +1,14 @@
 .container {
   display: grid;
   grid:
-    'top-panel top-panel top-panel' auto
+    'top-panel top-panel top-panel' minmax(min-content, max-content)
     'left-panel main-content right-panel' auto
-    'footer-panel footer-panel footer-panel' auto
-    / auto auto auto;
+    'footer-panel footer-panel footer-panel' minmax(min-content, max-content)
+    / minmax(min-content, max-content) auto minmax(min-content, max-content);
   height: 100vh;
 
   .top-panel {
     grid-area: top-panel;
-    align-items: center;
-    justify-content: center;
   }
 
   .left-panel {
