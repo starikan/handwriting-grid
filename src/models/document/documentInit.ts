@@ -14,12 +14,13 @@ export const generateRandomDocument = (): DocumentType => {
 
 export const generateRandomPage = (): PageType => {
   const id = Math.floor(10000 * Math.random()).toString();
+  const width = Math.floor(700 * Math.random());
   return {
     id,
     blocks: [],
     size: {
-      width: 100,
-      height: 100,
+      width,
+      height: width * 1.5,
       dimension: 'px',
     },
   };
