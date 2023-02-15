@@ -9,10 +9,12 @@ export interface DocumentType {
   name?: string;
 
   // an array of pages, required field
-  pages: Array<string | PageType>;
+  pages: PageType[];
 
   // short link to document, optional field
   shortLink?: string;
+
+  apiVersion: number
 }
 
 // Type definition for the Page interface:
@@ -24,7 +26,7 @@ export interface PageType {
   size: PageSizesType;
 
   // Specifies whether the page is visible or not
-  visible: boolean;
+  visible?: boolean;
 
   // Array of strings representing the blocks in the page
   blocks: BlockType[];

@@ -1,23 +1,6 @@
 import { createStore, createEvent, sample, combine } from 'effector';
-import { PageType } from '../../global';
+import { DocumentType } from '../../global';
 import { documentsInit } from './documentInit';
-
-// Define the structure of DocumentType
-export interface DocumentType {
-  // document ID, required field
-  id: string;
-
-  // document name, optional field
-  name: string;
-
-  // an array of pages, required field
-  pages: Array<string | PageType>;
-
-  apiVersion: number;
-
-  // short link to document, optional field
-  shortLink?: string;
-}
 
 // Create store to hold the array of DocumentType objects
 export const $documents = createStore<DocumentType[]>(documentsInit());
