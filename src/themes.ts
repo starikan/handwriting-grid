@@ -1,11 +1,11 @@
-import { createTheme, ThemeOptions } from '@mui/material/styles';
+import { experimental_extendTheme as extendTheme, createTheme, ThemeOptions } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
 
 const sharedThemeOptions: ThemeOptions = {
   shape: { borderRadius: 2 },
 };
 
-export const themeDarkOptions: ThemeOptions = {
+const themeDarkOptions: ThemeOptions = {
   palette: {
     mode: 'dark',
     primary: {
@@ -21,6 +21,8 @@ export const themeDarkOptions: ThemeOptions = {
   },
 };
 
+const themeDarkVars = extendTheme(themeDarkOptions);
+
 // Background: #202020
 // Primary Text: #FFFFFF
 // Secondary Text: #A0A0A0
@@ -32,4 +34,6 @@ export const themeDarkOptions: ThemeOptions = {
 // Warning Color: #FFA500
 // Success Color: #32CD32
 
-export const themeDark = createTheme(deepmerge(sharedThemeOptions, themeDarkOptions));
+const themeDarkTheme = createTheme(deepmerge(sharedThemeOptions, themeDarkOptions));
+
+export const themeDark = { theme: themeDarkTheme, vars: themeDarkVars };
