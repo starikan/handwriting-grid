@@ -1,6 +1,6 @@
 import { createStore, createEvent, sample, combine } from 'effector';
 import { DocumentType, PageType } from '../../global';
-import { documentsInit } from './documentInit';
+import { documentsInit, generatePage } from './documentInit';
 
 // Create store to hold the array of DocumentType objects
 export const $documents = createStore<DocumentType[]>(documentsInit());
@@ -17,11 +17,12 @@ export const modifyDocument = createEvent<{ id: string; document: Partial<Docume
 export const selectDocumentById = createEvent<string>();
 
 export const removePage = createEvent<{ document: DocumentType; page: PageType }>();
+export const addPage = createEvent<{ document: DocumentType; afterPage?: PageType; newPage?: PageType }>();
 
 export const $currentPages = createStore<PageType[]>([]);
 sample({
   source: $currentDocument,
-  clock: [removePage, $currentDocument],
+  clock: [removePage, addPage, $currentDocument],
   fn: (src) => src?.pages ?? [],
   target: $currentPages,
 });
@@ -39,6 +40,28 @@ $documents
       targetDocument.pages = targetDocument.pages.filter((v) => v.id !== page.id);
       return state;
     }
+  })
+  .on(addPage, (state, { document, afterPage, newPage }) => {
+    const targetDocument = state.find((doc) => doc.id === document.id);
+    if (!targetDocument) {
+      return;
+    }
+
+    const newPageResolved = newPage ?? generatePage();
+
+    if (afterPage) {
+      const { id } = afterPage;
+      const index = targetDocument.pages.findIndex((v) => v.id === id);
+      targetDocument.pages = [
+        ...targetDocument.pages.slice(0, index + 1),
+        newPageResolved,
+        ...targetDocument.pages.slice(index + 1),
+      ];
+    } else {
+      targetDocument.pages = [newPageResolved, ...targetDocument.pages];
+    }
+
+    return state;
   });
 
 sample({

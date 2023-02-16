@@ -5,13 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
+      "name": "Launch Edge",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}\\index.js",
-      "env": {
-        "NODIST_X64": "1"
-      },
+      "type": "msedge",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}"
     }
   ]
 }

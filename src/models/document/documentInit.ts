@@ -7,12 +7,12 @@ export const generateRandomDocument = (): DocumentType => {
   return {
     id,
     apiVersion: 1,
-    pages: [generateRandomPage(), generateRandomPage()],
+    pages: [generatePage()],
     name: 'Give me a name!',
   };
 };
 
-export const generateRandomPage = (): PageType => {
+export const generatePage = (): PageType => {
   const id = Math.floor(10000 * Math.random()).toString();
   const width = Math.floor(700 * Math.random());
   return {
