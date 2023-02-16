@@ -1,0 +1,28 @@
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    transform: none;
+  }
+}
+
+dialog {
+  padding: 0;
+  margin: 0 auto;
+  font: 0.9em / 1.8 sans-serif;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+  // transform: translateY(50vh) scale(0, 1.2);
+  will-change: transform, opacity;
+
+  &::backdrop {
+    background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+  }
+
+  &[open],
+  &::backdrop {
+    animation: show 0.7s cubic-bezier(0.2, 1, 0.2, 1.04) forwards;
+  }
+}
