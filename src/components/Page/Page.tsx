@@ -1,16 +1,18 @@
 import React from 'react';
-import { PageType } from '../../global';
+import { DocumentType, PageType } from '../../global';
 import { ButtonGroup, Container, IconButton } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { removePage } from '../../models/document/document';
 
 import styles from './Page.module.scss';
 
 export interface PageProps {
   page: PageType;
+  document: DocumentType;
 }
 
-export function Page({ page }: PageProps) {
+export function Page({ page, document }: PageProps) {
   return (
     <div className={styles.Page}>
       <Container
@@ -19,7 +21,7 @@ export function Page({ page }: PageProps) {
         sx={{ width: page.size.width, height: page.size.height }}
       ></Container>
       <ButtonGroup orientation="vertical" className={styles.buttons}>
-        <IconButton>
+        <IconButton onClick={() => removePage({ document, page })}>
           <HighlightOffIcon fontSize="small" />
         </IconButton>
         <IconButton>
