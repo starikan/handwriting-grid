@@ -1,8 +1,7 @@
 import React from 'react';
 import { DocumentType, PageType } from '../../global';
-import { Container } from '@mui/material';
-
 import styles from './Page.module.scss';
+import Paper from '@mui/material/Paper';
 
 export interface PageProps {
   page: PageType;
@@ -13,11 +12,10 @@ export interface PageProps {
 export function Page({ page, document, className }: PageProps) {
   return (
     <div className={`${styles.Page} ${className}`}>
-      <Container
+      <Paper
         className={styles.page}
-        fixed={true}
         sx={{ width: page.size.width, height: page.size.height }}
-      ></Container>
+      ></Paper>
     </div>
   );
 }

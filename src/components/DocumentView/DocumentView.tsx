@@ -18,6 +18,7 @@ export function DocumentView() {
     if (document) {
       return (
         <div className={styles.PageBox}>
+          <div></div>
           <Page className={styles.page} key={page.id} document={document} page={page} />
           <ButtonGroup orientation="vertical" className={styles.buttons}>
             <IconButton onClick={() => removePage({ document, page })}>

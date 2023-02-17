@@ -4,7 +4,7 @@
 
   .PageBox {
     display: grid;
-    grid: 'page buttons' auto / auto auto;
+    grid: '. page buttons' auto / minmax(40px, max-content) auto minmax(40px, max-content);
     justify-content: center;
 
     .page {
