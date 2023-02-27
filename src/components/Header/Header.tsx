@@ -1,54 +1,46 @@
 import React, { useState } from 'react';
-import { Container, IconButton, Typography, Tooltip } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
+import { Container, Typography } from '@mui/material';
 import styles from './Header.module.scss';
-import { $currentDocument } from '../../models/document/document';
+import { $currentDocument, modifyDocument } from '../../models/document/document';
 import { useStore } from 'effector-react';
-// import TextField from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';
+import { useForm } from 'react-hook-form';
+import { HeaderButtons } from './components';
+
+type FormData = { name: string };
 
 export interface HeaderProps {}
 
 export function Header() {
   const currentDocument = useStore($currentDocument);
 
-  const [hover, setHover] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
-  // const formEditName = (
-  //   <form>
-  //     <TextField id="standard-basic" />
-  //   </form>
-  // );
+  const { register, handleSubmit } = useForm<FormData>();
 
-  const buttonsMenu = (
-    <Container className={styles.buttons}>
-      <IconButton size="small">
-        <SettingsIcon fontSize="small" />
-      </IconButton>
-    </Container>
+  const onSubmit = (data: FormData) => {
+    setClicked(false);
+    modifyDocument({ id: currentDocument?.id ?? '', document: { name: data.name } });
+  };
+
+  const formEditName = (
+    <form onSubmit={handleSubmit(onSubmit)} onBlur={handleSubmit(onSubmit)}>
+      <TextField className='variant-centered' {...register('name')} />
+    </form>
   );
 
-  const editButton = (
-    <div className={styles.editButton}>
-      {hover ? (
-        <Tooltip title="Click to edit">
-          <IconButton size="small">
-            <SettingsIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <></>
-      )}
-    </div>
-  );
+  const nameSimpleText = <Typography variant="h5">{currentDocument?.name ?? ''}</Typography>;
 
   return (
     <div className={styles.Header}>
-      <Container className={styles.title} onMouseMove={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+      <Container className={styles.title} onClick={() => setClicked(true)}>
         <div></div>
-        <Typography variant="h5">{currentDocument?.name ?? ''}</Typography>
-        {editButton}
+        {clicked ? formEditName : nameSimpleText}
+        <div></div>
       </Container>
-      {buttonsMenu}
+      <div className={styles.buttons}>
+        <HeaderButtons />
+      </div>
     </div>
   );
 }

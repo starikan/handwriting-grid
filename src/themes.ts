@@ -19,6 +19,27 @@ const themeDarkOptions: ThemeOptions = {
       paper: '#24344d',
     },
   },
+  components: {
+    MuiTextField: {
+      variants: [
+        {
+          props: { className: 'variant-centered' },
+          style: {
+            input: {
+              textAlign: 'center',
+            },
+          },
+        },
+      ],
+      styleOverrides: {
+        root: {
+          input: {
+            padding: '7px',
+          },
+        },
+      },
+    },
+  },
 };
 
 const themeDarkVars = extendTheme(themeDarkOptions);

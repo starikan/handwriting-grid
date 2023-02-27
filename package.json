@@ -6,8 +6,10 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.8",
+    "@mui/utils": "^5.11.9",
     "effector": "22.5.0",
-    "effector-react": "22.4.0"
+    "effector-react": "22.4.0",
+    "react-hook-form": "7.43.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.5.16",
