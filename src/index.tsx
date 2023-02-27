@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useStore } from 'effector-react';
 import { createRoot } from 'react-dom/client';
-import { DocumentAddButton, DocumentList, DocumentView, Header, MainLayout } from './components';
+import { DocumentAddButton, DocumentList, DocumentView, Header } from './components';
 import { $currentDocument, $documents } from './models/document/document';
 import { ThemeProvider } from '@mui/material/styles';
 import { themeDark as theme } from './themes';
 import { CssBaseline } from '@mui/material';
 import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
+import { MainLayout } from './generic/MainLayout';
 
 import './index.scss';
 
@@ -18,7 +19,8 @@ function AppWithCallbackAfterRender() {
   const documentCurrent = useStore($currentDocument);
   const documents = useStore($documents);
 
-  const MainContent = documents.length ? documentCurrent ? <DocumentView /> : <DocumentList /> : <DocumentAddButton />;
+  const documentView = documentCurrent ? <DocumentView /> : <DocumentList />
+  const MainContent = documents.length ? documentView : <DocumentAddButton />;
 
   return (
     <div className="App">

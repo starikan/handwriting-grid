@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Typography } from '@mui/material';
+import { Container, Tooltip, Typography } from '@mui/material';
 import styles from './Header.module.scss';
 import { $currentDocument } from '../../models/document/document';
 import { useStore } from 'effector-react';
@@ -12,12 +12,16 @@ export function Header() {
 
   const [clicked, setClicked] = useState(false);
 
-  const formEditName = <FormDocumentNameEdit onSubmitCallback={() => setClicked(false)} />
+  const formEditName = <FormDocumentNameEdit onSubmitCallback={() => setClicked(false)} />;
 
-  const nameSimpleText = <Typography variant="h5">{currentDocument?.name ?? ''}</Typography>;
+  const nameSimpleText = (
+    <Tooltip title="Click to edit document name">
+      <Typography variant="h5">{currentDocument?.name ?? ''}</Typography>
+    </Tooltip>
+  );
 
   if (!currentDocument) {
-    return <></>
+    return <></>;
   }
 
   return (
