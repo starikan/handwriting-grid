@@ -13,25 +13,15 @@
   }
 
   .title {
-    display: grid;
     grid-area: title;
+    display: grid;
     align-items: center;
     justify-items: center;
-    grid:
-      '. . editButton' auto
-      / minmax(50px, auto) minmax(min-content, max-content) minmax(50px, auto);
-
-    .editButton {
-      display: grid;
-      grid-area: editButton;
-      justify-self: start;
-      padding-left: 10px;
-    }
   }
 
   .buttons {
-    display: grid;
     grid-area: buttons;
+    display: grid;
     align-items: center;
     justify-items: end;
   }
