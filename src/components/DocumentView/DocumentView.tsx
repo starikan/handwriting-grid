@@ -8,13 +8,14 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { removePage } from '../../models/document/document';
 import { PageAdd } from '../PageAdd';
+import { PageType } from '../../global';
 
 export interface DocumentViewProps {}
 
 export function DocumentView() {
   const document = useStore($currentDocument);
 
-  const pages = useList($currentPages, (page) => {
+  const pages = useList<PageType>($currentPages, (page) => {
     if (document) {
       return (
         <div className={styles.PageBox}>
@@ -31,8 +32,7 @@ export function DocumentView() {
                 <SettingsIcon />
               </IconButton>
             </Tooltip>
-              <PageAdd document={document} page={page} />
-
+            <PageAdd document={document} page={page} />
           </ButtonGroup>
         </div>
       );

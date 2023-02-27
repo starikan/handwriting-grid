@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useStore } from 'effector-react';
 import { createRoot } from 'react-dom/client';
-import { DocumentAddButton, DocumentList, DocumentView, Header } from './components';
+import { DocumentAddButton, DocumentList, DocumentView, Header, Settings } from './components';
 import { $currentDocument, $documents } from './models/document/document';
 import { ThemeProvider } from '@mui/material/styles';
 import { themeDark as theme } from './themes';
@@ -19,7 +19,7 @@ function AppWithCallbackAfterRender() {
   const documentCurrent = useStore($currentDocument);
   const documents = useStore($documents);
 
-  const documentView = documentCurrent ? <DocumentView /> : <DocumentList />
+  const documentView = documentCurrent ? <DocumentView /> : <DocumentList />;
   const MainContent = documents.length ? documentView : <DocumentAddButton />;
 
   return (
@@ -27,7 +27,7 @@ function AppWithCallbackAfterRender() {
       <ThemeProvider theme={theme.theme}>
         <CssVarsProvider theme={theme.vars}>
           <CssBaseline />
-          <MainLayout MainContent={MainContent} TopPanel={<Header />}></MainLayout>
+          <MainLayout MainContent={MainContent} TopPanel={<Header />} RightPanel={<Settings />}></MainLayout>
         </CssVarsProvider>
       </ThemeProvider>
     </div>

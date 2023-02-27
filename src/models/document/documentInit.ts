@@ -3,7 +3,7 @@ import { DocumentType, PageType } from '../../global';
 export const documentsInit = (): DocumentType[] => [];
 
 export const generateRandomDocument = (): DocumentType => {
-  const id = Math.floor(10000 * Math.random()).toString();
+  const id = Math.floor(100000000 * Math.random()).toString();
   return {
     id,
     apiVersion: 1,
@@ -13,7 +13,7 @@ export const generateRandomDocument = (): DocumentType => {
 };
 
 export const generatePage = (): PageType => {
-  const id = Math.floor(10000 * Math.random()).toString();
+  const id = Math.floor(100000000 * Math.random()).toString();
   const width = Math.floor(700 * Math.random());
   return {
     id,

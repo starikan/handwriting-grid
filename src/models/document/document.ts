@@ -27,6 +27,12 @@ sample({
   target: $currentPages,
 });
 
+export const selectPage = createEvent<PageType>();
+export const $selectedPage = createStore<PageType | null>(null)
+  .on(selectPage, (_, page) => page)
+  .on(removePage, (data, { page }) => (data?.id === page.id ? null : data))
+  .on(selectDocumentById, () => null);
+
 $documents
   .on(addDocument, (state, document) => {
     console.log(document);
