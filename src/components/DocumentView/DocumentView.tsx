@@ -3,7 +3,7 @@ import { useList, useStore } from 'effector-react';
 import { $currentDocument, $currentPages } from '../../models/document/document';
 import styles from './DocumentView.module.scss';
 import { Page } from '../Page';
-import { ButtonGroup, IconButton } from '@mui/material';
+import { ButtonGroup, IconButton, Tooltip } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { removePage } from '../../models/document/document';
@@ -21,13 +21,18 @@ export function DocumentView() {
           <div></div>
           <Page className={styles.page} key={page.id} document={document} page={page} />
           <ButtonGroup orientation="vertical" className={styles.buttons}>
-            <IconButton onClick={() => removePage({ document, page })}>
-              <HighlightOffIcon />
-            </IconButton>
-            <IconButton>
-              <SettingsIcon />
-            </IconButton>
-            <PageAdd document={document} page={page}/>
+            <Tooltip placement="right" title="Remove page">
+              <IconButton onClick={() => removePage({ document, page })}>
+                <HighlightOffIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip placement="right" title="Settings">
+              <IconButton>
+                <SettingsIcon />
+              </IconButton>
+            </Tooltip>
+              <PageAdd document={document} page={page} />
+
           </ButtonGroup>
         </div>
       );
