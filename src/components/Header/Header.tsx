@@ -16,6 +16,10 @@ export function Header() {
 
   const nameSimpleText = <Typography variant="h5">{currentDocument?.name ?? ''}</Typography>;
 
+  if (!currentDocument) {
+    return <></>
+  }
+
   return (
     <div className={styles.Header}>
       <Container className={styles.title} onClick={() => setClicked(true)}>
