@@ -5,22 +5,8 @@ import { generatePage } from './documentUtils';
 import { addDocument, modifyDocument, removeDocument, selectDocumentById } from './document.events';
 
 // Create store to hold the array of DocumentType objects
-export const $documents = createStore<DocumentType[]>([]);
-export const $currentDocumentId = createStore<string | null>(null);
-export const $currentDocument = combine(
-  $currentDocumentId,
-  $documents,
-  (id, docs) => docs.find((v) => v.id === id) ?? null,
-);
-
-
-export const $currentPages = createStore<PageType[]>([]);
-
-$documents
-  .on(addDocument, (state, document) => {
-    console.log(document);
-    return [...state, document];
-  })
+export const $documents = createStore<DocumentType[]>([])
+  .on(addDocument, (state, document) => [...state, document])
   .on(removeDocument, (state, id) => state.filter((document) => document.id !== id))
   .on(modifyDocument, (state, { id, document }) => state.map((doc) => (doc.id === id ? { ...doc, ...document } : doc)))
   .on(removePage, (state, { document, page }) => {
@@ -52,6 +38,14 @@ $documents
 
     return state;
   });
+
+export const $currentDocumentId = createStore<string | null>(null);
+export const $currentDocument = combine(
+  $currentDocumentId,
+  $documents,
+  (id, docs) => docs.find((v) => v.id === id) ?? null,
+);
+export const $currentPages = createStore<PageType[]>([]);
 
 sample({
   clock: selectDocumentById,
