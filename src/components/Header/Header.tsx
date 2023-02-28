@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Tooltip, Typography } from '@mui/material';
 import styles from './Header.module.scss';
-import { $currentDocument } from '../../models/document/document';
+import { $currentDocument } from '../../models';
 import { useStore } from 'effector-react';
 import { FormDocumentNameEdit, HeaderButtons } from './components';
 

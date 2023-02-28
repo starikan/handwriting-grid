@@ -1,9 +1,11 @@
-import { createStore, createEvent, sample, combine } from 'effector';
+import { createStore, sample, combine } from 'effector';
 import { DocumentType, PageType } from '../../global';
-import { documentsInit, generatePage } from './documentInit';
+import { addPage, removePage } from '..';
+import { generatePage } from './documentUtils';
+import { addDocument, modifyDocument, removeDocument, selectDocumentById } from './document.events';
 
 // Create store to hold the array of DocumentType objects
-export const $documents = createStore<DocumentType[]>(documentsInit());
+export const $documents = createStore<DocumentType[]>([]);
 export const $currentDocumentId = createStore<string | null>(null);
 export const $currentDocument = combine(
   $currentDocumentId,
@@ -11,27 +13,8 @@ export const $currentDocument = combine(
   (id, docs) => docs.find((v) => v.id === id) ?? null,
 );
 
-export const addDocument = createEvent<DocumentType>();
-export const removeDocument = createEvent<string>();
-export const modifyDocument = createEvent<{ id: string; document: Partial<DocumentType> }>();
-export const selectDocumentById = createEvent<string>();
-
-export const removePage = createEvent<{ document: DocumentType; page: PageType }>();
-export const addPage = createEvent<{ document: DocumentType; afterPage?: PageType; newPage?: PageType }>();
 
 export const $currentPages = createStore<PageType[]>([]);
-sample({
-  source: $currentDocument,
-  clock: [removePage, addPage, $currentDocument],
-  fn: (src) => src?.pages ?? [],
-  target: $currentPages,
-});
-
-export const selectPage = createEvent<PageType>();
-export const $selectedPage = createStore<PageType | null>(null)
-  .on(selectPage, (_, page) => page)
-  .on(removePage, (data, { page }) => (data?.id === page.id ? null : data))
-  .on(selectDocumentById, () => null);
 
 $documents
   .on(addDocument, (state, document) => {
@@ -73,4 +56,11 @@ $documents
 sample({
   clock: selectDocumentById,
   target: $currentDocumentId,
+});
+
+sample({
+  source: $currentDocument,
+  clock: [removePage, addPage, $currentDocument],
+  fn: (src) => src?.pages ?? [],
+  target: $currentPages,
 });

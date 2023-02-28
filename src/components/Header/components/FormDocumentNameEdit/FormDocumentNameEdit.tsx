@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField } from '@mui/material';
 import { useStore } from 'effector-react';
-import { $currentDocument, modifyDocument } from '../../../../models/document/document';
+import { $currentDocument, modifyDocument } from '../../../../models';
 import { useForm } from 'react-hook-form';
 
 import styles from './FormDocumentNameEdit.module.scss';

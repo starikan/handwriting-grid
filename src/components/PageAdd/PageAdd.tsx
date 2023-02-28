@@ -3,8 +3,8 @@ import styles from './PageAdd.module.scss';
 import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { DocumentType, PageType } from '../../global';
-import { addPage } from '../../models/document/document';
 import { Tooltip } from '@mui/material';
+import { addPage } from '../../models';
 
 export interface PageAddProps {
   document: DocumentType;

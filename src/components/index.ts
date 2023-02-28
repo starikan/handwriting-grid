@@ -4,4 +4,4 @@ export { DocumentView } from './DocumentView';
 export { Header } from './Header';
 export { Page } from './Page';
 export { PageAdd } from './PageAdd';
-export {Settings} from './Settings';
+export { Settings } from './Settings';

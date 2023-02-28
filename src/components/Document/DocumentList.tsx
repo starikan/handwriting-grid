@@ -7,9 +7,9 @@ import {
   modifyDocument,
   selectDocumentById,
   $currentDocument,
-} from '../../models/document/document';
-import { generateRandomDocument } from '../../models/document/documentInit';
+} from '../../models';
 import { Button } from '@mui/material';
+import { generateRandomDocument } from '../../models/document/documentUtils';
 
 export const DocumentList = () => {
   const documents = useStore($documents);

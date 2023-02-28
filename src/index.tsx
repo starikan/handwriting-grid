@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useStore } from 'effector-react';
 import { createRoot } from 'react-dom/client';
 import { DocumentAddButton, DocumentList, DocumentView, Header, Settings } from './components';
-import { $currentDocument, $documents } from './models/document/document';
+import { $currentDocument, $documents } from './models';
 import { ThemeProvider } from '@mui/material/styles';
 import { themeDark as theme } from './themes';
 import { CssBaseline } from '@mui/material';
@@ -10,6 +10,8 @@ import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/s
 import { MainLayout } from './generic/MainLayout';
 
 import './index.scss';
+import './models';
+import './models/init';
 
 function AppWithCallbackAfterRender() {
   useEffect(() => {

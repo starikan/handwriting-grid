@@ -2,7 +2,7 @@ import React from 'react';
 import { DocumentType, PageType } from '../../global';
 import styles from './Page.module.scss';
 import Paper from '@mui/material/Paper';
-import { selectPage } from '../../models/document/document';
+import { selectPage } from '../../models';
 
 export interface PageProps {
   page: PageType;

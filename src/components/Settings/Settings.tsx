@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container } from '@mui/material';
 import { useStore } from 'effector-react';
-import { $selectedPage } from '../../models/document/document';
 
 import styles from './Settings.module.scss';
+import { $selectedPage } from '../../models';
 
 export interface SettingsProps {}
 

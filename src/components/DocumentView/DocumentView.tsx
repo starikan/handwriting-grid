@@ -1,14 +1,14 @@
 import React from 'react';
 import { useList, useStore } from 'effector-react';
-import { $currentDocument, $currentPages } from '../../models/document/document';
+import { $currentDocument, $currentPages } from '../../models';
 import styles from './DocumentView.module.scss';
 import { Page } from '../Page';
 import { ButtonGroup, IconButton, Tooltip } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { removePage } from '../../models/document/document';
 import { PageAdd } from '../PageAdd';
 import { PageType } from '../../global';
+import { removePage } from '../../models';
 
 export interface DocumentViewProps {}
 

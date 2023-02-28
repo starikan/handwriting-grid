@@ -1,2 +1,4 @@
-import './pages/pagesInit';
-import './pageSizes/pageSizesInit';
+import './document/documentInit'
+import './pages/pagesInit'
+import './pages/pageSizesInit';
+import './cells/cellsInit'

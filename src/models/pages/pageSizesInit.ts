@@ -1,4 +1,4 @@
-import { PageSizesType } from '../../global.d';
+import { PageSizesType } from '../../global';
 
 export const sizes: Record<string, PageSizesType> = {
   A3: {

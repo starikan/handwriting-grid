@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButton, Tooltip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { selectDocumentById } from '../../../../models/document/document';
+import { selectDocumentById } from '../../../../models';
 
 import styles from './HeaderButtons.module.scss';
 
