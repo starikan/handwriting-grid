@@ -1,4 +1,4 @@
-import { DocumentType, PageType } from '../../global';
+import { DocumentType } from '../../global';
 import { addDocument } from './document.events';
 
 export const documentsInit = (): DocumentType[] => [];
