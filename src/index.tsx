@@ -12,6 +12,7 @@ import { MainLayout } from './generic/MainLayout';
 import './index.scss';
 import './models';
 import './models/init';
+import './models/_loggers/logger';
 
 function AppWithCallbackAfterRender() {
   useEffect(() => {
