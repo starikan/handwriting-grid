@@ -1,3 +1,6 @@
+export * from './pages/pages.domains';
+export * from './document/documents.domains';
+
 export * from './document/document.events';
 export * from './pages/pages.events';
 

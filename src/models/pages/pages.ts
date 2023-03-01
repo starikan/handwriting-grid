@@ -1,10 +1,7 @@
 import { PageType } from '../../global';
 import { selectDocumentById } from '../document/document.events';
+import { pagesDomain } from './pages.domains';
 import { removePage, selectPage } from './pages.events';
-
-import { createDomain } from 'effector';
-
-export const pagesDomain = createDomain('pagesDomain');
 
 export const $selectedPage = pagesDomain
   .createStore<PageType | null>(null)
