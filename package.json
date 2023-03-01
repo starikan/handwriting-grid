@@ -12,6 +12,8 @@
     "react-hook-form": "7.43.1"
   },
   "devDependencies": {
+    "@puppedo/atoms": "^6.0.0",
+    "@puppedo/core": "2.0.0-beta.104",
     "@storybook/addon-actions": "6.5.16",
     "@storybook/addon-essentials": "6.5.16",
     "@storybook/addon-interactions": "6.5.16",
@@ -38,6 +40,7 @@
     "jest": "29.4.2",
     "js-base64": "3.7.4",
     "node-sass": "8.0.0",
+    "playwright": "1.31.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-scripts": "5.0.1",
@@ -52,6 +55,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
+    "e2e": "node -e \"require('@puppedo/atoms');require('@puppedo/core').run();\"",
     "prepublishOnly": "set CI=true & npm i & npm run test -- --coverage"
   },
   "eslintConfig": {
