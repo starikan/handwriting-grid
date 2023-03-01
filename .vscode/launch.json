@@ -10,6 +10,13 @@
       "type": "msedge",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Launch E2E",
+      "program": "${workspaceFolder}/e2e/start.js",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
     }
   ]
 }

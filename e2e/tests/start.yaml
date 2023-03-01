@@ -1,1 +1,6 @@
 name: start
+runTest:
+  - runnerSwitch:
+
+  - goTo:
+      data: { url: "http://localhost:9192" }

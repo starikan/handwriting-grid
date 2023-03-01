@@ -55,8 +55,8 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "e2e": "node -e \"require('@puppedo/atoms');require('@puppedo/core').run();\"",
-    "prepublishOnly": "set CI=true & npm i & npm run test -- --coverage"
+    "e2e": "node .\\e2e\\start.js",
+    "prepublishOnly": "set CI=true & npm i & npm run test -- --coverage & npm run build & npm run e2e"
   },
   "eslintConfig": {
     "extends": [
