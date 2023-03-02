@@ -1,6 +1,9 @@
 name: start
+description: All e2e tests
 runTest:
   - runnerSwitch:
 
   - goTo:
       data: { url: "http://localhost:9192" }
+
+  - addDocumentButton:

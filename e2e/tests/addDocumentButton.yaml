@@ -1,0 +1,11 @@
+name: addDocumentButton
+description: Testing the add document button
+runTest:
+  - clickSelector:
+      description: Add new document
+      selector: { selector: "[data-test='addDocumentButton']" }
+
+  - checkSelector:
+      description: Check if the button is hidden
+      selector: { selector: "[data-test='addDocumentButton']" }
+      errorIfResult: "exists"

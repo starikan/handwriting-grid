@@ -8,7 +8,7 @@ export interface DocumentAddButtonProps {}
 
 export function DocumentAddButton() {
   return (
-    <Button variant="outlined" onClick={() => addDocument(generateRandomDocument())}>
+    <Button variant="outlined" onClick={() => addDocument(generateRandomDocument())} data-test='addDocumentButton'>
       Add new Document
     </Button>
   );
