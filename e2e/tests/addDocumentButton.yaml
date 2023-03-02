@@ -1,13 +1,16 @@
 name: addDocumentButton
 description: Testing the add document button
 argsRedefine: { PPD_LOG_NAMES_ONLY: ['addDocumentButton'] }
-logOptions: { backgroundColor: white, textColor: black }
+logOptions: { backgroundColor: green, textColor: black }
 runTest:
-  - clickSelector:
-      description: Add new document
-      selector: { selector: "[data-test='addDocumentButton']" }
+  - case:
+      description: The 'Add new document' button should hide when clicked
+      runTest:
+        - clickSelector:
+            description: Add new document
+            selector: { selector: "[data-test='addDocumentButton']" }
 
-  - checkSelector:
-      description: Check if the button is hidden
-      selector: { selector: "[data-test='addDocumentButton']" }
-      errorIfResult: "exists"
+        - checkSelector:
+            description: Check if the button is hidden
+            selector: { selector: "[data-test='addDocumentButton']" }
+            errorIfResult: "exists"
