@@ -6,7 +6,7 @@ import { addDocument, modifyDocument, removeDocument, selectDocumentById } from 
 
 // Create store to hold the array of DocumentType objects
 export const $documents = documentsDomain.createStore<DocumentType[]>([])
-  .on(addDocument, (state, document) => [...state, document])
+  .on(addDocument, (state, document) => [document, ...state])
   .on(removeDocument, (state, id) => state.filter((document) => document.id !== id))
   .on(modifyDocument, (state, { id, document }) => state.map((doc) => (doc.id === id ? { ...doc, ...document } : doc)))
   .on(removePage, (state, { document, page }) => {
