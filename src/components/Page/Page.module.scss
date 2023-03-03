@@ -5,5 +5,9 @@
     margin: 0.5cm;
     box-shadow: 0 0 0.5cm rgba(255, 255, 255, 1);
     overflow: hidden;
+
+    &.selected {
+      box-shadow: 0 0 0.9cm rgb(240, 59, 59);
+    }
   }
 }

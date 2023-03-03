@@ -1,4 +1,5 @@
 import { DocumentType, PageType } from '../../global';
+import { sizes } from '../pages/pageSizes';
 
 export const generateRandomDocument = (): DocumentType => {
   const id = Math.floor(100000000 * Math.random()).toString();
@@ -12,14 +13,9 @@ export const generateRandomDocument = (): DocumentType => {
 
 export const generatePage = (): PageType => {
   const id = Math.floor(100000000 * Math.random()).toString();
-  const width = Math.floor(700 * Math.random());
   return {
     id,
     blocks: [],
-    size: {
-      width,
-      height: width * 1.5,
-      dimension: 'px',
-    },
+    size: sizes.A4,
   };
 };
